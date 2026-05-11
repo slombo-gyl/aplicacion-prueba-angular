@@ -1,0 +1,40 @@
+<dialog #modal class="custom-dialog">
+
+  <!-- HEADER -->
+  <div class="modal-header">
+    <h2>Seleccioná una opción</h2>
+  </div>
+
+  <!-- BODY -->
+  <div class="modal-body">
+    <app-checkbox
+      label="Opción 1"
+      value="1"
+      (checkedChange)="onCheckboxChangee($event)">
+    </app-checkbox>
+
+    <app-checkbox
+      label="Opción 2"
+      value="2"
+      (checkedChange)="onCheckboxChangee($event)">
+    </app-checkbox>
+
+    <app-checkbox
+      label="Opción 3"
+      value="3"
+      (checkedChange)="onCheckboxChangee($event)">
+    </app-checkbox>
+  </div>
+
+  <!-- INFO -->
+  <div class="modal-info">
+    <p>Seleccionados:</p>
+    <span class="badge">{{ seleccionados() }}</span>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="modal-footer">
+    <button class="btn-ghost" (click)="cerrar()">Cerrar</button>
+  </div>
+
+</dialog>
