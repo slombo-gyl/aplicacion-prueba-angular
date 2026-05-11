@@ -1,0 +1,72 @@
+.container-main {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* TITULO */
+.title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* CARDS */
+.card-header,
+.card-message,
+.card-action,
+.card-buttons {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* BOTÓN PRINCIPAL */
+.btn-primary {
+  background: #22c55e;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+/* BOTONES SECUNDARIOS */
+.card-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  background: #1e293b;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #334155;
+  transform: scale(1.05);
+}

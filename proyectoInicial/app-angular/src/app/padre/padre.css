@@ -1,0 +1,92 @@
+.custom-dialog {
+  border: none;
+  border-radius: 20px;
+  padding: 0;
+  background: transparent;
+}
+
+/* Fondo oscuro tipo card */
+.custom-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* CONTENIDO */
+.custom-dialog > * {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  min-width: 300px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* HEADER */
+.modal-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* BODY */
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* INFO */
+.modal-info {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: #22c55e;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+/* FOOTER */
+.modal-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* BOTÓN */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  color: #e5e7eb;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+.custom-dialog[open] {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
