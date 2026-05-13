@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router, RouterLink } from "@angular/router";
-import { Formulario } from '../formulario/formulario';
+import { Formulario } from '../../components/formulario/formulario';
 
 @Component({
   selector: 'app-table',

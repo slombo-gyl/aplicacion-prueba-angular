@@ -39,7 +39,7 @@
         <div class="field">
           <label>DNI</label>
 
-          <input type="text" placeholder="Ingrese un DNI" formControlName="dni">
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="Ingrese un DNI" formControlName="dni">
 
           @if(errors['dni']) {
           <small>{{ errors['dni'][0] }}</small>
