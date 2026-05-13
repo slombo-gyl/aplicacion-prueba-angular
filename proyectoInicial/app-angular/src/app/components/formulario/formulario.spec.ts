@@ -8,16 +8,16 @@ describe('Formulario', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Formulario]
-    })
-    .compileComponents();
+      imports: [Formulario],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Formulario);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
+

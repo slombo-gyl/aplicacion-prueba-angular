@@ -1,0 +1,114 @@
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    margin: 2rem auto;
+    max-width: 80%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.btn-back {
+    position: absolute;
+    left: 0;
+    background: #1e293b;
+    border: none;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-cargar-alumno {
+    position: absolute;
+    right: 0;
+    background: #1e293b;
+    border: none;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-back:hover {
+    background: #334155;
+    transform: scale(1.05);
+}
+
+/* Estilos para la cabecera de la tabla de PrimeNG usando ::ng-deep */
+::ng-deep .p-datatable .p-datatable-thead>tr>th {
+    background-color: #1e293b;
+    color: white;
+    border-color: #334155;
+    padding: 0.5rem;
+}
+
+/* Estilos para las filas/celdas de la tabla de PrimeNG */
+::ng-deep .p-datatable .p-datatable-tbody>tr>td {
+    background-color: #0f172a;
+    color: #e2e8f0;
+    border-color: #334155;
+    padding: 0.5rem;
+
+}
+
+button {
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.288);
+    border-radius: 8px;
+    color: white;
+    background-color: grey;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* Estilos para el Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+
+.btn-cerrar {
+    margin-top: 1.5rem;
+    background-color: #ef4444;
+    border: none;
+    width: 100%;
+}
+
+.btn-cerrar:hover {
+    background-color: #dc2626;
+}

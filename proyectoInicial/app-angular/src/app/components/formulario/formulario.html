@@ -1,1 +1,69 @@
-<p>formulario works!</p>
+  <div class="card">
+
+    <h2>Registrar Alumno</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="grid">
+
+        <div class="field">
+          <label>Nombre</label>
+
+          <input type="text" placeholder="Ingrese una nombre" formControlName="nombre">
+
+          @if(errors['nombre']) {
+          <small>{{ errors['nombre'][0] }}</small>
+          }
+        </div>
+
+        <div class="field">
+          <label>Apellido</label>
+
+          <input type="text" placeholder="Ingrese un apellido" formControlName="apellido">
+
+          @if(errors['apellido']) {
+          <small>{{ errors['apellido'][0] }}</small>
+          }
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+
+          <input type="email" placeholder="Ingrese un email" formControlName="email">
+
+          @if(errors['email']) {
+          <small>{{ errors['email'][0] }}</small>
+          }
+        </div>
+
+        <div class="field">
+          <label>DNI</label>
+
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="Ingrese un DNI" formControlName="dni">
+
+          @if(errors['dni']) {
+          <small>{{ errors['dni'][0] }}</small>
+          }
+        </div>
+
+      </div>
+
+      <div class="buttons">
+
+        <button class="destructive" type="reset" (click)="onCerrar()">
+          Cancelar
+        </button>
+
+        <button class="clear" type="reset">
+          Limpiar Formulario
+        </button>
+
+        <button class="primary" type="submit">
+          Enviar
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>

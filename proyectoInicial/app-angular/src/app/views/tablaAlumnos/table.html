@@ -1,0 +1,46 @@
+<div class="card">
+
+    <div class="header">
+        <button class="btn-back" (click)="navigateToHome()">
+            <i class="pi pi-arrow-left"></i>
+        </button>
+
+        <h1 class="title">Alumnos</h1>
+
+        <button class="btn-cargar-alumno" (click)="abrirFormulario()">
+            Cargar Alumnos
+        </button>
+
+    </div>
+
+    <p-table [value]="alumnos" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th style="text-align: center;">Notas</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-alumno>
+            <tr>
+                <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.dni }}</td>
+                <td>{{ alumno.email }}</td>
+                <td>
+                    <button class="button">
+                        cargar notas
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+@if (mostrarFormulario()) {
+<div class="modal-overlay" (click)="cerrarFormulario()">
+    <div (click)="$event.stopPropagation()">
+        <app-formulario (cerrar)="cerrarFormulario()"></app-formulario>
+    </div>
+</div>
+}
