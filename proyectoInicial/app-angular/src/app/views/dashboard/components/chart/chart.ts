@@ -6,7 +6,7 @@ import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-chart-radar',
-  templateUrl: './Chart.html',
+  templateUrl: './chart.html',
   standalone: true,
   imports: [ChartModule],
 })
