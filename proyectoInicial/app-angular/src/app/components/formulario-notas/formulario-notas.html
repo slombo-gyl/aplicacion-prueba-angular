@@ -1,0 +1,50 @@
+<div class="card">
+
+    <h2>Cargar Nota</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="grid">
+
+            <div class="field">
+                <label>Alumno</label>
+                <select formControlName="alumnoDni">
+                    <option value="" disabled selected>Seleccione un alumno</option>
+                    @for (alumno of alumnos; track alumno.dni) {
+                    <option [value]="alumno.dni">{{ alumno.nombre }} ({{ alumno.dni }})</option>
+                    }
+                </select>
+                @if(errors['alumnoDni']) {
+                <small>{{ errors['alumnoDni'][0] }}</small>
+                }
+            </div>
+
+            <div class="field">
+                <label>Nota</label>
+                <input type="text" inputmode="numeric" placeholder="Ingrese una nota" formControlName="nota">
+                @if(errors['nota']) {
+                <small>{{ errors['nota'][0] }}</small>
+                }
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="destructive" type="reset" (click)="onCerrar()">
+                Cancelar
+            </button>
+
+            <button class="clear" type="reset">
+                Limpiar Formulario
+            </button>
+
+            <button class="primary" type="submit">
+                Guardar
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
