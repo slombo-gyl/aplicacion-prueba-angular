@@ -14,12 +14,12 @@ export interface Alumno {
 })
 
 export class AlumnoService {
-    private BASE_URL = 'http://localhost:8080/api/students'
+    private BASE_URL = 'http://localhost:8080/api'
 
     constructor(private http: HttpClient) { }
 
     getAlumnos(): Observable<Alumno[]> {
-        return this.http.get<Alumno[]>(this.BASE_URL);
+        return this.http.get<Alumno[]>(`${this.BASE_URL}/students`);
     }
 
     crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
