@@ -8,7 +8,7 @@ import { AlumnoService, Alumno } from './service/alumnoServis';
   selector: 'app-table',
   standalone: true,
   // Agregar los imports de este componente
-  imports: [TableModule, Formulario],
+  imports: [TableModule, Formulario, RouterLink],
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
