@@ -13,10 +13,11 @@
 
     </div>
 
-    <p-table [value]="alumnos" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="alumnos()" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>DNI</th>
                 <th>Email</th>
                 <th style="text-align: center;">Notas</th>
@@ -25,9 +26,10 @@
         <ng-template #body let-alumno>
             <tr>
                 <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.apellido }}</td>
                 <td>{{ alumno.dni }}</td>
                 <td>{{ alumno.email }}</td>
-                <td>
+                <td style="display: flex; gap: 0.5rem; justify-content: center;">
                     <button class="button">
                         cargar notas
                     </button>
