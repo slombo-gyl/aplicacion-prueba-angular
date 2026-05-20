@@ -13,13 +13,13 @@
 
     </div>
 
-    <p-table [value]="alumnos" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="alumnos()" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th>Nombre</th>
                 <th>DNI</th>
                 <th>Email</th>
-                <th style="text-align: center;">Notas</th>
+                <th style="text-align: center;">Promedio</th>
             </tr>
         </ng-template>
         <ng-template #body let-alumno>
