@@ -26,6 +26,7 @@ export class Formulario {
 
   // Declaramos el evento de salida
   cerrar = output<void>();
+  guardar = output<any>();
 
   form!: FormGroup;
 
@@ -64,6 +65,7 @@ export class Formulario {
 
     console.log('Formulario válido');
     console.log(result.data);
+    this.guardar.emit(result.data);
     this.onCerrar();
   }
 

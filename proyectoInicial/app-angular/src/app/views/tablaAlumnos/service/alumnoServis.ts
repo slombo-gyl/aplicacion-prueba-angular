@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 export interface Alumno {
+    id: number;
     nombre: string,
     apellido: string,
     dni: string,
@@ -14,15 +15,18 @@ export interface Alumno {
 })
 
 export class AlumnoService {
-    private BASE_URL = 'http://localhost:8080'
+    private BASE_URL = 'http://localhost:8080/api'
 
     constructor(private http: HttpClient) { }
 
     getAlumnos(): Observable<Alumno[]> {
-        return this.http.get<Alumno[]>(`${this.BASE_URL}/alumno`);
+        return this.http.get<Alumno[]>(`${this.BASE_URL}/students`);
     }
 
     crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
-        return this.http.post<Alumno>(`${this.BASE_URL}/alumno`, nuevoAlumno);
+        return this.http.post<Alumno>(`${this.BASE_URL}/students`, nuevoAlumno);
+    }
+    actualizarAlumno(id: number, alumno: Alumno): Observable<Alumno> {
+        return this.http.patch<Alumno>(`${this.BASE_URL}/students/${id}`, alumno);
     }
 }
