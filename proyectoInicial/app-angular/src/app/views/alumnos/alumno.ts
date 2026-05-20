@@ -5,13 +5,13 @@ import { Formulario } from '../../components/formulario/formulario';
 import { AlumnoService } from '../../services/alumnos.service';
 
 @Component({
-  selector: 'app-table',
+  selector: 'app-alumno',
   standalone: true,
   imports: [TableModule, Formulario],
   templateUrl: './alumno.html',
   styleUrl: './alumno.css'
 })
-export class TableComponent {
+export class Alumno {
   private router = inject(Router);
   alumnoService = inject(AlumnoService);
 
