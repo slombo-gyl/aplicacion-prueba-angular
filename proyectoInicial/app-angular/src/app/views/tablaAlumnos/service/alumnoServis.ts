@@ -1,13 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Alumno } from '../../../../interfaces/alumno.interfaces';
 
-export interface Alumno {
-    nombre: string,
-    apellido: string,
-    dni: string,
-    email: string,
-}
+
 
 @Injectable({
     providedIn: 'root'
