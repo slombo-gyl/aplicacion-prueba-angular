@@ -1,5 +1,5 @@
 export interface CargarNotaRequest {
     valor: number;
-    estudianteId: number;
+    alumnoId: number;
     materiaId: number;
 }

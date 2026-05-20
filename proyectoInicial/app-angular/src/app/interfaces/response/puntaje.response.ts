@@ -1,6 +1,6 @@
 export interface PuntajeResponse {
     id: number;
     valor: number;
-    estudianteId: number;
+    alumnoId: number;
     materiaId: number;
 }
