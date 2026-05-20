@@ -112,3 +112,6 @@ button {
 .btn-cerrar:hover {
     background-color: #dc2626;
 }
+.columnas {
+    text-align: center;
+}

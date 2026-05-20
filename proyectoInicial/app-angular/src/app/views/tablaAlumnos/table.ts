@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router, RouterLink } from "@angular/router";
 import { Formulario } from '../../components/formulario/formulario';
+import { single } from 'rxjs';
 
 @Component({
   selector: 'app-table',
   standalone: true,
   // Agregar los imports de este componente
-  imports: [TableModule, Formulario],
+  imports: [TableModule, Formulario, RouterLink],
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
@@ -21,7 +22,18 @@ export class TableComponent {
   // Estado del modal (equivalente a useState en React)
   mostrarFormulario = signal(false);
 
-  abrirFormulario() {
+  modo = signal<'registrar' | 'editar'>('registrar');
+  alumnoSeleccionado = signal<any>(null);
+
+  abrirRegistrar() {
+    this.modo.set('registrar');
+    this.alumnoSeleccionado.set(null);
+    this.mostrarFormulario.set(true);
+  }
+
+  abrirEditar(alumno: any) {
+    this.modo.set('editar');
+    this.alumnoSeleccionado.set(alumno);
     this.mostrarFormulario.set(true);
   }
 

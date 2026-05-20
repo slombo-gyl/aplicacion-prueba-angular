@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 
@@ -19,6 +19,9 @@ const userSchema = z.object({
   styleUrl: './formulario.css',
 })
 export class Formulario {
+
+  modo = input<'registrar' | 'editar'>('registrar');
+  alumno = input<any>(null);
   errors: Record<string, string[]> = {};
 
   // Declaramos el evento de salida
@@ -32,6 +35,15 @@ export class Formulario {
       apellido: [''],
       email: [''],
       dni: [''],
+    });
+
+    //Sirve para actualizar el formulario cada vez que cambia el alumno o el modo
+    effect(() => {
+      if (this.alumno()) {
+        this.form.patchValue(this.alumno());
+      } else {
+        this.form.reset();
+      }
     });
   }
 

@@ -1,6 +1,8 @@
   <div class="card">
 
-    <h2>Registrar Alumno</h2>
+    <h2>
+      {{ modo() === 'editar' ? 'Modificar Alumno' : 'Registrar Alumno' }}
+    </h2>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -59,7 +61,7 @@
         </button>
 
         <button class="primary" type="submit">
-          Enviar
+          {{ modo() === 'editar' ? 'Modificar' : 'Registrar' }}
         </button>
 
       </div>

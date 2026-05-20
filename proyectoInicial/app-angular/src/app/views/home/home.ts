@@ -2,7 +2,6 @@ import { Component, signal, ViewChild } from '@angular/core';
 import { Padre } from '../../padre/padre';
 import { Router, RouterLink } from '@angular/router';
 
-
 @Component({
   selector: 'app-home',
   imports: [Padre, RouterLink],
@@ -10,14 +9,13 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './home.css',
 })
 export class Home {
-
   /*instanciamos el router */
   constructor(private router: Router) {}
 
   /*instanciamos al padre paraa poder acceder a sus métodos*/
-  @ViewChild("modalPadre") modal!: Padre
+  @ViewChild('modalPadre') modal!: Padre;
 
-  mensaje = signal(''); 
+  mensaje = signal('');
   logged = signal(false);
 
   titulo = 'ANGULAR APLICACIÖN';
@@ -27,17 +25,14 @@ export class Home {
     edad: 35,
   };
 
-  navigateTo(){
-    this.router.navigate(['/dashboard'])
+  navigateTo() {
+    this.router.navigate(['/dashboard']);
   }
 
-
-
-
   /* creamos el método para  llamar la funcion del modal padre */
-abrirModal(){
-  this.modal.abrir()
-}
+  abrirModal() {
+    this.modal.abrir();
+  }
 
   saludar() {
     return `Bienvenido`;
