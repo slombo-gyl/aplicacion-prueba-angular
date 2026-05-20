@@ -1,5 +1,4 @@
-import { Component, signal, ViewChild } from '@angular/core';
-import { Padre } from './padre/padre';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({

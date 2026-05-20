@@ -8,8 +8,8 @@ import { AlumnoService } from '../../services/alumnos.service';
   selector: 'app-table',
   standalone: true,
   imports: [TableModule, Formulario],
-  templateUrl: './table.html',
-  styleUrl: './table.css'
+  templateUrl: './alumno.html',
+  styleUrl: './alumno.css'
 })
 export class TableComponent {
   private router = inject(Router);
