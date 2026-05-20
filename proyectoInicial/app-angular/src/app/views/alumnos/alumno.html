@@ -19,7 +19,8 @@
                 <th>Nombre</th>
                 <th>DNI</th>
                 <th>Email</th>
-                <th style="text-align: center;">Promedio</th>
+                <th>Promedio</th>
+                <th>Acciones</th>
             </tr>
         </ng-template>
         <ng-template #body let-alumno>
@@ -28,8 +29,11 @@
                 <td>{{ alumno.dni }}</td>
                 <td>{{ alumno.email }}</td>
                 <td>
-                    <button class="button">
-                        cargar notas
+                    Sin promedio
+                </td>
+                <td>
+                    <button class="button" (click)="verDetalleAlumno(alumno)">
+                        DETALLES
                     </button>
                 </td>
             </tr>
@@ -38,9 +42,17 @@
 </div>
 
 @if (mostrarFormulario()) {
-<div class="modal-overlay" (click)="cerrarFormulario()">
+<div class="modal-overlay">
     <div (click)="$event.stopPropagation()">
         <app-formulario (cerrar)="cerrarFormulario()"></app-formulario>
+    </div>
+</div>
+}
+
+@if (mostrarDetalleAlumno() && alumnoDetalle()) {
+<div class="modal-overlay">
+    <div (click)="$event.stopPropagation()">
+        <app-detalle-alumno (cerrar)="cerrarDetalleAlumno()" [alumno]="alumnoDetalle()!"></app-detalle-alumno>
     </div>
 </div>
 }

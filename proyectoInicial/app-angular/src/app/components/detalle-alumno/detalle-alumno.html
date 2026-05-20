@@ -1,0 +1,49 @@
+<div class="card">
+
+    <h2>Detalles del Alumno: <span class="badge rounded-pill text-bg-warning">{{ alumno().apellido }} {{ alumno().nombre }}</span></h2>
+
+    <div class="card">
+        <div class="row">
+            <div class="col text-start">
+                <span class="fw-bold">DNI:</span>
+                {{ alumno().dni }}
+            </div>
+
+            <div class="col text-nowrap">
+                <span class="fw-bold">Email:</span>
+                {{ alumno().email }}
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-start mt-4">Materias y calificaciones</h3>
+
+    <p-table [value]="materiasMock()" showGridlines [tableStyle]="{ 'min-width': '100%' }">
+        <ng-template #header>
+            <tr>
+                <th>Materia</th>
+                <th>Calificación</th>
+                <th>Acción</th>
+            </tr>
+        </ng-template>
+
+        <ng-template #body let-materia>
+            <tr>
+                <td>{{ materia.nombre }}</td>
+                <td>{{ materia.calificacion }}</td>
+                <td style="text-align: center;">
+                    <button class="button">
+                        CARGAR NOTA
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button
+        class="destructive"
+        type="button"
+        (click)="onCerrar()">
+        Cerrar
+    </button>
+</div>
