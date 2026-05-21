@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { Formulario } from '../../components/formulario/formulario';
 import { FormularioNota } from '../../components/formulario-notas/formulario-notas';
 import { Alumno } from '../../../interfaces/alumno.interfaces';
@@ -9,35 +9,40 @@ import { AlumnoService } from './service/alumnoServis';
 @Component({
   selector: 'app-table',
   standalone: true,
-  // Agregar los imports de este componente
-  imports: [TableModule, Formulario,FormularioNota ],
+  imports: [TableModule, Formulario, FormularioNota],
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
   
   private service = inject(AlumnoService);
+
   alumnos = signal<Alumno[]>([]);
 
-  constructor(private router: Router) { }
+  mostrarFormulario = signal(false);
+  mostrarFormularioNota = signal(false);
 
-  navigateToHome() {
-    this.router.navigate([''])
-  }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.callPage();
   }
 
-  callPage() {
-    this.service.getAlumnos().subscribe((res) => {
-      this.alumnos.set(res);
+  callPage(): void {
+    this.service.getAlumnos().subscribe({
+      next: (res) => {
+        console.log('Alumnos recibidos:', res);
+        this.alumnos.set(res);
+      },
+      error: (err) => {
+        console.error('Error al traer alumnos:', err);
+      }
     });
   }
 
-  // Estado del modal (equivalente a useState en React)
-  mostrarFormulario = signal(false);
-  mostrarFormularioNota = signal(false);
+  navigateToHome() {
+    this.router.navigate(['']);
+  }
 
   abrirFormulario() {
     this.mostrarFormulario.set(true);
@@ -45,7 +50,6 @@ export class TableComponent {
 
   abrirFormularioNota() {
     this.mostrarFormularioNota.set(true);
-
   }
 
   cerrarFormulario() {
@@ -53,10 +57,16 @@ export class TableComponent {
     this.mostrarFormularioNota.set(false);
   }
 
-verAlumno(id: number) {
-  this.service.getAlumnoByID(id).subscribe((res) => {console.log("Ver alumno:", res)});
-}
-  cambiarEstado(id:number){
-    this.service.deleteAlumnoLogico(id).subscribe((res) => {console.log("Alumno eliminado: ", res)})
+  verAlumno(id: number) {
+    this.service.getAlumnoByID(id).subscribe((res) => {
+      console.log("Ver alumno:", res);
+    });
+  }
+
+  cambiarEstado(id: number) {
+    this.service.deleteAlumnoLogico(id).subscribe((res) => {
+      console.log("Alumno eliminado: ", res);
+      this.callPage();
+    });
   }
 }
