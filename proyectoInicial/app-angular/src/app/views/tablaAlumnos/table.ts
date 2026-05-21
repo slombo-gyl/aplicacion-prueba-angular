@@ -26,11 +26,12 @@ export class TableComponent implements OnInit{
 
   cargarAlumnos() {
     this.alumnoService.getAlumnos().subscribe({
-      next: (data) => this.alumnos.set(data),
+      next: (data: any) => {
+        this.alumnos.set(data.content);
+      },
       error: (err) => console.error('Error al cargar alumnos', err)
     });
   }
-
   navigateToHome() {
     this.router.navigate([''])
   }

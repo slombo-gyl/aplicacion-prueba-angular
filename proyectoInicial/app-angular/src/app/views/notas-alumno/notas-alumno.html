@@ -1,1 +1,39 @@
-<p>notas-alumno works!</p>
+
+<div class="card">
+
+  <div class="header">
+    <button class="btn-back" (click)="volver()">
+      Volver
+    </button>
+
+    <h1>Cargar notas</h1>
+  </div>
+
+  @if (alumno()) {
+    <div class="info-alumno">
+      <h2>{{ alumno().nombre }} {{ alumno().apellido }}</h2>
+      <p>DNI: {{ alumno().dni }}</p>
+      <p>Email: {{ alumno().email }}</p>
+    </div>
+  }
+
+  <div class="materias">
+    @for (materia of materias(); track materia.id) {
+      <div class="materia-card">
+        <h3>{{ materia.nombre }}</h3>
+
+        <input
+          #notaInput
+          type="number"
+          min="1"
+          max="10"
+          placeholder="Ingrese nota">
+
+        <button (click)="guardarNota(materia.id, notaInput.value)">
+          Guardar nota
+        </button>
+      </div>
+    }
+  </div>
+
+</div>
