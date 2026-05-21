@@ -56,7 +56,29 @@ export class TableComponent implements OnInit{
   cerrarFormulario() {
     this.mostrarFormulario.set(false);
   }
+
   guardarAlumno(alumno: Alumno) {
+    if (this.modo() === 'registrar') {
+      this.crearAlumno(alumno);
+    } else {
+      this.modificarAlumno(alumno);
+    }
+  }
+
+  crearAlumno(alumno: Alumno) {
+    this.alumnoService.crearAlumno(alumno).subscribe({
+      next: (alumnoCreado) => {
+        const listaActual = this.alumnos();
+        this.alumnos.set([...listaActual, alumnoCreado]);
+        this.cerrarFormulario();
+      },
+      error: (err) => {
+        console.error('Error al crear alumno', err);
+      }
+    });
+  }
+
+  modificarAlumno(alumno: Alumno) {
     const alumnoActual = this.alumnoSeleccionado();
 
     this.alumnoService.actualizarAlumno(alumnoActual.id, alumno).subscribe({
