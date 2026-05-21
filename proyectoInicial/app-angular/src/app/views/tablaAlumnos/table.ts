@@ -3,8 +3,8 @@ import { TableModule } from 'primeng/table';
 import { Router, RouterLink } from "@angular/router";
 import { Formulario } from '../../components/formulario/formulario';
 import { FormularioNota } from '../../components/formulario-notas/formulario-notas';
-import { Alumno } from '../../../interfaces/alumno.interfaces';
-import { AlumnoService } from './service/alumnoServis';
+import { Alumno } from '../../../interfaces/alumno.interface';
+import { AlumnoService } from './service/alumnoService';
 
 @Component({
   selector: 'app-table',
