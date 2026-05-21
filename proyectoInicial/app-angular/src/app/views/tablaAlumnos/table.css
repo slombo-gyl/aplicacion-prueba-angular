@@ -59,10 +59,10 @@
 }
 
 .acciones-tabla {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  text-align: center;
+}
+.acciones-tabla .button {
+  margin: 0 auto;
 }
 
 .columnas {
