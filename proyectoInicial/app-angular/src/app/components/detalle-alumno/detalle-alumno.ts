@@ -1,9 +1,10 @@
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { AlumnoModel } from '../../interfaces/models/alumno.model';
 import { TableModule } from 'primeng/table';
 import { AlumnosService } from '../../services/alumnos.service';
 import { MateriaModel } from '../../interfaces/models/materia.model';
 import { FormularioNotas } from '../formulario-notas/formulario-notas';
+import { MateriasService } from '../../services/materias.service';
 
 @Component({
   selector: 'app-detalle-alumno',
@@ -13,12 +14,11 @@ import { FormularioNotas } from '../formulario-notas/formulario-notas';
 })
 export class DetalleAlumno {
   alumnosService = inject(AlumnosService);
+  private materiasService = inject(MateriasService);
   alumno = input.required<AlumnoModel>();
   cerrar = output<void>();
 
-  materias = signal<MateriaModel[]>([
-    { id: 1, nombreMateria: 'Diseño'}
-  ]);
+  materias = computed(() => this.materiasService.materias());
 
   mostrarFormularioNotas = signal(false);
   materiaSeleccionada = signal<MateriaModel | null>(null);

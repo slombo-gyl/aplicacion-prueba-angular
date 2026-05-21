@@ -43,5 +43,6 @@ export class Alumno {
   
   cerrarDetalleAlumno() {
     this.mostrarDetalleAlumno.set(false);
+    this.alumnoDetalle.set(null);
   }
 }

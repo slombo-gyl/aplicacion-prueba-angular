@@ -29,8 +29,8 @@ export class AlumnosService {
 
     crearAlumno(nuevoAlumno: AlumnoModel): Observable<AlumnoModel> | void {
         this.alumnos.update(alumnos => {
-            const newId = alumnos.length > 0 ? alumnos[alumnos.length - 1].id + 1 : 1;
-            return [...alumnos, { ...nuevoAlumno, id: newId }];
+            const id = alumnos.length > 0 ? alumnos[alumnos.length - 1].id + 1 : 1;
+            return [...alumnos, { ...nuevoAlumno, id }];
         });
         // return this.http.post<AlumnoModel>(`${this.BASE_URL}/alumno`, nuevoAlumno);
     }
