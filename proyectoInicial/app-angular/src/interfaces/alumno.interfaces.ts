@@ -1,6 +1,6 @@
 export interface Alumno {
     nombre: string;
-    dni: string;
+    dni: number;
     email: string;
     notas: number;
 }

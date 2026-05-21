@@ -15,7 +15,11 @@ export class AlumnoService {
     constructor(private http: HttpClient) { }
 
     getAlumnos(): Observable<Alumno[]> {
-        return this.http.get<Alumno[]>(`${this.BASE_URL}/alumno`);
+        return this.http.get<Alumno[]>(`${this.BASE_URL}/api/students`);
+    }
+
+    getAlumnoByID(id: number): Observable<Alumno>{
+        return this.http.get<Alumno>(`${this.BASE_URL}/api/students/${id}`);
     }
 
     crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
