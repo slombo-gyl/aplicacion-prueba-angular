@@ -1,117 +1,144 @@
 .card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    margin: 2rem auto;
-    max-width: 80%;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  margin: 2rem auto;
+  max-width: 90%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .title {
-    font-size: 2rem;
-    font-weight: 600;
-    margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+  flex: 1;
 }
 
-.btn-back {
-    position: absolute;
-    left: 0;
-    background: #1e293b;
-    border: none;
-    padding: 0.6rem 0.8rem;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
+.btn-back,
 .btn-cargar-alumno {
-    position: absolute;
-    right: 0;
-    background: #1e293b;
-    border: none;
-    padding: 0.6rem 0.8rem;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
+  background: #1e293b;
+  border: none;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.btn-back:hover {
-    background: #334155;
-    transform: scale(1.05);
+.btn-back:hover,
+.btn-cargar-alumno:hover {
+  background: #334155;
+  transform: scale(1.05);
 }
 
-/* Estilos para la cabecera de la tabla de PrimeNG usando ::ng-deep */
-::ng-deep .p-datatable .p-datatable-thead>tr>th {
-    background-color: #1e293b;
-    color: white;
-    border-color: #334155;
-    padding: 0.5rem;
+.button {
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.288);
+  border-radius: 8px;
+  color: white;
+  background-color: grey;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Estilos para las filas/celdas de la tabla de PrimeNG */
-::ng-deep .p-datatable .p-datatable-tbody>tr>td {
-    background-color: #0f172a;
-    color: #e2e8f0;
-    border-color: #334155;
-    padding: 0.5rem;
-
+.acciones-tabla {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-button {
-    padding: 0.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.288);
-    border-radius: 8px;
-    color: white;
-    background-color: grey;
-    cursor: pointer;
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+.columnas {
+  text-align: center;
 }
 
-/* Estilos para el Modal */
+/* PrimeNG tabla */
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background-color: #1e293b;
+  color: white;
+  border-color: #334155;
+  padding: 0.5rem;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-color: #334155;
+  padding: 0.5rem;
+}
+
+/* Modal */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-
+.modal-contenido {
+  width: 95%;
+  max-width: 800px;
+  margin: 1rem;
+}
 
 .btn-cerrar {
-    margin-top: 1.5rem;
-    background-color: #ef4444;
-    border: none;
-    width: 100%;
+  margin-top: 1.5rem;
+  background-color: #ef4444;
+  border: none;
+  width: 100%;
 }
 
 .btn-cerrar:hover {
-    background-color: #dc2626;
+  background-color: #dc2626;
 }
-.columnas {
-    text-align: center;
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 95%;
+    margin: 1rem auto;
+    padding: 0.8rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .btn-back,
+  .btn-cargar-alumno {
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+    font-size: 0.75rem;
+  }
 }

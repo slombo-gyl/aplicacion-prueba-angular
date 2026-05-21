@@ -1,71 +1,86 @@
-  <div class="card">
+<div class="card">
+  <h2>
+    {{ modo() === 'editar' ? 'Modificar Alumno' : 'Registrar Alumno' }}
+  </h2>
 
-    <h2>
-      {{ modo() === 'editar' ? 'Modificar Alumno' : 'Registrar Alumno' }}
-    </h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+      <div class="field">
+        <label for="nombre">Nombre</label>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <input
+          id="nombre"
+          type="text"
+          placeholder="Ingrese un nombre"
+          formControlName="nombre"
+        >
 
-      <div class="grid">
-
-        <div class="field">
-          <label>Nombre</label>
-
-          <input type="text" placeholder="Ingrese una nombre" formControlName="nombre">
-
-          @if(errors['nombre']) {
+        @if (errors['nombre']) {
           <small>{{ errors['nombre'][0] }}</small>
-          }
-        </div>
+        }
+      </div>
 
-        <div class="field">
-          <label>Apellido</label>
+      <div class="field">
+        <label for="apellido">Apellido</label>
 
-          <input type="text" placeholder="Ingrese un apellido" formControlName="apellido">
+        <input
+          id="apellido"
+          type="text"
+          placeholder="Ingrese un apellido"
+          formControlName="apellido"
+        >
 
-          @if(errors['apellido']) {
+        @if (errors['apellido']) {
           <small>{{ errors['apellido'][0] }}</small>
-          }
-        </div>
+        }
+      </div>
 
-        <div class="field">
-          <label>Email</label>
+      <div class="field">
+        <label for="email">Email</label>
 
-          <input type="email" placeholder="Ingrese un email" formControlName="email">
+        <input
+          id="email"
+          type="email"
+          placeholder="Ingrese un email"
+          formControlName="email"
+        >
 
-          @if(errors['email']) {
+        @if (errors['email']) {
           <small>{{ errors['email'][0] }}</small>
-          }
-        </div>
+        }
+      </div>
 
-        <div class="field">
-          <label>DNI</label>
+      <div class="field">
+        <label for="dni">DNI</label>
 
-          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="Ingrese un DNI" formControlName="dni">
+        <input
+          id="dni"
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          maxlength="8"
+          placeholder="Ingrese un DNI"
+          formControlName="dni"
+        >
 
-          @if(errors['dni']) {
+        @if (errors['dni']) {
           <small>{{ errors['dni'][0] }}</small>
-          }
-        </div>
-
+        }
       </div>
+    </div>
 
-      <div class="buttons">
+    <div class="buttons">
+      <button class="destructive" type="button" (click)="onCerrar()">
+        Cancelar
+      </button>
 
-        <button class="destructive" type="reset" (click)="onCerrar()">
-          Cancelar
-        </button>
+      <button class="clear" type="reset">
+        Limpiar Formulario
+      </button>
 
-        <button class="clear" type="reset">
-          Limpiar Formulario
-        </button>
-
-        <button class="primary" type="submit">
-          {{ modo() === 'editar' ? 'Modificar' : 'Registrar' }}
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
+      <button class="primary" type="submit">
+        {{ modo() === 'editar' ? 'Modificar' : 'Registrar' }}
+      </button>
+    </div>
+  </form>
+</div>
