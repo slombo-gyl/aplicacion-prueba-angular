@@ -1,6 +1,7 @@
 <div class="card">
 
-    <h2>Detalles del Alumno: <span class="badge rounded-pill text-bg-warning">{{ alumno().apellido }} {{ alumno().nombre }}</span></h2>
+    <h2>Detalles del Alumno: <span class="badge rounded-pill text-bg-warning">{{ alumno().apellido }} {{ alumno().nombre
+            }}</span></h2>
 
     <div class="card">
         <div class="row">
@@ -18,7 +19,7 @@
 
     <h3 class="text-start mt-4">Materias y calificaciones</h3>
 
-    <p-table [value]="materiasMock()" showGridlines [tableStyle]="{ 'min-width': '100%' }">
+    <p-table [value]="materias()" showGridlines [tableStyle]="{ 'min-width': '100%' }">
         <ng-template #header>
             <tr>
                 <th>Materia</th>
@@ -29,10 +30,16 @@
 
         <ng-template #body let-materia>
             <tr>
-                <td>{{ materia.nombre }}</td>
-                <td>{{ materia.calificacion }}</td>
+                <td>{{ materia.nombreMateria }}</td>
+                <td>
+                    @if (obtenerNota(materia.id) !== null) {
+                        {{ obtenerNota(materia.id) }}
+                    } @else {
+                        Sin Nota
+                    }
+                </td>
                 <td style="text-align: center;">
-                    <button class="button">
+                    <button class="button" (click)="cargarNota(materia)">
                         CARGAR NOTA
                     </button>
                 </td>
@@ -40,10 +47,16 @@
         </ng-template>
     </p-table>
 
-    <button
-        class="destructive"
-        type="button"
-        (click)="onCerrar()">
+    <button class="destructive" type="button" (click)="onCerrar()">
         Cerrar
     </button>
 </div>
+
+@if (mostrarFormularioNotas() && materiaSeleccionada()) {
+<div class="modal-overlay">
+    <div (click)="$event.stopPropagation()">
+        <app-formulario-notas [alumno]="alumno()" [materia]="materiaSeleccionada()!" (cerrar)="cerrarFormularioNotas()">
+        </app-formulario-notas>
+    </div>
+</div>
+}
