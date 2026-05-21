@@ -1,0 +1,38 @@
+<div class="card">
+
+    <h2>Editar Materia</h2>
+
+    <div class="card">
+        <div class="row">
+            <div class="col text-start">
+                <span class="fw-bold">ID Materia:</span>
+                {{ materia().id }}
+            </div>
+
+            <div class="col text-nowrap">
+                <span class="fw-bold">Nombre Actual:</span>
+                {{ materia().nombreMateria }}
+            </div>
+        </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="guardarMateria()">
+        <div class="row mt-4">
+            <div class="col text-start field">
+                <label for="nombreMateria" class="fw-bold">Nuevo Nombre de la Materia:</label>
+                <input type="text" id="nombreMateria" placeholder="Ingrese el nuevo nombre" formControlName="nombreMateria" />
+                @if (errors['nombreMateria']) {
+                    <small>{{ errors['nombreMateria'][0] }}</small>
+                }
+            </div>
+        </div>
+
+        <button class="button mt-4 w-100" type="submit" style="background-color: #2e24e4; border-color: rgba(0, 0, 0, 0.288); width: 100%;">
+            Guardar
+        </button>
+    </form>
+    <button class="destructive mt-4 w-100" type="button" (click)="onCerrar()" style="background-color: #bb2525; width: 100%;">
+        Cerrar
+    </button>
+
+</div>

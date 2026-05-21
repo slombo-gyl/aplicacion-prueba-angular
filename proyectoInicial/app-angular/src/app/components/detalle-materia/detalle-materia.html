@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="header">
+        <h2 class="title">Detalles de la Materia</h2>
+    </div>
+    <div class="card">
+        <div class="row mt-4">
+            <div class="col text-start">
+                <span class="fw-bold">ID:</span>
+                {{ materia().id }}
+            </div>
+            <div class="col text-start">
+                <span class="fw-bold">Nombre de la Materia:</span>
+                {{ materia().nombreMateria }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="buttons">
+        <button class="destructive" type="button" (click)="onCerrar()">
+            Cerrar
+        </button>
+        <button class="primary" type="button" (click)="abrirEditar()">
+            Editar
+        </button>
+    </div>
+</div>
+
+@if (mostrarEditar()) {
+<div class="modal-overlay">
+    <div (click)="$event.stopPropagation()">
+        <app-editar-materia [materia]="materia()" (cerrar)="cerrarEditar()"></app-editar-materia>
+    </div>
+</div>
+}

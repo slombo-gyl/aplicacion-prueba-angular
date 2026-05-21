@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="header">
+        <h1 class="title">{{ materia() ? 'Editar Materia' : 'Agregar Materia' }}</h1>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="nombreMateria">Nombre de la Materia</label>
+            <input 
+                id="nombreMateria" 
+                type="text" 
+                formControlName="nombreMateria" 
+                placeholder="Ej. Programación II"
+                class="form-control"
+            />
+            @if (errors['nombreMateria']) {
+                <small class="text-danger">{{ errors['nombreMateria'][0] }}</small>
+            }
+        </div>
+
+        <div class="form-actions mt-4">
+            <button type="submit" class="button">Guardar</button>
+            <button type="button" class="destructive" (click)="onCerrar()">Cancelar</button>
+        </div>
+    </form>
+</div>
