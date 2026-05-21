@@ -45,4 +45,16 @@ export class Alumno {
     this.mostrarDetalleAlumno.set(false);
     this.alumnoDetalle.set(null);
   }
+
+  promedioAlumno(alumno: AlumnoModel): string {
+    const puntajesAlumno = this.alumnoService.puntajes().filter(puntaje =>  puntaje.alumnoId === alumno.id);
+    const cantidad = puntajesAlumno.length;
+    if (cantidad === 0) {
+      return 'Sin notas';
+    }
+    const sumatoria = puntajesAlumno.reduce((acc, curr) => acc + curr.valor, 0);
+    const promedio = sumatoria / cantidad;
+    const promedioFormateado = promedio % 1 === 0 ? promedio.toFixed(0) : promedio.toFixed(2);
+    return `${promedioFormateado} (${cantidad})`;
+  }
 }

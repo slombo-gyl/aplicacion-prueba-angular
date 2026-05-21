@@ -29,7 +29,7 @@
                 <td>{{ alumno.dni }}</td>
                 <td>{{ alumno.email }}</td>
                 <td>
-                    Sin promedio
+                    {{ promedioAlumno(alumno) }}
                 </td>
                 <td>
                     <button class="button" (click)="verDetalleAlumno(alumno)">
