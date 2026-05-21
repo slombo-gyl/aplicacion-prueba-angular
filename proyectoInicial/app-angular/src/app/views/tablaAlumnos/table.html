@@ -1,3 +1,4 @@
+<div class="container-main">
 <div class="card">
 
     <div class="header">
@@ -13,7 +14,7 @@
 
     </div>
 
-    <p-table [value]="alumnos" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="alumnos()" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th>Nombre</th>
@@ -42,18 +43,24 @@
     </p-table>
 </div>
 
-@if (mostrarFormularioNota()) {
-<div class="modal-overlay" (click)="cerrarFormulario()">
-    <div (click)="$event.stopPropagation()">
-        <app-formulario-notas (cerrar)="cerrarFormulario()"></app-formulario-notas>
-    </div>
-</div>
-} 
-
 @if (mostrarFormulario()) {
-<div class="modal-overlay" (click)="cerrarFormulario()">
+  <div class="modal-overlay" (click)="cerrarFormulario()">
     <div (click)="$event.stopPropagation()">
-        <app-formulario (cerrar)="cerrarFormulario()"></app-formulario>
+      <app-formulario 
+        (cerrar)="cerrarFormulario()" 
+        (alumnoGuardado)="callPage()">
+      </app-formulario>
     </div>
-</div>
+  </div>
 }
+
+@if (mostrarFormularioNota()) {
+  <div class="modal-overlay" (click)="cerrarFormulario()">
+    <div (click)="$event.stopPropagation()">
+      <app-formulario-notas 
+        (cerrar)="cerrarFormulario()">
+      </app-formulario-notas>
+    </div>
+  </div>
+}
+</div>

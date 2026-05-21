@@ -1,7 +1,7 @@
-import { Component, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AlumnoService } from '../../views/tablaAlumnos/service/alumnoServis';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
-
 import { z } from 'zod';
 
 const userSchema = z.object({
@@ -19,10 +19,12 @@ const userSchema = z.object({
   styleUrl: './formulario.css',
 })
 export class Formulario {
+  private alumnoService = inject(AlumnoService)
   errors: Record<string, string[]> = {};
 
   // Declaramos el evento de salida
   cerrar = output<void>();
+  alumnoGuardado = output<void>();
 
   form!: FormGroup;
 
@@ -44,16 +46,26 @@ export class Formulario {
 
     if (!result.success) {
       this.errors = result.error.flatten().fieldErrors;
-
       return;
     }
 
+  // Si llegó acá, los datos son 100% válidos según Zod
     this.errors = {};
+    console.log('Formulario válido, enviando al backend:', result.data);
 
-    console.log('Formulario válido');
-    console.log(result.data);
-    this.onCerrar();
+    // 3. Enviamos los datos validados (result.data) directamente al servicio
+    this.alumnoService.crearAlumno(result.data).subscribe({
+      next: (alumnoCreado) => {
+        console.log('¡Alumno guardado con éxito en la BD!', alumnoCreado);
+        
+        this.alumnoGuardado.emit(); // Avisamos a la tabla que se creó un alumno para que se refresque
+        this.form.reset();         // Limpiamos los casilleros del formulario
+        this.onCerrar();           // Cerramos el modal
+      },
+      error: (error) => {
+        console.error('Error al intentar guardar el alumno:', error);
+      }
+    });
+  
   }
-
-
 }

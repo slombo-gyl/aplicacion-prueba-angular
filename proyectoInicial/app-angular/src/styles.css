@@ -1,2 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+:root
+{
+    --color-btn-secundario: #FFFFFF;
+    --color-btn-letra: #1E293B;
+    --color-btn-resaltar: #E1F5F9;
+
+    --color-letra-principal: #FFFFFF;
+
+    --color-fondo-fondo: linear-gradient(135deg, #183885, #1e293b);
+    --color-fondo-card: rgba(255, 255, 255, 0.133);
+
+    --font-principal: 'Roboto', sans-serif;
+}
+
+*
+{
+    font-family: var(--font-principal)
+}
+
+.container-main {
+  min-height: 100vh;
+  padding: 2rem;
+  background: var(--color-fondo-fondo);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+@import url('https://googleapis.com');
 @import "primeicons/primeicons.css";
+

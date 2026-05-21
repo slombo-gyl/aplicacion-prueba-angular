@@ -6,9 +6,6 @@ import { FormularioNota } from '../../components/formulario-notas/formulario-not
 import { Alumno } from '../../../interfaces/alumno.interfaces';
 import { AlumnoService } from './service/alumnoServis';
 
-
-
-
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -20,7 +17,8 @@ import { AlumnoService } from './service/alumnoServis';
 export class TableComponent {
   
   private service = inject(AlumnoService);
-  alumnos: Alumno[] = [];
+  alumnos = signal<Alumno[]>([]);
+
   constructor(private router: Router) { }
 
   navigateToHome() {
@@ -33,7 +31,7 @@ export class TableComponent {
 
   callPage() {
     this.service.getAlumnos().subscribe((res) => {
-      this.alumnos = res;;
+      this.alumnos.set(res);
     });
   }
 
@@ -46,7 +44,7 @@ export class TableComponent {
   }
 
   abrirFormularioNota() {
-    this.mostrarFormularioNota = signal(true);
+    this.mostrarFormularioNota.set(true);
 
   }
 

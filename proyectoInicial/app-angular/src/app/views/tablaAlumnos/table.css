@@ -1,5 +1,5 @@
 .card {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-fondo-card);
     padding: 1rem;
     border-radius: 8px;
     backdrop-filter: blur(10px);
@@ -40,11 +40,11 @@
 .btn-cargar-alumno {
     position: absolute;
     right: 0;
-    background: #1e293b;
+    background: var(--color-btn-secundario);
     border: none;
     padding: 0.6rem 0.8rem;
     border-radius: 10px;
-    color: white;
+    color: var(--color-btn-letra);
     cursor: pointer;
     transition: 0.2s;
 }
