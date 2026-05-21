@@ -109,6 +109,11 @@
   text-align: center;
 }
 
+.fila-clickable {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
   background-color: var(--bg-dark);
   color: var(--text-gold);

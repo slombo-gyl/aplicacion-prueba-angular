@@ -100,4 +100,8 @@ export class TableComponent implements OnInit{
       }
     });
   }
+
+  verDetalles(alumno: Alumno) {
+    this.router.navigate(['/detalleAlumno'], { state: { alumno: alumno } }); 
+  }
 }
