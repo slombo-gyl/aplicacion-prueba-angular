@@ -1,0 +1,69 @@
+.error-container {
+  min-height: 100vh;
+  background-color: #090909;
+  color: #F6F1E7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.error-card {
+  background-color: #1E1B16;
+  border: 1px solid #5A4A2A;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.error-card h1 {
+  font-size: 5rem;
+  color: #E0BF66;
+  margin: 0;
+}
+
+.error-card h2 {
+  color: #F6F1E7;
+  margin: 1rem 0;
+  font-size: 1.8rem;
+}
+
+.error-card p {
+  color: #F6F1E7;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+button {
+  background-color: #E0BF66;
+  color: #090909;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5A4A2A;
+  color: #F6F1E7;
+}
+
+@media (max-width: 600px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  .error-card h1 {
+    font-size: 4rem;
+  }
+}
