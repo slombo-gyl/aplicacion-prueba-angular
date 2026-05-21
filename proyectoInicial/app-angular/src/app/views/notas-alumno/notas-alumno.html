@@ -1,49 +1,51 @@
+<div class="layout-container">
+  <div class="card">
 
-<div class="card">
+    <div class="header">
+      <button class="btn-back" (click)="volver()">
+        <i class="pi pi-arrow-left"></i> Volver
+      </button>
+      <h1 class="title">Cargar notas</h1>
+    </div>
 
-  <div class="header">
-    <button class="btn-back" (click)="volver()">
-      Volver
-    </button>
-    <h1>Cargar notas</h1>
-  </div>
-
-  @if (alumno()) {
+    @if (alumno()) {
     <div class="info-alumno">
       <h2>{{ alumno().nombre }} {{ alumno().apellido }}</h2>
-      <p>DNI: {{ alumno().dni }}</p>
-      <p>Email: {{ alumno().email }}</p>
+      <div class="info-detalles">
+        <p><strong>DNI:</strong> {{ alumno().dni }}</p>
+        <p><strong>Email:</strong> {{ alumno().email }}</p>
+      </div>
     </div>
-  }
+    }
 
-  <div class="materias">
-    @for (materia of materias(); track materia.id) {
+    <div class="materias">
+      @for (materia of materias(); track materia.id) {
       <div class="materia-card">
-        <h3>{{ materia.nombre }}</h3>
 
-        <div class="notas-actuales" style="margin-bottom: 15px;">
-          <strong>Notas: </strong>
-          @if (obtenerNotasMateria(materia.nombre).length > 0) {
-            <span>{{ obtenerNotasMateria(materia.nombre).join(', ') }}</span>
-          } @else {
-            <span style="color: #666; font-style: italic;">Sin notas registradas</span>
-          }
+        <div class="materia-info">
+          <h3>{{ materia.nombre }}</h3>
+
+          <div class="notas-actuales">
+            <strong>Notas: </strong>
+            @if (obtenerNotasMateria(materia.nombre).length > 0) {
+            <span class="notas-lista">{{ obtenerNotasMateria(materia.nombre).join(', ') }}</span>
+            } @else {
+            <span class="sin-notas">Sin notas registradas</span>
+            }
+          </div>
         </div>
 
         <div class="input-grupo">
-          <input
-            #notaInput
-            type="number"
-            min="1"
-            max="10"
-            placeholder="Ingrese nota">
+          <input #notaInput type="number" min="1" max="10" class="input-nota" placeholder="Ej: 8">
 
-          <button (click)="guardarNota(materia.id, notaInput.value, notaInput)">
+          <button class="btn-guardar" (click)="guardarNota(materia.id, notaInput.value, notaInput)">
             Guardar nota
           </button>
         </div>
-      </div>
-    }
-  </div>
 
+      </div>
+      }
+    </div>
+
+  </div>
 </div>
