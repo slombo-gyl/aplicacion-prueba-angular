@@ -1,14 +1,9 @@
 import { Routes } from '@angular/router';
-import { Home } from './views/home/home';
-import { Formulario } from './components/formulario/formulario';
-import { Dashboard } from './views/dashboard/dashboard';
-import { TableComponent } from './views/tablaAlumnos/table';
-import { NotasAlumno } from './views/notas-alumno/notas-alumno';
 
 export const routes: Routes = [
-  { path: '', component: Home },
-  { path: 'formulario', component: Formulario },
-  { path: 'dashboard', component: Dashboard },
-  { path: 'alumnos', component: TableComponent },
-  { path: 'notas', component: NotasAlumno }
+  { path: '',loadComponent: () =>import('./views/home/home').then(m => m.Home) },
+  { path: 'formulario', loadComponent: () => import('./components/formulario/formulario').then(m => m.Formulario)},
+  { path: 'dashboard', loadComponent: () => import('./views/dashboard/dashboard').then(m => m.Dashboard) },
+  { path: 'alumnos', loadComponent: () => import('./views/tablaAlumnos/table').then(m => m.TableComponent) },
+  { path: 'notas', loadComponent: () => import('./views/notas-alumno/notas-alumno').then(m => m.NotasAlumno) }
 ];     

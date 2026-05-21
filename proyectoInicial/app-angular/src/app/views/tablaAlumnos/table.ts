@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router, RouterLink } from "@angular/router";
-import { Formulario } from '../../components/formulario/formulario';
 import { AlumnoService, Alumno } from './service/alumnoServis'; 
+import { Formulario } from '../../components/formulario/formulario';
+
 
 @Component({
   selector: 'app-table',
