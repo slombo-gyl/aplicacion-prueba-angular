@@ -1,52 +1,37 @@
 <div class="layout-container">
 
-  <nav class="navbar">
-    <div class="nav-brand">
-      <i class="pi pi-box"></i>
-      <span>App de Prueba</span>
-    </div>
-
-    <div class="nav-actions">
-      @if (mensaje()) {
-        <span class="welcome-text">{{ mensaje() }}</span>
-      }
-      <button (click)="toggleLoggin()" class="btn-login">
-        {{ logged() ? 'Cerrar Sesión' : 'Iniciar Sesión' }}
-      </button>
-    </div>
-  </nav>
+  <app-navbar></app-navbar>
 
   <main class="main-content">
 
     <div class="hero-section">
-      <h1 class="main-title">Bienvenido a la Plataforma</h1>
-      <p class="subtitle">Gestiona tus alumnos, notas y explora el dashboard interactivo de manera rápida y sencilla.</p>
+      <span class="overline">PORTAL ADMINISTRATIVO</span>
+      <h1 class="main-title">Control y<br><span class="highlight">Gestión Académica</span></h1>
+      <p class="subtitle">Bienvenido al sistema central. Selecciona un módulo operativo para comenzar a trabajar.</p>
     </div>
 
-    <div class="action-cards-container">
+    <div class="action-grid">
 
       <div class="action-card" routerLink="/alumnos">
-        <div class="card-icon">
-          <i class="pi pi-users"></i>
+        <div class="card-header">
+          <div class="card-icon"><i class="pi pi-users"></i></div>
+          <i class="pi pi-arrow-up-right go-icon"></i>
         </div>
-        <h3>Gestión de Alumnos</h3>
-        <p>Añade, edita y consulta el registro de estudiantes.</p>
+        <div class="card-body">
+          <h3>Gestión de Alumnos</h3>
+          <p>Altas, modificaciones y carga de notas del padrón estudiantil.</p>
+        </div>
       </div>
 
-      <div class="action-card" (click)="navigateTo()">
-        <div class="card-icon">
-          <i class="pi pi-chart-bar"></i>
+      <div class="action-card secondary-card" (click)="navigateTo()">
+        <div class="card-header">
+          <div class="card-icon"><i class="pi pi-chart-bar"></i></div>
+          <i class="pi pi-arrow-up-right go-icon"></i>
         </div>
-        <h3>Dashboard Estadístico</h3>
-        <p>Visualiza métricas y gráficos de rendimiento.</p>
-      </div>
-
-      <div class="action-card" (click)="abrirModal()">
-        <div class="card-icon">
-          <i class="pi pi-window-maximize"></i>
+        <div class="card-body">
+          <h3>Dashboard Analítico</h3>
+          <p>Métricas de rendimiento y estadísticas globales de la institución.</p>
         </div>
-        <h3>Componente Modal</h3>
-        <p>Explora la funcionalidad del modal padre-hijo.</p>
       </div>
 
     </div>
