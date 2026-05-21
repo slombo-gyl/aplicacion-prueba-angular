@@ -20,13 +20,13 @@ export class AlumnoService {
     constructor(private http: HttpClient) { }
 
     getAlumnos(): Observable<Alumno[]> {
-        return this.http.get<Alumno[]>(`${this.BASE_URL}/students`);
+        return this.http.get<Alumno[]>(`${this.BASE_URL}/estudiantes`);
     }
 
     crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
-        return this.http.post<Alumno>(`${this.BASE_URL}/students`, nuevoAlumno);
+        return this.http.post<Alumno>(`${this.BASE_URL}/estudiantes`, nuevoAlumno);
     }
     actualizarAlumno(id: number, alumno: Alumno): Observable<Alumno> {
-        return this.http.patch<Alumno>(`${this.BASE_URL}/students/${id}`, alumno);
+        return this.http.patch<Alumno>(`${this.BASE_URL}/estudiantes/${id}`, alumno);
     }
 }
