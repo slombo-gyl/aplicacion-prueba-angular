@@ -1,5 +1,5 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, input, effect, output } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { AlumnoModel } from '../../interfaces/models/alumno.model';
 import { MateriaModel } from '../../interfaces/models/materia.model';
 import { AlumnosService } from '../../services/alumnos.service';
@@ -12,25 +12,32 @@ const notaSchema = z.object({
 
 @Component({
   selector: 'app-formulario-notas',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './formulario-notas.html',
   styleUrl: './formulario-notas.css',
 })
-export class FormularioNotas implements OnInit {
+export class FormularioNotas {
   alumnosService = inject(AlumnosService);
+  private fb = inject(FormBuilder);
 
   alumno = input.required<AlumnoModel>();
   materia = input.required<MateriaModel>();
   cerrar = output<void>();
 
-  valorNota: number | null = null;
+  form!: FormGroup;
   errors: Record<string, string[]> = {};
 
-  ngOnInit() {
-    const notaActual = this.obtenerNota();
-    if (notaActual !== null) {
-      this.valorNota = notaActual;
-    }
+  constructor() {
+    this.form = this.fb.group({
+      nota: [null]
+    });
+
+    effect(() => {
+      const notaActual = this.obtenerNota();
+      if (notaActual !== null) {
+        this.form.patchValue({ nota: notaActual }, { emitEvent: false });
+      }
+    });
   }
 
   obtenerNota(): number | null {
@@ -41,7 +48,10 @@ export class FormularioNotas implements OnInit {
   }
 
   guardarNota() {
-    const result = notaSchema.safeParse({ nota: this.valorNota });
+    const notaForm = this.form.value.nota;
+    const result = notaSchema.safeParse({ 
+      nota: notaForm !== null && notaForm !== '' ? Number(notaForm) : undefined 
+    });
 
     if (!result.success) {
       this.errors = result.error.flatten().fieldErrors;

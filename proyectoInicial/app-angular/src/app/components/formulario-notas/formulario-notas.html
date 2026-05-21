@@ -20,12 +20,11 @@
         </div>
     </div>
 
-    <form (ngSubmit)="guardarNota()">
+    <form [formGroup]="form" (ngSubmit)="guardarNota()">
         <div class="row mt-4">
             <div class="col text-start">
                 <span class="fw-bold">Nota:</span>
-                <input type="number" class="form-control" placeholder="Ingrese la nota" [(ngModel)]="valorNota"
-                    name="nota" />
+                <input type="number" class="form-control" placeholder="Ingrese la nota" formControlName="nota" />
                 @if (errors['nota']) {
                     <small class="text-danger">{{ errors['nota'][0] }}</small>
                 }
