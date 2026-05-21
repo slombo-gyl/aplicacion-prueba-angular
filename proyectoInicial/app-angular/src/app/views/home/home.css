@@ -1,72 +1,207 @@
-.container-main {
+/* ESTRUCTURA GENERAL */
+.layout-container {
   min-height: 100vh;
-  padding: 2rem;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: white;
+  background-color: #090909;
+  /* Negro profundo para un estilo premium oscuro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #F6F1E7;
+  /* Texto color crema para máxima legibilidad */
   display: flex;
   flex-direction: column;
+}
+
+/* NAVBAR SUPERIOR */
+.navbar {
+  background-color: #1E1B16;
+  /* Tono carbón/marrón oscuro para separar la cabecera */
+  color: #F6F1E7;
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #5A4A2A;
+  /* Línea bronce sutil */
+  box-shadow: 0 4px 15px rgba(9, 9, 9, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #E0BF66;
+  /* Dorado brillante para el logo */
+}
+
+.nav-actions {
+  display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-/* TITULO */
-.title {
-  font-size: 2.2rem;
+.welcome-text {
   font-weight: 600;
-  text-align: center;
+  color: #E0BF66;
+  /* Dorado para hacer sentir premium la bienvenida */
 }
 
-/* CARDS */
-.card-header,
-.card-message,
-.card-action,
-.card-buttons {
-  width: 100%;
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  text-align: center;
-}
-
-/* BOTÓN PRINCIPAL */
-.btn-primary {
-  background: #22c55e;
+.btn-login {
+  background-color: #E0BF66;
+  /* Botón dorado */
+  color: #090909;
+  /* Texto negro para contraste máximo en el botón */
   border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 10px;
-  color: white;
-  font-weight: 500;
+  padding: 0.6rem 1.4rem;
+  border-radius: 6px;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(224, 191, 102, 0.2);
 }
 
-.btn-primary:hover {
-  background: #16a34a;
+.btn-login:hover {
+  background-color: #5A4A2A;
+  /* Al pasar el cursor, cambia a bronce oscuro */
+  color: #F6F1E7;
+  /* El texto pasa a crema */
   transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(90, 74, 42, 0.5);
 }
 
-/* BOTONES SECUNDARIOS */
-.card-buttons {
+/* CONTENIDO PRINCIPAL */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 4rem;
+}
+
+/* SECCIÓN HERO (Títulos) */
+.hero-section {
+  text-align: center;
+  max-width: 800px;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #F6F1E7;
+  /* Título claro y elegante */
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #E0BF66;
+  /* Subtítulo en dorado para darle jerarquía secundaria pero llamativa */
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* TARJETAS DE ACCIÓN */
+.action-cards-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.action-card {
+  background-color: #1E1B16;
+  /* Fondo carbón para que se despeguen del fondo negro */
+  border: 1px solid #5A4A2A;
+  /* Borde bronce */
+  border-radius: 12px;
+  padding: 2rem;
+  width: 280px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.action-card:hover {
+  transform: translateY(-10px);
+  border-color: #E0BF66;
+  /* Borde se ilumina en dorado al interactuar */
+  box-shadow: 0 15px 30px rgba(224, 191, 102, 0.15);
+}
+
+.card-icon {
+  background-color: #090909;
+  /* Fondo muy oscuro para el icono */
+  border: 1px solid #5A4A2A;
+  color: #E0BF66;
+  /* Icono en dorado */
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  align-items: center;
+  font-size: 2rem;
+  transition: all 0.3s ease;
 }
 
-.btn-secondary {
-  background: #1e293b;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
+.action-card:hover .card-icon {
+  background-color: #E0BF66;
+  /* Círculo dorado brillante */
+  border-color: #E0BF66;
+  color: #090909;
+  /* Icono en negro */
+  transform: scale(1.1);
+  /* Ligero aumento de tamaño para mayor dinamismo */
 }
 
-.btn-secondary:hover {
-  background: #334155;
-  transform: scale(1.05);
+.action-card h3 {
+  color: #F6F1E7;
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.action-card p {
+  color: #F6F1E7;
+  opacity: 0.7;
+  /* Suavizamos el texto descriptivo */
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .action-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .action-card {
+    width: 100%;
+    max-width: 350px;
+  }
 }

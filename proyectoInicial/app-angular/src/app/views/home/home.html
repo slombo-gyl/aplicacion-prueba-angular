@@ -1,28 +1,57 @@
-<div class="container-main">
+<div class="layout-container">
 
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="pi pi-box"></i>
+      <span>App de Prueba</span>
+    </div>
 
-  <div class="card-header">
-    <h1 class="title">Aplicación de Prueba</h1>
-  </div>
+    <div class="nav-actions">
+      @if (mensaje()) {
+        <span class="welcome-text">{{ mensaje() }}</span>
+      }
+      <button (click)="toggleLoggin()" class="btn-login">
+        {{ logged() ? 'Cerrar Sesión' : 'Iniciar Sesión' }}
+      </button>
+    </div>
+  </nav>
 
-  <div class="card-message">
-    <p>{{ mensaje() }}</p>
-  </div>
+  <main class="main-content">
 
- 
-  <div class="card-action">
-    <button (click)="toggleLoggin()" class="btn-primary">
-      {{ logged() ? 'Salir' : 'Entrar' }}
-    </button>
-  </div>
+    <div class="hero-section">
+      <h1 class="main-title">Bienvenido a la Plataforma</h1>
+      <p class="subtitle">Gestiona tus alumnos, notas y explora el dashboard interactivo de manera rápida y sencilla.</p>
+    </div>
 
-  <div class="card-buttons">
-    <button class="btn-secondary" (click)="abrirModal()">Modal</button>
-    <button class="btn-secondary" routerLink="/alumnos">Alumnos</button>
-    <button class="btn-secondary" (click)="navigateTo()">Dashboard</button>
-  </div>
+    <div class="action-cards-container">
+
+      <div class="action-card" routerLink="/alumnos">
+        <div class="card-icon">
+          <i class="pi pi-users"></i>
+        </div>
+        <h3>Gestión de Alumnos</h3>
+        <p>Añade, edita y consulta el registro de estudiantes.</p>
+      </div>
+
+      <div class="action-card" (click)="navigateTo()">
+        <div class="card-icon">
+          <i class="pi pi-chart-bar"></i>
+        </div>
+        <h3>Dashboard Estadístico</h3>
+        <p>Visualiza métricas y gráficos de rendimiento.</p>
+      </div>
+
+      <div class="action-card" (click)="abrirModal()">
+        <div class="card-icon">
+          <i class="pi pi-window-maximize"></i>
+        </div>
+        <h3>Componente Modal</h3>
+        <p>Explora la funcionalidad del modal padre-hijo.</p>
+      </div>
+
+    </div>
+  </main>
 
   <app-padre #modalPadre></app-padre>
-  
 
 </div>
