@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router } from "@angular/router";
 import { Formulario } from '../../components/formulario/formulario';
-import { AlumnoService } from '../../services/alumnos.service';
+import { AlumnosService } from '../../services/alumnos.service';
 import { DetalleAlumno } from '../../components/detalle-alumno/detalle-alumno';
 import { AlumnoModel } from '../../interfaces/models/alumno.model';
 
@@ -15,7 +15,7 @@ import { AlumnoModel } from '../../interfaces/models/alumno.model';
 })
 export class Alumno {
   private router = inject(Router);
-  alumnoService = inject(AlumnoService);
+  alumnoService = inject(AlumnosService);
 
   alumnos = computed(() => this.alumnoService.alumnos());
 
