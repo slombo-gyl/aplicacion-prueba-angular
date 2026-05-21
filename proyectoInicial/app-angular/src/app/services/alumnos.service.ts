@@ -13,7 +13,7 @@ export class AlumnosService {
     private http = inject(HttpClient);
 
     private ALUMNOS_DATA: AlumnoModel[] = [
-        { id: 1, nombre: 'Juan', apellido: 'Pérez', email: 'juan@example.com' , dni: '12345678' },
+        { id: 1, nombre: 'Juan', apellido: 'Pérez', email: 'juan@example.com', dni: '12345678' },
         { id: 2, nombre: 'María García', apellido: 'García', email: 'maria@example.com', dni: '87654321' },
         { id: 3, nombre: 'Carlos López', apellido: 'López', email: 'carlos@example.com', dni: '11223344' },
         { id: 4, nombre: 'Ana Martínez', apellido: 'Martínez', email: 'ana@example.com', dni: '44332211' }
@@ -27,8 +27,12 @@ export class AlumnosService {
         return this.http.get<AlumnoModel[]>(`${this.BASE_URL}/alumno`);
     }
 
-    crearAlumno(nuevoAlumno: AlumnoModel): Observable<AlumnoModel> {
-        return this.http.post<AlumnoModel>(`${this.BASE_URL}/alumno`, nuevoAlumno);
+    crearAlumno(nuevoAlumno: AlumnoModel): Observable<AlumnoModel> | void {
+        this.alumnos.update(alumnos => {
+            const newId = alumnos.length > 0 ? alumnos[alumnos.length - 1].id + 1 : 1;
+            return [...alumnos, { ...nuevoAlumno, id: newId }];
+        });
+        // return this.http.post<AlumnoModel>(`${this.BASE_URL}/alumno`, nuevoAlumno);
     }
 
     cargarNota(alumnoId: number, materiaId: number, valor: number) {

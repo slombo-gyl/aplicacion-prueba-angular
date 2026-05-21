@@ -1,8 +1,10 @@
 import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { AlumnosService } from '../../services/alumnos.service';
 
 import { z } from 'zod';
+import { AlumnoModel } from '../../interfaces/models/alumno.model';
 
 const userSchema = z.object({
   nombre: z.string().min(3, 'Nombre inválido'),
@@ -26,7 +28,7 @@ export class Formulario {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private alumnosService: AlumnosService) {
     this.form = this.fb.group({
       nombre: [''],
       apellido: [''],
@@ -50,10 +52,7 @@ export class Formulario {
 
     this.errors = {};
 
-    console.log('Formulario válido');
-    console.log(result.data);
+    this.alumnosService.crearAlumno(result.data as AlumnoModel);
     this.onCerrar();
   }
-
-
 }
