@@ -1,0 +1,53 @@
+<div class="layout-container">
+    <div class="card">
+
+        <div class="header">
+            <button class="btn-back" (click)="volver()">
+                <i class="pi pi-arrow-left"></i> Volver
+            </button>
+            <h1 class="title">Expediente del Alumno</h1>
+        </div>
+
+        @if (alumno()) {
+        <div class="info-alumno">
+            <h2>{{ alumno().nombre }} {{ alumno().apellido }}</h2>
+            <div class="info-detalles">
+                <p><strong>DNI:</strong> {{ alumno().dni }}</p>
+                <p><strong>Email:</strong> {{ alumno().email }}</p>
+            </div>
+        </div>
+        }
+
+        <div class="materias">
+            @for (materia of materias(); track materia.id) {
+            <div class="materia-card">
+
+                <div class="materia-info">
+                    <h3>{{ materia.nombre }}</h3>
+
+                    <div class="notas-actuales">
+                        <strong>Historial de Notas: </strong>
+                        @if (obtenerNotasMateria(materia.nombre).length > 0) {
+                        <span class="notas-lista">
+                            {{ obtenerNotasMateria(materia.nombre).join(', ') }}
+                        </span>
+                        } @else {
+                        <span class="sin-notas">No hay calificaciones registradas</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="estado-badge">
+                    @if (obtenerNotasMateria(materia.nombre).length > 0) {
+                    <span class="badge badge-evaluado">Evaluado</span>
+                    } @else {
+                    <span class="badge badge-pendiente">Pendiente</span>
+                    }
+                </div>
+
+            </div>
+            }
+        </div>
+
+    </div>
+</div>
