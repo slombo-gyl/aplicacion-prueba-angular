@@ -9,7 +9,7 @@
     <p>{{ mensaje() }}</p>
   </div>
 
- 
+
   <div class="card-action">
     <button (click)="toggleLoggin()" class="btn-primary">
       {{ logged() ? 'Salir' : 'Entrar' }}
@@ -17,6 +17,7 @@
   </div>
 
   <div class="card-buttons">
+    <button class="btn-secondary" routerLink="/materias">Materias</button>
     <button class="btn-secondary" routerLink="/alumnos">Alumnos</button>
     <button class="btn-secondary" (click)="navigateTo()">Dashboard</button>
   </div>
