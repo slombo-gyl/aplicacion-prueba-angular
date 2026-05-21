@@ -11,39 +11,41 @@
     </button>
   </div>
 
-  <p-table [value]="alumnos()" showGridlines [scrollable]="true" [tableStyle]="{ 'min-width': '700px' }">
-    <ng-template #header>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>DNI</th>
-        <th>Email</th>
-        <th class="columnas">Notas</th>
-        <th class="columnas">Modificar</th>
-      </tr>
-    </ng-template>
-
-    <ng-template #body let-alumno>
-      <tr>
-        <td>{{ alumno.nombre }}</td>
-        <td>{{ alumno.apellido }}</td>
-        <td>{{ alumno.dni }}</td>
-        <td>{{ alumno.email }}</td>
-
-        <td class="acciones-tabla">
-          <button class="button" routerLink="/notas" [state]="{ alumno: alumno }">
-            Cargar notas
-          </button>
-        </td>
-
-        <td class="acciones-tabla">
-          <button class="button" (click)="abrirEditar(alumno)">
-            Editar alumno
-          </button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <div class="table-wrapper">
+    <p-table [value]="alumnos()" showGridlines [scrollable]="true" [tableStyle]="{ 'min-width': '700px' }"[rows]="10" [paginator]="true">
+      <ng-template #header>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>DNI</th>
+          <th>Email</th>
+          <th class="columnas">Notas</th>
+          <th class="columnas">Modificar</th>
+        </tr>
+      </ng-template>
+  
+      <ng-template #body let-alumno>
+        <tr>
+          <td>{{ alumno.nombre }}</td>
+          <td>{{ alumno.apellido }}</td>
+          <td>{{ alumno.dni }}</td>
+          <td>{{ alumno.email }}</td>
+  
+          <td class="acciones-tabla">
+            <button class="button" routerLink="/notas" [state]="{ alumno: alumno }">
+              Cargar notas
+            </button>
+          </td>
+  
+          <td class="acciones-tabla">
+            <button class="button" (click)="abrirEditar(alumno)">
+              Editar alumno
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
 
 @if (mostrarFormulario()) {

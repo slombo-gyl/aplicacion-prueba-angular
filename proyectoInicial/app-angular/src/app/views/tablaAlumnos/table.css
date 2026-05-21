@@ -9,8 +9,14 @@
   min-height: 80vh;
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
+.table-wrapper {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
 
 .header {
   display: flex;
