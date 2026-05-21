@@ -14,20 +14,29 @@ export interface RegistrarPuntajePayload {
     valor: number;
 }
 
+export interface MateriaNotas {
+  nombreMateria: string;
+  notas: number[];
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MateriasService {
-    private materiasUrl = 'http://localhost:8080/api/materias';
-    private puntajesUrl = 'http://localhost:8080/api/puntajes'; 
+  private materiasUrl = 'http://localhost:8080/api/materias';
+  private puntajesUrl = 'http://localhost:8080/api/puntajes';
 
-    constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
-    getMaterias(): Observable<Materia[]> {
-        return this.http.get<Materia[]>(this.materiasUrl);
-    }
+  getMaterias(): Observable<Materia[]> {
+    return this.http.get<Materia[]>(this.materiasUrl);
+  }
 
-    cargarNota(payload: RegistrarPuntajePayload): Observable<any> {
-        return this.http.post<any>(this.puntajesUrl, payload);
-    }
+  cargarNota(payload: RegistrarPuntajePayload): Observable<any> {
+    return this.http.post<any>(this.puntajesUrl, payload);
+  }
+
+  getPuntajesPorEstudiante(estudianteId: number): Observable<MateriaNotas[]> {
+    return this.http.get<MateriaNotas[]>(`${this.puntajesUrl}/estudiante/${estudianteId}`);
+  }
 }

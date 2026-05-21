@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MateriasService, Materia, RegistrarPuntajePayload } from '../../services/materias';
+import { MateriasService, Materia, RegistrarPuntajePayload, MateriaNotas } from '../../services/materias';
 import { Alumno } from '../tablaAlumnos/service/alumnoServis';
 
 @Component({
@@ -18,40 +18,64 @@ export class NotasAlumno implements OnInit {
   alumno = signal<Alumno | any>(null);
   materias = signal<Materia[]>([]);
 
+  materiasConNotas = signal<MateriaNotas[]>([]);
+
   ngOnInit() {
     const estadoNav = history.state;
     if (estadoNav && estadoNav.alumno) {
       this.alumno.set(estadoNav.alumno);
+      this.cargarMaterias();
+      this.cargarNotasDelAlumno();
     } else {
       this.router.navigate(['/alumnos']);
     }
-
-    this.cargarMaterias();
   }
 
   cargarMaterias() {
     this.materiasService.getMaterias().subscribe({
       next: (data) => this.materias.set(data),
-      error: (err) => console.error('Error al cargar materias', err)
+      error: (err) => console.error('Error al cargar materias', err),
     });
   }
 
-  guardarNota(materiaId: number, valorInput: string) {
-    if (!valorInput) return; 
-    
+  cargarNotasDelAlumno() {
+    const datosAlumno = this.alumno();
+    if (datosAlumno) {
+      const estudianteId = Number(datosAlumno.id || datosAlumno.dni);
+      this.materiasService.getPuntajesPorEstudiante(estudianteId).subscribe({
+        next: (data) => this.materiasConNotas.set(data),
+        error: (err) => console.error('Error al cargar notas', err),
+      });
+    }
+  }
+
+  obtenerNotasMateria(nombreMateria: string): number[] {
+    const materiaEncontrada = this.materiasConNotas().find(
+      (m) => m.nombreMateria === nombreMateria,
+    );
+    return materiaEncontrada ? materiaEncontrada.notas : [];
+  }
+
+  guardarNota(materiaId: number, valorInput: string, inputElement: HTMLInputElement) {
+    if (!valorInput) return;
+
     const notaNum = parseFloat(valorInput);
     const datosAlumno = this.alumno();
 
     if (datosAlumno) {
       const payload: RegistrarPuntajePayload = {
-        estudianteId: Number(datosAlumno.id || datosAlumno.dni), 
+        estudianteId: Number(datosAlumno.id || datosAlumno.dni),
         materiaId: materiaId,
-        valor: notaNum
+        valor: notaNum,
       };
 
       this.materiasService.cargarNota(payload).subscribe({
-        next: () => alert('Nota guardada con éxito'),
-        error: (err) => console.error('Error al guardar la nota', err)
+        next: () => {
+          alert('Nota guardada con éxito');
+          this.cargarNotasDelAlumno();
+          inputElement.value = '';
+        },
+        error: (err) => console.error('Error al guardar la nota', err),
       });
     }
   }
