@@ -192,7 +192,6 @@
 .btn-guardar:hover {
   background-color: var(--text-cream);
   color: var(--bg-dark);
-  border-color: var(--text-gold);
 }
 
 @media (max-width: 768px) {
