@@ -20,7 +20,7 @@ export class AlumnoService {
     constructor(private http: HttpClient) { }
 
     getAlumnos(): Observable<Alumno[]> {
-        return this.http.get<Alumno[]>(`${this.BASE_URL}/estudiantes`);
+        return this.http.get<Alumno[]>(`${this.BASE_URL}/estudiantes?size=1000`);
     }
 
     crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
