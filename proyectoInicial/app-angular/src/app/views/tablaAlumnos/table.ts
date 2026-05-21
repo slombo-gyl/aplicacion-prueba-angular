@@ -56,8 +56,7 @@ export class TableComponent {
 verAlumno(id: number) {
   this.service.getAlumnoByID(id).subscribe((res) => {console.log("Ver alumno:", res)});
 }
-  cambiarEstado(){
-    console.log("Borrado logico")
-    //pathid
+  cambiarEstado(id:number){
+    this.service.deleteAlumnoLogico(id).subscribe((res) => {console.log("Alumno eliminado: ", res)})
   }
 }
