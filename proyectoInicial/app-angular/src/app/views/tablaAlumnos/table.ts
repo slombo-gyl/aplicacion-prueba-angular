@@ -14,6 +14,7 @@ import { AlumnoService } from './service/alumnoService';
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
+
 export class TableComponent {
   private service = inject(AlumnoService);
   alumnos = signal<Alumno[]>([]);
@@ -52,10 +53,12 @@ export class TableComponent {
     this.mostrarFormularioNota.set(false);
   }
 
-verAlumno(id: number) {
-  this.service.getAlumnoByID(id).subscribe((res) => {console.log("Ver alumno:", res)});
-}
+  verAlumno(id: number) {
+    this.service.getAlumnoByID(id).subscribe((res) => {console.log("Ver alumno:", res)});
+  }
+  
   cambiarEstado(id:number){
-    this.service.deleteAlumnoLogico(id).subscribe((res) => {console.log("Alumno eliminado: ", res)})
+    console.log(id) //Para tener algo y lograr que corra 
+    // this.service.deleteAlumnoLogico(id).subscribe((res) => {console.log("Alumno eliminado: ", res)})
   }
 }
