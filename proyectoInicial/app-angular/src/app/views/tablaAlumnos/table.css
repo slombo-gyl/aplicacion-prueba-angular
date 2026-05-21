@@ -1,22 +1,41 @@
+:host {
+  --bg-dark: #090909;      
+  --bg-card: #1E1B16;      
+  --border-bronze: #5A4A2A;
+  --text-gold: #E0BF66;    
+  --text-cream: #F6F1E7;   
+}
+
+.layout-container {
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-cream);
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
 .card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1rem;
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  margin: 2rem auto;
-  max-width: 90%;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-bronze);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  margin: 0 auto;
+  width: 95%;
+  max-width: 1200px;
   min-height: 80vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 }
+
 .table-wrapper {
   width: 100%;
   flex: 1;
   overflow: auto;
+  margin-top: 1rem;
 }
-
 
 .header {
   display: flex;
@@ -24,81 +43,127 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-bronze);
+  padding-bottom: 1.5rem;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-gold);
   margin: 0;
   text-align: center;
   flex: 1;
+  letter-spacing: -0.5px;
 }
 
 .btn-back,
 .btn-cargar-alumno {
-  background: #1e293b;
+  background-color: var(--text-gold);
+  color: var(--bg-dark);
   border: none;
-  padding: 0.6rem 0.8rem;
-  border-radius: 10px;
-  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(224, 191, 102, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-back {
+  padding: 0.8rem 1rem;
 }
 
 .btn-back:hover,
 .btn-cargar-alumno:hover {
-  background: #334155;
-  transform: scale(1.05);
+  background-color: var(--border-bronze);
+  color: var(--text-cream);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(90, 74, 42, 0.5);
 }
 
-.button {
-  padding: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.288);
-  border-radius: 8px;
-  color: white;
-  background-color: grey;
+.btn-action {
+  background-color: var(--text-gold);
+  border: 1px solid var(--border-bronze);
+  color: var(--bg-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.acciones-tabla {
-  text-align: center;
-}
-.acciones-tabla .button {
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 120px;
   margin: 0 auto;
 }
 
-.columnas {
+.btn-action:hover {
+  background-color: var(--text-cream);
+  color: var(--bg-dark);
+  border-color: var(--text-gold);
+}
+
+.acciones-tabla, .columnas {
   text-align: center;
 }
 
-/* PrimeNG tabla */
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  background-color: #1e293b;
-  color: white;
-  border-color: #334155;
-  padding: 0.5rem;
+  background-color: var(--bg-dark);
+  color: var(--text-gold);
+  border: 1px solid var(--border-bronze);
+  padding: 1rem;
+  font-weight: 700;
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
-  background-color: #0f172a;
-  color: #e2e8f0;
-  border-color: #334155;
+  background-color: var(--bg-card);
+  color: var(--text-cream);
+  border: 1px solid var(--border-bronze);
+  padding: 1rem;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:hover > td {
+  background-color: #2a251f;
+}
+
+::ng-deep .p-paginator {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-bronze);
+  border-top: none;
   padding: 0.5rem;
 }
 
-/* Modal */
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page,
+::ng-deep .p-paginator .p-paginator-first, 
+::ng-deep .p-paginator .p-paginator-prev, 
+::ng-deep .p-paginator .p-paginator-next, 
+::ng-deep .p-paginator .p-paginator-last {
+  color: var(--text-cream);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page:hover {
+  background-color: var(--border-bronze);
+}
+
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: var(--text-gold);
+  color: var(--bg-dark);
+  font-weight: bold;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(9, 9, 9, 0.85);
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,42 +174,30 @@
   width: 95%;
   max-width: 800px;
   margin: 1rem;
-}
 
-.btn-cerrar {
-  margin-top: 1.5rem;
-  background-color: #ef4444;
-  border: none;
-  width: 100%;
-}
-
-.btn-cerrar:hover {
-  background-color: #dc2626;
 }
 
 @media (max-width: 768px) {
   .card {
-    max-width: 95%;
-    margin: 1rem auto;
-    padding: 0.8rem;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid var(--border-bronze);
   }
 
   .header {
     flex-direction: column;
     align-items: stretch;
+    border-bottom: none;
   }
 
   .title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    margin: 1rem 0;
   }
 
-  .btn-back,
-  .btn-cargar-alumno {
-    width: 100%;
-  }
-
-  .button {
-    width: 100%;
-    font-size: 0.75rem;
+  .btn-action {
+    max-width: 100%;
   }
 }
