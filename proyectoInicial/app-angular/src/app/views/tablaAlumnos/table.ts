@@ -4,7 +4,7 @@ import { Router, RouterLink } from "@angular/router";
 import { Formulario } from '../../components/formulario/formulario';
 import { FormularioNota } from '../../components/formulario-notas/formulario-notas';
 import { Alumno } from '../../../interfaces/alumno.interfaces';
-import { AlumnoService } from './service/alumnoServis';
+import { AlumnoService } from './service/alumnoService';
 
 @Component({
   selector: 'app-table',
@@ -15,7 +15,6 @@ import { AlumnoService } from './service/alumnoServis';
   styleUrl: './table.css'
 })
 export class TableComponent {
-  
   private service = inject(AlumnoService);
   alumnos = signal<Alumno[]>([]);
 

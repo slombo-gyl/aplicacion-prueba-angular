@@ -1,66 +1,57 @@
 <div class="container-main">
-<div class="card">
-
+  <div class="card">
     <div class="header">
         <button class="btn-back" (click)="navigateToHome()">
-            <i class="pi pi-arrow-left"></i>
+          <i class="pi pi-arrow-left"></i>
         </button>
-
         <h1 class="title">Alumnos</h1>
-
-        <button class="btn-cargar-alumno" (click)="abrirFormulario()">
-            Cargar Alumnos
-        </button>
-
+        <button class="btn-cargar-alumno" (click)="abrirFormulario()">Cargar Alumnos</button>
     </div>
-
     <p-table [value]="alumnos()" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Nombre</th>
-                <th>DNI</th>
-                <th>Email</th>
-                <th style="text-align: center;">Notas</th>
-                <th>Acciones</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-alumno>
-            <tr>
-                <td>{{ alumno.nombre }}</td>
-                <td>{{ alumno.dni }}</td>
-                <td>{{ alumno.email }}</td>
-                <td>
-                    <button class="button" (click)="abrirFormularioNota()">
-                        cargar notas
-                    </button>
-                </td>
-                <td class="d-flex">
-                    <button (click)="verAlumno(alumno)">Detalles</button>
-                    <button (click)="cambiarEstado(alumno)">Cambiar estado</button>
-                </td>
-            </tr>
-        </ng-template>
+      <ng-template #header>
+        <tr>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Email</th>
+          <th style="text-align: center;">Notas</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-alumno>
+        <tr>
+          <td>{{ alumno.nombre }}</td>
+          <td>{{ alumno.dni }}</td>
+          <td>{{ alumno.email }}</td>
+          <td>
+          <button class="button" (click)="abrirFormularioNota()">cargar notas</button>
+          </td>
+          <td class="d-flex">
+            <button (click)="verAlumno(alumno)">Detalles</button>
+            <button (click)="cambiarEstado()">Cambiar estado</button>
+          </td>
+        </tr>
+      </ng-template>
     </p-table>
-</div>
-
-@if (mostrarFormulario()) {
-  <div class="modal-overlay" (click)="cerrarFormulario()">
-    <div (click)="$event.stopPropagation()">
-      <app-formulario 
-        (cerrar)="cerrarFormulario()" 
-        (alumnoGuardado)="callPage()">
-      </app-formulario>
-    </div>
   </div>
-}
 
-@if (mostrarFormularioNota()) {
-  <div class="modal-overlay" (click)="cerrarFormulario()">
-    <div (click)="$event.stopPropagation()">
-      <app-formulario-notas 
-        (cerrar)="cerrarFormulario()">
-      </app-formulario-notas>
+  @if (mostrarFormulario()) {
+    <div class="modal-overlay" (click)="cerrarFormulario()">
+      <div (click)="$event.stopPropagation()">
+        <app-formulario 
+          (cerrar)="cerrarFormulario()" 
+          (alumnoGuardado)="callPage()">
+        </app-formulario>
+      </div>
     </div>
-  </div>
-}
+  }
+
+  @if (mostrarFormularioNota()) {
+    <div class="modal-overlay" (click)="cerrarFormulario()">
+      <div (click)="$event.stopPropagation()">
+        <app-formulario-notas 
+          (cerrar)="cerrarFormulario()">
+        </app-formulario-notas>
+      </div>
+    </div>
+  }
 </div>

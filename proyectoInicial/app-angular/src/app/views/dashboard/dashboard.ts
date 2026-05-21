@@ -9,12 +9,11 @@ import { Router, RouterLink } from "@angular/router";
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
+
 export class Dashboard {
  constructor(private router: Router) {}
 
- 
   navigateToHome(){
     this.router.navigate([''])
   }
-
 }

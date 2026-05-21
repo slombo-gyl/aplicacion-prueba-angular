@@ -2,15 +2,14 @@ import { Component, signal, ViewChild } from '@angular/core';
 import { Padre } from '../../padre/padre';
 import { Router, RouterLink } from '@angular/router';
 
-
 @Component({
   selector: 'app-home',
   imports: [Padre, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
 
+export class Home {
   /*instanciamos el router */
   constructor(private router: Router) {}
 
@@ -31,13 +30,10 @@ export class Home {
     this.router.navigate(['/dashboard'])
   }
 
-
-
-
   /* creamos el método para  llamar la funcion del modal padre */
-abrirModal(){
-  this.modal.abrir()
-}
+  abrirModal(){
+    this.modal.abrir()
+  }
 
   saludar() {
     return `Bienvenido`;
@@ -46,6 +42,7 @@ abrirModal(){
   /* manejamos el estado  */
   toggleLoggin() {
     this.logged.set(!this.logged());
+    
     if (this.logged()) {
       this.mensaje.set(this.saludar());
     } else {

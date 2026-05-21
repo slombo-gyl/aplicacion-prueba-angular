@@ -8,8 +8,8 @@ import { Hijo } from './hijo/hijo';
   templateUrl: './padre.html',
   styleUrl: './padre.css',
 })
+
 export class Padre {
-  
   /* Utilizamos el ViewChild para poder accerder a sus métodos */
   @ViewChild('modal') modalRef!: ElementRef<HTMLDialogElement>;
 

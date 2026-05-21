@@ -1,49 +1,28 @@
 <div class="card">
+  <h2>Cargar Notas de Alumnos</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+      <div class="field">
+        <label>Materia</label>
+        <input type="text" placeholder="Ingrese la Materia" formControlName="materia">
 
-    <h2>Cargar Notas de Alumnos</h2>
-
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-      <div class="grid">
-
-        <div class="field">
-          <label>Materia</label>
-
-          <input type="text" placeholder="Ingrese la Materia" formControlName="materia">
-
-          @if(errors['materia']) {
-          <small>{{ errors['materia'][0] }}</small>
-          }
-        </div>
-
-        <div class="field">
-          <label>Notas</label>
-
-          <input type="number" placeholder="Ingrese una Nota" formControlName="nota">
-
-          @if(errors['nota']) {
-          <small>{{ errors['nota'][0] }}</small>
-          }
-        </div>
-
+        @if(errors['materia']) {
+        <small>{{ errors['materia'][0] }}</small>
+        }
       </div>
+      <div class="field">
+        <label>Notas</label>
+        <input type="number" placeholder="Ingrese una Nota" formControlName="nota">
 
-      <div class="buttons">
-
-        <button class="destructive" type="reset" (click)="onCerrar()">
-          Cancelar
-        </button>
-
-        <button class="clear" type="reset">
-          Limpiar Formulario
-        </button>
-
-        <button class="primary" type="submit">
-          Enviar
-        </button>
-
+        @if(errors['nota']) {
+        <small>{{ errors['nota'][0] }}</small>
+        }
       </div>
-
-    </form>
-
-  </div>
+    </div>
+    <div class="buttons">
+      <button class="destructive" type="reset" (click)="onCerrar()">Cancelar</button>
+      <button class="clear" type="reset">Limpiar Formulario</button>
+      <button class="primary" type="submit">Enviar</button>
+    </div>
+  </form>
+</div>

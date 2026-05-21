@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Formulario } from './formulario';
 
 describe('Formulario', () => {
@@ -20,4 +19,3 @@ describe('Formulario', () => {
     expect(component).toBeTruthy();
   });
 });
-

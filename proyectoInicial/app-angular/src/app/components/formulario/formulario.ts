@@ -1,6 +1,6 @@
 import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlumnoService } from '../../views/tablaAlumnos/service/alumnoServis';
+import { AlumnoService } from '../../views/tablaAlumnos/service/alumnoService';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { z } from 'zod';
 
@@ -18,6 +18,7 @@ const userSchema = z.object({
   templateUrl: './formulario.html',
   styleUrl: './formulario.css',
 })
+
 export class Formulario {
   private alumnoService = inject(AlumnoService)
   errors: Record<string, string[]> = {};

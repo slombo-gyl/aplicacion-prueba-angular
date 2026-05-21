@@ -16,6 +16,7 @@ const userSchema = z.object({
   templateUrl: './formulario-notas.html',
   styleUrl: './formulario-notas.css',
 })
+
 export class FormularioNota {
   errors: Record<string, string[]> = {};
 
@@ -51,6 +52,4 @@ export class FormularioNota {
     console.log(result.data);
     this.onCerrar();
   }
-
-
 }

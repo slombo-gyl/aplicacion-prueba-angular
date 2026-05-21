@@ -42,7 +42,6 @@ export class ChartRadar implements OnInit {
         this.cd.detectChanges();
       });
 
-     
       this.options = {
         plugins: {
           legend: {
