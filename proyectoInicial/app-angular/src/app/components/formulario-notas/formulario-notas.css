@@ -1,0 +1,96 @@
+.card {
+    background: #1e293b;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 45rem; /* Permite que se ajuste a pantallas más pequeñas y se centre bien */
+    min-width: 400px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.card h2 {
+    margin-bottom: 1.5rem;
+}
+
+.grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 1.5rem;
+}
+
+.field {
+    display: grid;
+
+}
+
+.field label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+
+}
+
+.field input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    outline: none;
+    color: #0f172a; /* Hace que el texto que escribes sea oscuro y visible */
+}
+
+.field input:focus {
+    border-color: #4f46e5;
+}
+
+.field small {
+    color: red;
+    margin-top: 0.3rem;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.288);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.buttons {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 1rem;
+
+    margin-top: 1rem;
+}
+
+.primary {
+    grid-column: 4;
+    background-color: #2e24e4;
+    color: white;
+}
+
+.clear {
+    grid-column: 3;
+    background-color: #F7F7F7;
+    color: #22272F;
+}
+
+.destructive {
+    grid-column: 1;
+    background-color: #bb2525;
+    color: white;
+
+}

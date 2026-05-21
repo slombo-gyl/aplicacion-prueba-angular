@@ -1,0 +1,43 @@
+<div class="card">
+
+    <h2>Cargar nota</h2>
+
+    <div class="card">
+        <div class="row">
+            <div class="col text-start">
+                <span class="fw-bold">Materia:</span>
+                {{ materia().nombreMateria }}
+            </div>
+
+            <div class="col text-nowrap">
+                <span class="fw-bold">Nota:</span>
+                @if (obtenerNota() !== null) {
+                    {{ obtenerNota() }}
+                } @else {
+                    Sin Nota
+                }
+            </div>
+        </div>
+    </div>
+
+    <form (ngSubmit)="guardarNota()">
+        <div class="row mt-4">
+            <div class="col text-start">
+                <span class="fw-bold">Nota:</span>
+                <input type="number" class="form-control" placeholder="Ingrese la nota" [(ngModel)]="valorNota"
+                    name="nota" />
+                @if (errors['nota']) {
+                    <small class="text-danger">{{ errors['nota'][0] }}</small>
+                }
+            </div>
+        </div>
+
+        <button class="button mt-4 w-100" type="submit">
+            Guardar
+        </button>
+    </form>
+    <button class="destructive mt-4" type="button" (click)="onCerrar()">
+        Cerrar
+    </button>
+
+</div>
