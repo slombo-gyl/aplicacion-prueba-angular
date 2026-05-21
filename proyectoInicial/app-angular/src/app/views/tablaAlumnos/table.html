@@ -20,6 +20,7 @@
                 <th>DNI</th>
                 <th>Email</th>
                 <th style="text-align: center;">Notas</th>
+                <th>Acciones</th>
             </tr>
         </ng-template>
         <ng-template #body let-alumno>
@@ -28,14 +29,26 @@
                 <td>{{ alumno.dni }}</td>
                 <td>{{ alumno.email }}</td>
                 <td>
-                    <button class="button">
+                    <button class="button" (click)="abrirFormularioNota()">
                         cargar notas
                     </button>
+                </td>
+                <td class="d-flex">
+                    <button (click)="verAlumno(alumno)">Detalles</button>
+                    <button (click)="cambiarEstado()">Cambiar estado</button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
+
+@if (mostrarFormularioNota()) {
+<div class="modal-overlay" (click)="cerrarFormulario()">
+    <div (click)="$event.stopPropagation()">
+        <app-formulario-notas (cerrar)="cerrarFormulario()"></app-formulario-notas>
+    </div>
+</div>
+} 
 
 @if (mostrarFormulario()) {
 <div class="modal-overlay" (click)="cerrarFormulario()">

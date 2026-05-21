@@ -1,13 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Alumno } from '../../../../interfaces/alumno.interfaces';
 
-export interface Alumno {
-    nombre: string,
-    apellido: string,
-    dni: string,
-    email: string,
-}
+
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +15,11 @@ export class AlumnoService {
     constructor(private http: HttpClient) { }
 
     getAlumnos(): Observable<Alumno[]> {
-        return this.http.get<Alumno[]>(`${this.BASE_URL}/alumno`);
+        return this.http.get<Alumno[]>(`${this.BASE_URL}/api/students`);
+    }
+
+    getAlumnoByID(id: number): Observable<Alumno>{
+        return this.http.get<Alumno>(`${this.BASE_URL}/api/students/${id}`);
     }
 
     crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
