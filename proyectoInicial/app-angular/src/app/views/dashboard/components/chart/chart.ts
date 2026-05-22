@@ -1,12 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject, ChangeDetectorRef } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { EstudiantesService } from '../../../../services/estudiantes.service';
-import { ChangeDetectorRef } from '@angular/core';
+import { PuntajesService } from '../../../../services/puntajes.service';
 
 @Component({
   selector: 'app-chart-radar',
-  templateUrl: './Chart.html',
+  templateUrl: './chart.html',
+  styleUrl: './chart.css',
   standalone: true,
   imports: [ChartModule],
 })
@@ -16,9 +16,9 @@ export class ChartRadar implements OnInit {
   platformId = inject(PLATFORM_ID);
 
   constructor(
-    private studentService: EstudiantesService,
+    private puntajesService: PuntajesService,
     private cd: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.initChart();
@@ -26,45 +26,76 @@ export class ChartRadar implements OnInit {
 
   initChart() {
     if (isPlatformBrowser(this.platformId)) {
-      this.studentService.getChart().subscribe((res) => {
+      this.puntajesService.getChart().subscribe((res) => {
+        const agrupado: { [key: string]: { suma: number; cantidad: number } } = {};
+
+        for (let i = 0; i <= res.labels.length; i++) {
+          const materia = res.labels[i];
+          const nota = res.data[i];
+
+          if (!materia || materia === 'undefined') {
+            continue;
+          }
+
+          if (!agrupado[materia]) {
+            agrupado[materia] = { suma: 0, cantidad: 0 };
+          }
+
+          agrupado[materia].suma += nota;
+          agrupado[materia].cantidad += 1;
+        }
+
+        const etiquetasUnicas = Object.keys(agrupado);
+        const promedios = etiquetasUnicas.map(materia => {
+          const promedio = agrupado[materia].suma / agrupado[materia].cantidad;
+          return Math.round(promedio * 100) / 100;
+        });
+
         this.data = {
-          labels: res.labels,
+          labels: etiquetasUnicas,
           datasets: [
             {
-              label: 'Rendimiento',
-              borderColor: '#22c55e',
-              backgroundColor: 'rgba(34, 197, 94, 0.2)',
-              data: res.data,
+              borderColor: '#E0BF66',
+              backgroundColor: 'rgba(224, 191, 102, 0.25)',
+              pointBackgroundColor: '#E0BF66',
+              pointBorderColor: '#090909',
+              pointHoverBackgroundColor: '#F6F1E7',
+              pointHoverBorderColor: '#E0BF66',
+              data: promedios,
             },
           ],
         };
 
         this.cd.detectChanges();
       });
-
-     
       this.options = {
         plugins: {
           legend: {
-            labels: {
-              color: '#ffffff',
-            },
+            display: false
           },
         },
         scales: {
           r: {
+            min: 0,
+            max: 10,
             grid: {
-              color: 'rgba(255,255,255,0.2)',
+              color: 'rgba(90, 74, 42, 0.4)',
             },
             angleLines: {
-              color: 'rgba(255,255,255,0.2)',
+              color: 'rgba(90, 74, 42, 0.4)',
             },
             pointLabels: {
-              color: '#e5e7eb',
+              color: '#E0BF66',
+              font: { size: 13, weight: 'bold' }
             },
+            ticks: {
+              color: '#F6F1E7',
+              backdropColor: 'transparent'
+            }
           },
         },
       };
+
     }
   }
 }

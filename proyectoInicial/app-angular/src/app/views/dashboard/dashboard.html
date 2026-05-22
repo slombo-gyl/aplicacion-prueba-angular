@@ -1,18 +1,21 @@
-<div class="container-main">
+<div class="layout-container">
+  <div class="card">
+    
+    <div class="header">
+      <button class="btn-back" (click)="navigateToHome()">
+        <i class="pi pi-arrow-left"></i> Volver
+      </button>
 
-  <div class="header justify-between">
-    <button  class="btn-back" (click)="navigateToHome()">
-      <i class="pi pi-arrow-left"></i>
-    </button>
+      <h1 class="title">Métricas</h1>
+      
+      <div style="width: 100px;"></div> 
+    </div>
 
-    <h1 class="title">Métricas</h1>
+    <div class="card-chart-container">
+      <div class="card-chart">
+        <app-chart-radar></app-chart-radar>
+      </div>
+    </div>
+
   </div>
-
-
-  <div class="card-chart">
-    <app-chart-radar></app-chart-radar>
-  </div>
-
-
-
 </div>
