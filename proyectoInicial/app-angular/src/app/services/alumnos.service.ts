@@ -1,10 +1,11 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, httpResource } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
-import { Observable, tap } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { AlumnoResponse } from "../interfaces/response/alumno.response";
 import { of, throwError } from "rxjs";
 import { PuntajeResponse } from "../interfaces/response/puntaje.response";
 import { CargarNotaRequest } from "../interfaces/request/cargar-nota.request";
+import { Alumno } from "../views/alumnos/alumno";
 
 @Injectable({
   providedIn: 'root',
@@ -15,17 +16,41 @@ export class AlumnosService {
 
   private _alumnos = signal<AlumnoResponse[]>([]);
 
-
   alumnos = this._alumnos.asReadonly();
   puntajes = signal<PuntajeResponse[]>([]);
 
-  getPuntajes(): Observable<PuntajeResponse[]> {
-    return this.http.get<PuntajeResponse[]>(`${this.BASE_URL}/puntajes`).pipe(
+
+  getPuntajesList(): Observable<PuntajeResponse[]> {
+  return this.http
+    .get<any[]>(`${this.BASE_URL}/puntajes`)
+    .pipe(
+      map((puntajesDesdeBack) => {
+        return puntajesDesdeBack.map((p) => ({
+          ...p,
+          alumnoId: p.estudianteId,
+        }));
+      }),
       tap((puntajesDesdeBack) => {
         this.puntajes.set(puntajesDesdeBack);
       }),
     );
   }
+
+  getPuntajes(id: number): Observable<PuntajeResponse[]> {
+  return this.http
+    .get<any[]>(`${this.BASE_URL}/puntajes/estudiante/${id}`)
+    .pipe(
+      map((puntajesDesdeBack) => {
+        return puntajesDesdeBack.map((p) => ({
+          ...p,
+          alumnoId: p.estudianteId,
+        }));
+      }),
+      tap((puntajesDesdeBack) => {
+        this.puntajes.set(puntajesDesdeBack);
+      }),
+    );
+}
 
   getAlumnos(): Observable<AlumnoResponse[]> {
     return this.http
@@ -65,25 +90,29 @@ export class AlumnosService {
   };
 
 
-    return this.http.post<PuntajeResponse>(`${this.BASE_URL}/puntajes`, puntajeRequest).pipe(
-      tap((puntajeDesdeBack) => {
+   return this.http.post<any>(`${this.BASE_URL}/puntajes`, puntajeRequest).pipe(
+  map((puntajeDesdeBack) => ({
+    ...puntajeDesdeBack,
+    alumnoId: puntajeDesdeBack.estudianteId,
+  })),
+  tap((puntajeDesdeBack) => {
 
-        this.puntajes.update((listaActual) => {
+    this.puntajes.update((listaActual) => {
 
-          const index = listaActual.findIndex(
-            (p) => p.alumnoId === alumnoId && p.materiaId === materiaId,
-          );
+      const index = listaActual.findIndex(
+        (p) => p.alumnoId === alumnoId && p.materiaId === materiaId,
+      );
 
-          if (index !== -1) {
+      if (index !== -1) {
 
-            const existente = [...listaActual];
-            existente[index] = puntajeDesdeBack;
-            return existente;
-          } else {
-            return [...listaActual, puntajeDesdeBack];
-          }
-        });
-      }),
-    );
+        const existente = [...listaActual];
+        existente[index] = puntajeDesdeBack;
+        return existente;
+      } else {
+        return [...listaActual, puntajeDesdeBack];
+      }
+    });
+  }),
+);
 }
 }
