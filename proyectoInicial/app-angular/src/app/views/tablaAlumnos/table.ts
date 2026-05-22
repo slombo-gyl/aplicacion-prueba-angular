@@ -7,7 +7,6 @@ import { AlumnoService, Alumno } from './service/alumnoServis';
 @Component({
   selector: 'app-table',
   standalone: true,
-  // Agregar los imports de este componente
   imports: [TableModule, Formulario, RouterLink],
   templateUrl: './table.html',
   styleUrl: './table.css'
@@ -36,7 +35,6 @@ export class TableComponent implements OnInit{
     this.router.navigate([''])
   }
 
-  // Estado del modal (equivalente a useState en React)
   mostrarFormulario = signal(false);
 
   modo = signal<'registrar' | 'editar'>('registrar');
