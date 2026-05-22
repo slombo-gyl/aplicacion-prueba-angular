@@ -8,7 +8,6 @@ import { Formulario } from '../../components/formulario/formulario';
 @Component({
   selector: 'app-table',
   standalone: true,
-  // Agregar los imports de este componente
   imports: [TableModule, Formulario, RouterLink],
   templateUrl: './table.html',
   styleUrl: './table.css'
@@ -20,6 +19,11 @@ export class TableComponent implements OnInit{
   constructor(private router: Router) { }
 
   alumnos = signal<Alumno[]>([])
+
+  mostrarFormulario = signal(false);
+
+  modo = signal<'registrar' | 'editar'>('registrar');
+  alumnoSeleccionado = signal<any>(null);
 
   ngOnInit() {
     this.cargarAlumnos();
@@ -33,16 +37,11 @@ export class TableComponent implements OnInit{
       error: (err) => console.error('Error al cargar alumnos', err)
     });
   }
+
   navigateToHome() {
     this.router.navigate([''])
   }
-
-  // Estado del modal (equivalente a useState en React)
-  mostrarFormulario = signal(false);
-
-  modo = signal<'registrar' | 'editar'>('registrar');
-  alumnoSeleccionado = signal<any>(null);
-
+  
   abrirRegistrar() {
     this.modo.set('registrar');
     this.alumnoSeleccionado.set(null);

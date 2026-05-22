@@ -139,7 +139,6 @@
   border-top: none;
   padding: 0.5rem;
 }
-
 ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page,
 ::ng-deep .p-paginator .p-paginator-first, 
 ::ng-deep .p-paginator .p-paginator-prev, 
@@ -147,6 +146,7 @@
 ::ng-deep .p-paginator .p-paginator-last {
   color: var(--text-cream);
   border-radius: 6px;
+  margin: 0 4px;
   transition: all 0.2s;
 }
 

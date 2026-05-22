@@ -21,7 +21,12 @@ export class NotasAlumno implements OnInit {
   materiasConNotas = signal<MateriaNotas[]>([]);
 
   ngOnInit() {
+    this.obtenerAlumnoDesdeNavigation();
+  }
+
+  obtenerAlumnoDesdeNavigation() {
     const estadoNav = history.state;
+
     if (estadoNav && estadoNav.alumno) {
       this.alumno.set(estadoNav.alumno);
       this.cargarMaterias();
