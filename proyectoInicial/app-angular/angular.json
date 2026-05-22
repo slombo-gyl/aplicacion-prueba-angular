@@ -76,6 +76,9 @@
             },
             "development": {
               "buildTarget": "app-angular:build:development"
+            },
+            "local": {
+              "buildTarget": "app-angular:build:local"
             }
           },
           "defaultConfiguration": "development"
