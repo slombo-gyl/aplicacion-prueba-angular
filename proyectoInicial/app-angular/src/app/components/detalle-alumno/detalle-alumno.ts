@@ -22,7 +22,7 @@ export class DetalleAlumno implements OnInit {
 
   ngOnInit() {
     this.materiasService.getMaterias().subscribe();
-    this.alumnosService.getPuntajes().subscribe();
+    this.alumnosService.getPuntajesList().subscribe();
   }
 
   mostrarFormularioNotas = signal(false);
