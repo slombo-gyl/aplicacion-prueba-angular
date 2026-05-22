@@ -51,4 +51,11 @@ export class Materias implements OnInit {
     this.mostrarDetalleMateria.set(false);
     this.materiaSeleccionada.set(null);
   }
+
+  eliminarMateria(id: number) {
+    this.materiasService.deleteMateria(id).subscribe({
+      next: () => console.log(`Materia con ID ${id} eliminada correctamente`),
+      error: (error: any) => console.error(`Error al eliminar materia con ID ${id}: `, error)
+    });
+  }
 }
