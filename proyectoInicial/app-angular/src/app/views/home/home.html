@@ -1,17 +1,16 @@
 <div class="layout-container">
-
   <app-navbar></app-navbar>
 
   <main class="main-content">
-
     <div class="hero-section">
       <span class="overline">PORTAL ADMINISTRATIVO</span>
-      <h1 class="main-title">Control y<br><span class="highlight">Gestión Académica</span></h1>
-      <p class="subtitle">Bienvenido al sistema central. Selecciona un módulo operativo para comenzar a trabajar.</p>
+      <h1 class="main-title">Control y<br /><span class="highlight">Gestión Académica</span></h1>
+      <p class="subtitle">
+        Bienvenido al sistema central. Selecciona un módulo operativo para comenzar a trabajar.
+      </p>
     </div>
 
     <div class="action-grid">
-
       <div class="action-card" routerLink="/alumnos">
         <div class="card-header">
           <div class="card-icon"><i class="pi pi-users"></i></div>
@@ -34,9 +33,18 @@
         </div>
       </div>
 
+      <div class="action-card" routerLink="/materias">
+        <div class="card-header">
+          <div class="card-icon"><i class="pi pi-book"></i></div>
+          <i class="pi pi-arrow-up-right go-icon"></i>
+        </div>
+        <div class="card-body">
+          <h3>Gestión de Materias</h3>
+          <p>Alta y baja de materias, consulta de promedios y alumnos inscriptos.</p>
+        </div>
+      </div>
     </div>
   </main>
 
   <app-padre #modalPadre></app-padre>
-
 </div>
