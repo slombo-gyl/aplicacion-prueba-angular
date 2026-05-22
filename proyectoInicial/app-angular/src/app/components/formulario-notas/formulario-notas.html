@@ -2,18 +2,17 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
   
   <div class="form-group mb-3">
-    <label for="materiaId">Seleccionar Materia:</label>
-    <select id="materiaId" formControlName="materiaId" class="form-select">
+    <label for="materia">Seleccionar Materia:</label>
+    <select id="materia" formControlName="materia" class="form-select">
       <option value="" disabled selected>-- Elija una materia --</option>
       
-      @for (materia of materias(); track materia.id) {
-        <option [value]="materia.id">
-          {{ materia.nombre }} </option>
+      @for (materia of materias(); track materia) {
+        <option [value]="materia">{{ materia }}</option>
       }
     </select>
     
-    @if (errors['materiaId']) {
-      <small class="text-danger">{{ errors['materiaId'][0] }}</small>
+    @if (errors['materia']) {
+      <small class="text-danger">{{ errors['materia'][0] }}</small>
     }
   </div>
 

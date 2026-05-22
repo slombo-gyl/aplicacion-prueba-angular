@@ -1,16 +1,11 @@
-import { Component, inject, OnInit, signal, output, afterNextRender, input } from '@angular/core';
+import { Component, inject, OnInit, signal, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { AlumnoService } from '../../views/tablaAlumnos/service/alumnoService';
+import { MateriaService } from '../../views/tablaAlumnos/service/materiaService';
 import { z } from 'zod';
 
-interface Materia {
-  id: number;
-  nombre: string;
-}
-
 const userSchema = z.object({
-  materiaId: z.string().min(1, 'materia inválido'),
+  materia: z.string().min(1, 'materia inválido'),
   nota: z.coerce.number().min(0, 'Nota inválida').max(10, 'La nota máxima es 10'),
 });
 
@@ -21,48 +16,51 @@ const userSchema = z.object({
   templateUrl: './formulario-notas.html',
   styleUrl: './formulario-notas.css', 
 })
-
 export class FormularioNota implements OnInit {
   private fb = inject(FormBuilder);
-  private serviceAlumno = inject(AlumnoService);
-
-  alumnoId = input.required<number>();
+  private service = inject(MateriaService);
 
   errors: Record<string, string[]> = {};
   cerrar = output<void>();
 
-  materias = signal<Materia[]>([])
-
+  //aca se guardaran las materias que vengan de la base de datos
+  materias = signal<string[]>([])
   form: FormGroup;
 
   constructor() {
     this.form = this.fb.group({
-      materiaId: [''],
+      materia: [''],
       nota: [''],
     });
   }
 
   ngOnInit(): void 
   {
+    //apenas se abra el formulario, cargamos las materias de la BD
     this.cargarMaterias();
   }
 
   cargarMaterias()
   {
-    this.serviceAlumno.getMaterias().subscribe
+    this.service.getMaterias().subscribe
     ({
-      next: (data) => this.materias.set(data),
-      error: (err) => console.error(err)
+        next: (data) => 
+        {
+          this.materias.set(data.map(materia => materia.nombre));
+          // Llenamos el Signal con las materias
+        },
+        error: (err) => 
+        {
+          console.error('Error al traer materias, ', err);
+        }
     });
   }
 
-  onCerrar() 
-  {
+  onCerrar() {
     this.cerrar.emit();
   }
 
-  onSubmit() 
-  {
+  onSubmit() {
     const result = userSchema.safeParse(this.form.value);
 
     if (!result.success) {
@@ -71,22 +69,8 @@ export class FormularioNota implements OnInit {
     }
 
     this.errors = {};
-
-    
-    const datosPuntaje = {
-      estudianteId: this.alumnoId() ,      
-      materiaId: result.data.materiaId ,
-      valor: parseFloat(result.data.nota.toString())
-    };
-
-    console.log('Enviando a la tabla Puntaje:', datosPuntaje);
-
-    this.serviceAlumno.guardarPuntaje(datosPuntaje).subscribe({
-      next: (res) => {
-        console.log('¡Puntaje guardado con éxito!', res);
-        this.onCerrar();
-      },
-      error: (err) => console.error('Error 500 al guardar puntaje:', err)
-    });
+    console.log('Formulario válido');
+    console.log(result.data);
+    this.onCerrar();
   }
 }

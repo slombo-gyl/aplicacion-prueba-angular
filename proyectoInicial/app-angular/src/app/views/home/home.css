@@ -3,10 +3,9 @@
   font-size: 2.2rem;
   font-weight: 600;
   text-align: center;
-  color: #ffffff; /* Aseguramos que resalte en el fondo oscuro */
 }
 
-/* CARDS (Mantenemos tu Glassmorphism original) */
+/* CARDS */
 .card-header,
 .card-message,
 .card-action,
@@ -19,28 +18,10 @@
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.05); /* Un borde sutil que mejora el efecto vidrio */
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave para cuando cambie de estado */
 }
 
-/* 💡 EFECTO CUANDO ESTÁ LOGUEADO: El recuadro del mensaje reacciona y deja de ser estático */
-.card-message.is-logged {
-  background: rgba(34, 197, 94, 0.1); /* Fondo verde traslúcido usando tu color #22c55e */
-  border: 1px solid rgba(34, 197, 94, 0.4); /* Borde verde brillante neón */
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.2), 0 10px 25px rgba(0,0,0,0.4);
-}
-
-/* Animación para el texto que se renderiza dentro del mensaje */
-.welcome-text {
-  margin: 0;
-  animation: pulseFade 0.5s ease-out; /* Cada vez que cambia el texto, hace un efecto suave */
-}
-
-
-/* --- BOTONES PRINCIPALES (MUTABLES) --- */
-
-/* Estado Base / Entrar (Tu verde original #22c55e) */
-.btn-success {
+/* BOTÓN PRINCIPAL */
+.btn-primary {
   background: #22c55e;
   border: none;
   padding: 0.7rem 1.5rem;
@@ -48,39 +29,15 @@
   color: white;
   font-weight: 500;
   cursor: pointer;
-  width: 100%; /* Ocupa el ancho para mantener simetría */
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  transition: 0.3s;
 }
 
-.btn-success:hover {
+.btn-primary:hover {
   background: #16a34a;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(34, 197, 94, 0.5);
 }
 
-/* Estado Activo / Salir (Rojo/Coral para contraste de destrucción de sesión) */
-.btn-danger {
-  background: #ef4444;
-  border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 10px;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  width: 100%;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-}
-
-.btn-danger:hover {
-  background: #dc2626;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.5);
-}
-
-
-/* BOTONES SECUNDARIOS (Navegación inferior) */
+/* BOTONES SECUNDARIOS */
 .card-buttons {
   display: flex;
   justify-content: center;
@@ -100,19 +57,5 @@
 
 .btn-secondary:hover {
   background: var(--color-btn-resaltar);
-  color: #ffffff; /* Asegura contraste al hacer hover */
-  transform: translateY(-2px); /* Cambié scale por translateY para que mantenga la misma estética que los de arriba */
-}
-
-
-/* --- KEYFRAMES --- */
-@keyframes pulseFade {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  transform: scale(1.05);
 }

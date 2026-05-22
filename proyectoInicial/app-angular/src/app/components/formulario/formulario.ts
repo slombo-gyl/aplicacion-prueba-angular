@@ -22,6 +22,8 @@ const userSchema = z.object({
 export class Formulario {
   private alumnoService = inject(AlumnoService)
   errors: Record<string, string[]> = {};
+
+  // Declaramos el evento de salida
   cerrar = output<void>();
   alumnoGuardado = output<void>();
 
@@ -45,20 +47,21 @@ export class Formulario {
 
     if (!result.success) {
       this.errors = result.error.flatten().fieldErrors;
-      console.log('Zod no te deja pasar por estos errores:', this.errors);
       return;
     }
 
+  // Si llegó acá, los datos son 100% válidos según Zod
     this.errors = {};
     console.log('Formulario válido, enviando al backend:', result.data);
 
+    // 3. Enviamos los datos validados (result.data) directamente al servicio
     this.alumnoService.crearAlumno(result.data).subscribe({
       next: (alumnoCreado) => {
         console.log('¡Alumno guardado con éxito en la BD!', alumnoCreado);
         
-        this.alumnoGuardado.emit(); 
-        this.form.reset();    
-        this.onCerrar();        
+        this.alumnoGuardado.emit(); // Avisamos a la tabla que se creó un alumno para que se refresque
+        this.form.reset();         // Limpiamos los casilleros del formulario
+        this.onCerrar();           // Cerramos el modal
       },
       error: (error) => {
         console.error('Error al intentar guardar el alumno:', error);

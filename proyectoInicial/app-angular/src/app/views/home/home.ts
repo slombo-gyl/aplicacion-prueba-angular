@@ -1,6 +1,5 @@
 import { Component, signal, ViewChild } from '@angular/core';
 import { Padre } from '../../padre/padre';
-import { NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({

@@ -17,8 +17,6 @@ export class TableComponent implements OnInit {
   
   private service = inject(AlumnoService);
 
-  alumnoSeleccionadoId = signal<number | null>(null);
-
   alumnos = signal<Alumno[]>([]);
 
   mostrarFormulario = signal(false);
@@ -50,15 +48,13 @@ export class TableComponent implements OnInit {
     this.mostrarFormulario.set(true);
   }
 
-  abrirFormularioNota(id : number) {
-    this.alumnoSeleccionadoId.set(id);
+  abrirFormularioNota() {
     this.mostrarFormularioNota.set(true);
   }
 
   cerrarFormulario() {
     this.mostrarFormulario.set(false);
     this.mostrarFormularioNota.set(false);
-    this.alumnoSeleccionadoId.set(null);
   }
 
   verAlumno(id: number) {
