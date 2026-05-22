@@ -1,66 +1,71 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { AlumnoModel } from "../interfaces/models/alumno.model";
 import { PuntajeModel } from "../interfaces/models/puntaje.model";
+import { AlumnoResponse } from "../interfaces/response/alumno.response";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AlumnosService {
-    private BASE_URL = 'http://localhost:8080'
-    private http = inject(HttpClient);
+  private BASE_URL = 'http://localhost:8080/api';
+  private http = inject(HttpClient);
 
-    private ALUMNOS_DATA: AlumnoModel[] = [
-        { id: 1, nombre: 'Juan', apellido: 'Pérez', email: 'juan@example.com', dni: '12345678' },
-        { id: 2, nombre: 'María García', apellido: 'García', email: 'maria@example.com', dni: '87654321' },
-        { id: 3, nombre: 'Carlos López', apellido: 'López', email: 'carlos@example.com', dni: '11223344' },
-        { id: 4, nombre: 'Ana Martínez', apellido: 'Martínez', email: 'ana@example.com', dni: '44332211' }
-    ];
+  puntajes = signal<PuntajeModel[]>([]);
 
-    puntajes = signal<PuntajeModel[]>([]);
+  alumnos = signal<AlumnoResponse[]>([]);
 
-    alumnos = signal<AlumnoModel[]>(this.ALUMNOS_DATA);
+  getAlumnos(): Observable<AlumnoResponse[]> {
+    return this.http
+      .get<AlumnoResponse[]>(`${this.BASE_URL}/students`)
+      .pipe(tap((alumnosBack) => this.alumnos.set(alumnosBack)));
+  }
 
-    getAlumnos(): Observable<AlumnoModel[]> {
-        return this.http.get<AlumnoModel[]>(`${this.BASE_URL}/alumno`);
-    }
+  crearAlumno(nuevoAlumno: AlumnoResponse): Observable<AlumnoResponse> {
+    const alumnoEnviar = {
+      ...nuevoAlumno,
+      dni: parseInt(nuevoAlumno.dni.toString(), 10),
+    };
 
-    crearAlumno(nuevoAlumno: AlumnoModel): Observable<AlumnoModel> | void {
-        this.alumnos.update(alumnos => {
-            const id = alumnos.length > 0 ? alumnos[alumnos.length - 1].id + 1 : 1;
-            return [...alumnos, { ...nuevoAlumno, id }];
+    return this.http.post<AlumnoResponse>(`${this.BASE_URL}/students`, alumnoEnviar).pipe(
+      tap((alumnoCreado) => {
+        this.alumnos.update((listaActual) => [...listaActual, alumnoCreado]);
+      }),
+    );
+  }
+
+  cargarNota(alumnoId: number, materiaId: number, valor: number): Observable<PuntajeModel> | void {
+    const existeAlumno = this.alumnos().find((alumno) => alumno.id === alumnoId);
+    if (!existeAlumno) return;
+
+
+    const puntajeRequest = {
+      estudianteId: alumnoId,
+      materiaId: materiaId,
+      valor: valor,
+    };
+
+
+    return this.http.post<PuntajeModel>(`${this.BASE_URL}/puntajes`, puntajeRequest).pipe(
+      tap((puntajeDesdeBack) => {
+
+        this.puntajes.update((listaActual) => {
+
+          const index = listaActual.findIndex(
+            (p) => p.alumnoId === alumnoId && p.materiaId === materiaId,
+          );
+
+          if (index !== -1) {
+
+            const existente = [...listaActual];
+            existente[index] = puntajeDesdeBack;
+            return existente;
+          } else {
+            return [...listaActual, puntajeDesdeBack];
+          }
         });
-        // return this.http.post<AlumnoModel>(`${this.BASE_URL}/alumno`, nuevoAlumno);
-    }
-
-    cargarNota(alumnoId: number, materiaId: number, valor: number) {
-        const existeAlumno = this.alumnos().find(alumno => alumno.id === alumnoId);
-        if (!existeAlumno) return;
-
-        this.puntajes.update(listaPuntaje => {
-            const index = listaPuntaje.findIndex(
-                puntaje => puntaje.alumnoId === alumnoId && puntaje.materiaId === materiaId
-            );
-            if (index !== -1) {
-                const copia = [...listaPuntaje];
-                copia[index] = {
-                    ...copia[index],
-                    valor
-                };
-                return copia;
-            } else {
-                const nuevoPuntaje: PuntajeModel = {
-                    id: listaPuntaje.length + 1,
-                    valor,
-                    alumnoId,
-                    materiaId
-                };
-                return [...listaPuntaje, nuevoPuntaje];
-            }
-        });
-    }
-
-
+      }),
+    );
+  }
 }

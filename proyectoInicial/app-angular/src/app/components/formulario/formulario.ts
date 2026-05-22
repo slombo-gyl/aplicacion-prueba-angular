@@ -28,7 +28,10 @@ export class Formulario {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private alumnosService: AlumnosService) {
+  constructor(
+    private fb: FormBuilder,
+    private alumnosService: AlumnosService,
+  ) {
     this.form = this.fb.group({
       nombre: [''],
       apellido: [''],
@@ -52,7 +55,15 @@ export class Formulario {
 
     this.errors = {};
 
-    this.alumnosService.crearAlumno(result.data as AlumnoModel);
-    this.onCerrar();
+    this.alumnosService.crearAlumno(result.data as AlumnoModel).subscribe({
+      next: (alumnoCreado) => {
+        console.log('Alumno guardado en el servidor:', alumnoCreado);
+        this.onCerrar();
+      },
+      error: (err) => {
+        console.error('Error al guardar el alumno:', err);
+        alert('No se pudo guardar el alumno. Revisá la consola o el Backend.');
+      },
+    });
   }
 }
