@@ -17,8 +17,8 @@ export class AlumnoService {
     return this.http.get<Alumno[]>(this.apiUrl);
   }
 
-  getAlumnoByID(id: number): Observable<Alumno> {
-    return this.http.get<Alumno>(`${this.apiUrl}/${id}`); // Ajusta si tu backend usa otra ruta para el ID
+ getAlumnoByID(id: number): Observable<Alumno> {
+    return this.http.get<Alumno>(`${this.apiUrl}/buscar/${id}`);
   }
 
   crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
