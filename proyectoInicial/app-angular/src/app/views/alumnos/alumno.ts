@@ -27,7 +27,11 @@ export class Alumno implements OnInit {
 
   ngOnInit() {
     this.alumnoService.getAlumnos().subscribe({
-      next: (data: AlumnoResponse[]) => console.log('Alumnos cargados correctamente', data.length),
+      next: (data: AlumnoResponse[]) => {
+        data.forEach(alumno => {
+          this.alumnoService.getPuntajes(alumno.id).subscribe();
+        });
+      },
       error: (error: any) => console.error('Error al cargar alumnos: ', error)
     });
   }

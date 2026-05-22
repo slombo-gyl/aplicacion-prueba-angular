@@ -22,15 +22,18 @@ export class AlumnosService {
   getPuntajes(alumnoId: number): Observable<PuntajeResponse[]> {
     return this.http.get<any[]>(`${this.BASE_URL}/puntajes/estudiante/${alumnoId}`).pipe(
       map((puntajesDesdeBack) => {
-        return puntajesDesdeBack.map((p) => ({
-          id: p.id,
-          valor: p.valor,
-          alumnoId: p.estudianteId,
-          materiaId: p.materiaId
+        return puntajesDesdeBack.map((puntaje) => ({
+          id: puntaje.id,
+          valor: puntaje.valor,
+          alumnoId: puntaje.estudianteId,
+          materiaId: puntaje.materiaId
         }));
       }),
       tap((puntajesMapeados) => {
-        this.puntajes.set(puntajesMapeados);
+        this.puntajes.update((listaActual) => {
+          const filtrada = listaActual.filter((puntaje) => puntaje.alumnoId !== alumnoId);
+          return [...filtrada, ...puntajesMapeados];
+        });
       }),
     );
   }
