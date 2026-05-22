@@ -1,14 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { Dialog } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
-import { Router } from "@angular/router";
+
+import { Alumno } from '../../../interfaces/alumno.interface';
 import { Formulario } from '../../components/formulario/formulario';
 import { FormularioNota } from '../../components/formulario-notas/formulario-notas';
-import { Alumno } from '../../../interfaces/alumno.interface';
 import { AlumnoService } from './service/alumnoService';
-
-// 🚀 NUEVOS IMPORTS PARA EL MODAL DE DETALLES
-import { Dialog } from 'primeng/dialog'; 
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
@@ -18,8 +17,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
+
 export class TableComponent implements OnInit {
-  
   private service = inject(AlumnoService);
 
   alumnos = signal<Alumno[]>([]);
@@ -27,7 +26,6 @@ export class TableComponent implements OnInit {
   mostrarFormulario = signal(false);
   mostrarFormularioNota = signal(false);
 
-  // SIGNALS PARA EL CONTROL DE DETALLES
   mostrarModalDetalles = signal(false);
   alumnoSeleccionado = signal<Alumno | null>(null);
 
@@ -66,13 +64,12 @@ export class TableComponent implements OnInit {
     this.mostrarFormularioNota.set(false);
   }
 
-  //  guarda el resultado del Back en el signal y abre el modal
   verAlumno(id: number) {
     this.service.getAlumnoByID(id).subscribe({
       next: (res: Alumno) => {
         console.log("Ver alumno desde la base de datos:", res);
-        this.alumnoSeleccionado.set(res);     // Guardamos el alumno fresco de la API
-        this.mostrarModalDetalles.set(true);  //  Desplegamos el Dialog modal
+        this.alumnoSeleccionado.set(res);
+        this.mostrarModalDetalles.set(true);
       },
       error: (err) => {
         console.error("Error al traer los detalles del alumno:", err);

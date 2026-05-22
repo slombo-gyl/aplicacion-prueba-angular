@@ -21,7 +21,19 @@ export class AlumnoService {
   }
 
   crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
-    return this.http.post<Alumno>(`${this.apiUrl}`, nuevoAlumno);
+    return this.http.post<Alumno>(`${this.apiUrl}/students`, nuevoAlumno);
+  }
+
+  deleteAlumnoLogico(id: number): Observable<Alumno>{
+    return this.http.delete<Alumno>(`${this.apiUrl}/${id}`);
+  }
+
+  getMaterias(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/materias`);
+  }
+
+  guardarPuntaje(datos: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/puntajes`, datos);
   }
 
   deleteAlumnoLogico(id: number): Observable<Alumno>{

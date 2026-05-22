@@ -10,10 +10,8 @@ import { Router, RouterLink } from '@angular/router';
 })
 
 export class Home {
-  /*instanciamos el router */
   constructor(private router: Router) {}
 
-  /*instanciamos al padre paraa poder acceder a sus métodos*/
   @ViewChild("modalPadre") modal!: Padre
 
   mensaje = signal(''); 
@@ -30,7 +28,6 @@ export class Home {
     this.router.navigate(['/dashboard'])
   }
 
-  /* creamos el método para  llamar la funcion del modal padre */
   abrirModal(){
     this.modal.abrir()
   }
@@ -39,7 +36,6 @@ export class Home {
     return `Bienvenido`;
   }
 
-  /* manejamos el estado  */
   toggleLoggin() {
     this.logged.set(!this.logged());
     
