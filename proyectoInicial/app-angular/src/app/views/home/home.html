@@ -2,11 +2,14 @@
   <div class="card-header">
     <h1 class="title">Aplicación de Prueba</h1>
   </div>
-  <div class="card-message">
-    <p>{{ mensaje() }}</p>
+
+  <div class="card-message" [class.is-logged]="logged()">
+    <p class="welcome-text">{{ mensaje() }}</p>
   </div>
+
   <div class="card-action">
-    <button (click)="toggleLoggin()" class="btn-primary">
+    <button (click)="toggleLoggin()" 
+            [class]="logged() ? 'btn-danger' : 'btn-success'">
       {{ logged() ? 'Salir' : 'Entrar' }}
     </button>
   </div>
