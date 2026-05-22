@@ -1,10 +1,10 @@
 import { Component, inject, input, effect, output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { AlumnoModel } from '../../interfaces/models/alumno.model';
-import { MateriaModel } from '../../interfaces/models/materia.model';
 import { AlumnosService } from '../../services/alumnos.service';
 
 import { z } from 'zod';
+import { MateriaResponse } from '../../interfaces/response/materia.response';
+import { AlumnoResponse } from '../../interfaces/response/alumno.response';
 
 const notaSchema = z.object({
   nota: z.number({ message: 'Debe ingresar una nota' }).min(1, 'Minimo es 1').max(10, 'Maximo es 10'),
@@ -20,8 +20,8 @@ export class FormularioNotas {
   alumnosService = inject(AlumnosService);
   private fb = inject(FormBuilder);
 
-  alumno = input.required<AlumnoModel>();
-  materia = input.required<MateriaModel>();
+  alumno = input.required<AlumnoResponse>();
+  materia = input.required<MateriaResponse>();
   cerrar = output<void>();
 
   form!: FormGroup;
@@ -49,7 +49,7 @@ export class FormularioNotas {
 
   guardarNota() {
     const notaForm = this.form.value.nota;
-    const result = notaSchema.safeParse({ 
+    const result = notaSchema.safeParse({
       nota: notaForm !== null && notaForm !== '' ? Number(notaForm) : undefined 
     });
 
@@ -61,6 +61,7 @@ export class FormularioNotas {
     this.errors = {};
     this.alumnosService.cargarNota(this.alumno().id, this.materia().id, result.data.nota).subscribe();
     this.cerrar.emit();
+    
   }
 
   onCerrar() {

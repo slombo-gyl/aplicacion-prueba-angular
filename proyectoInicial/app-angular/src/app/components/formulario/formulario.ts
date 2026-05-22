@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { AlumnosService } from '../../services/alumnos.service';
 
 import { z } from 'zod';
-import { AlumnoModel } from '../../interfaces/models/alumno.model';
+import { AlumnoResponse } from '../../interfaces/response/alumno.response';
 
 const userSchema = z.object({
   nombre: z.string().min(3, 'Nombre inválido'),
@@ -55,7 +55,7 @@ export class Formulario {
 
     this.errors = {};
 
-    this.alumnosService.crearAlumno(result.data as AlumnoModel).subscribe({
+    this.alumnosService.crearAlumno(result.data as AlumnoResponse).subscribe({
       next: (alumnoCreado) => {
         console.log('Alumno guardado en el servidor:', alumnoCreado);
         this.onCerrar();

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MateriasService } from '../../services/materias.service';
 import { z } from 'zod';
-import { MateriaModel } from '../../interfaces/models/materia.model';
+import { MateriaResponse } from '../../interfaces/response/materia.response';
 
 const materiaSchema = z.object({
   nombre: z.string().min(3, 'Nombre minimo 3 caracteres').max(50, 'Nombre maximo 50 caracteres'),
@@ -23,7 +23,7 @@ export class FormularioAgregarMateria {
   errors: Record<string, string[]> = {};
   cerrar = output<void>();
   form: FormGroup;
-  materia = input<MateriaModel | null>(null);
+  materia = input<MateriaResponse | null>(null);
 
   constructor() {
     this.form = this.fb.group({
@@ -33,7 +33,7 @@ export class FormularioAgregarMateria {
     effect(() => {
       const materiaActual = this.materia();
       if (materiaActual) {
-        this.form.patchValue({ nombre: materiaActual.nombreMateria });
+        this.form.patchValue({ nombre: materiaActual.nombre });
       } else {
         this.form.patchValue({ nombre: '' });
       }

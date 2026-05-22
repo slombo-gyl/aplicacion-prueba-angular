@@ -1,10 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router } from "@angular/router";
 import { Formulario } from '../../components/formulario/formulario';
 import { AlumnosService } from '../../services/alumnos.service';
 import { DetalleAlumno } from '../../components/detalle-alumno/detalle-alumno';
-import { AlumnoModel } from '../../interfaces/models/alumno.model';
+import { AlumnoResponse } from '../../interfaces/response/alumno.response';
 
 @Component({
   selector: 'app-alumno',
@@ -13,16 +13,24 @@ import { AlumnoModel } from '../../interfaces/models/alumno.model';
   templateUrl: './alumno.html',
   styleUrl: './alumno.css'
 })
-export class Alumno {
+export class Alumno implements OnInit {
   private router = inject(Router);
   alumnoService = inject(AlumnosService);
 
   alumnos = computed(() => this.alumnoService.alumnos());
 
-  alumnoDetalle = signal<AlumnoModel | null>(null);
+  alumnoDetalle = signal<AlumnoResponse | null>(null);
 
   mostrarFormulario = signal(false);
   mostrarDetalleAlumno = signal(false);
+
+
+  ngOnInit() {
+    this.alumnoService.getAlumnos().subscribe({
+      next: (data: AlumnoResponse[]) => console.log('Alumnos cargados correctamente', data.length),
+      error: (error: any) => console.error('Error al cargar alumnos: ', error)
+    });
+  }
 
   navigateToHome() {
     this.router.navigate([''])
@@ -36,18 +44,18 @@ export class Alumno {
     this.mostrarFormulario.set(false);
   }
 
-  verDetalleAlumno(alumno: AlumnoModel) {
+  verDetalleAlumno(alumno: AlumnoResponse) {
     this.alumnoDetalle.set(alumno);
     this.mostrarDetalleAlumno.set(true);
   }
-  
+
   cerrarDetalleAlumno() {
     this.mostrarDetalleAlumno.set(false);
     this.alumnoDetalle.set(null);
   }
 
-  promedioAlumno(alumno: AlumnoModel): string {
-    const puntajesAlumno = this.alumnoService.puntajes().filter(puntaje =>  puntaje.alumnoId === alumno.id);
+  promedioAlumno(alumno: AlumnoResponse): string {
+    const puntajesAlumno = this.alumnoService.puntajes().filter(puntaje => puntaje.alumnoId === alumno.id);
     const cantidad = puntajesAlumno.length;
     if (cantidad === 0) {
       return 'Sin notas';

@@ -1,5 +1,4 @@
 import { inject, Injectable, signal } from "@angular/core";
-import { MateriaModel } from "../interfaces/models/materia.model";
 import { HttpClient } from "@angular/common/http";
 import { MateriaResponse } from "../interfaces/response/materia.response";
 import { Observable, tap } from "rxjs";

@@ -1,5 +1,4 @@
 import { Component, input, output, signal } from '@angular/core';
-import { MateriaModel } from '../../interfaces/models/materia.model';
 import { EditarMateria } from '../editar-materia/editar-materia';
 import { MateriaResponse } from '../../interfaces/response/materia.response';
 

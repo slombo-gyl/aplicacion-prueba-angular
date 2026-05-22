@@ -30,7 +30,7 @@
 
         <ng-template #body let-materia>
             <tr>
-                <td>{{ materia.nombreMateria }}</td>
+                <td>{{ materia.nombre }}</td>
                 <td>
                     @if (obtenerNota(materia.id) !== null) {
                         {{ obtenerNota(materia.id) }}
