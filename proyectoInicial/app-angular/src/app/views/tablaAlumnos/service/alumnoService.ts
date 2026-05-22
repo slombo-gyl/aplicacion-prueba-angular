@@ -18,10 +18,14 @@ export class AlumnoService {
   }
 
   getAlumnoByID(id: number): Observable<Alumno> {
-    return this.http.get<Alumno>(`${this.apiUrl}/${id}`); // Ajusta si tu backend usa otra ruta para el ID
+    return this.http.get<Alumno>(`${this.apiUrl}/${id}`);
   }
 
   crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
     return this.http.post<Alumno>(`${this.apiUrl}`, nuevoAlumno);
+  }
+
+  deleteAlumnoLogico(id: number): Observable<Alumno>{
+    return this.http.delete<Alumno>(`${this.apiUrl}/${id}`);
   }
 }
