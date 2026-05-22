@@ -15,7 +15,7 @@ import { AlumnoService } from './service/alumnoService';
   styleUrl: './table.css'
 })
 
-export class TableComponent {
+export class TableComponent implements OnInit {
   private service = inject(AlumnoService);
   alumnos = signal<Alumno[]>([]);
 

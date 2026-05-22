@@ -1,28 +1,31 @@
 <div class="card">
   <h2>Cargar Notas de Alumnos</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="grid">
-      <div class="field">
-        <label>Materia</label>
-        <input type="text" placeholder="Ingrese la Materia" formControlName="materia">
+  <div class="form-group mb-3">
+    <label for="materiaId">Seleccionar Materia:</label>
+    <select id="materiaId" formControlName="materiaId" class="form-select">
+      <option value="" disabled selected>-- Elija una materia --</option>
+      
+      @for (materia of materias(); track materia.id) {
+        <option [value]="materia.id">{{ materia.nombre }}</option>
+      }
+    </select>
+    
+    @if (errors['materiaId']) {
+      <small class="text-danger">{{ errors['materiaId'][0] }}</small>
+    }
+  </div>
+  <div class="form-group mb-3">
+    <label for="nota">Nota:</label>
+    <input type="number" id="nota" formControlName="nota" class="form-control" placeholder="Ej: 8">
 
-        @if(errors['materia']) {
-        <small>{{ errors['materia'][0] }}</small>
-        }
-      </div>
-      <div class="field">
-        <label>Notas</label>
-        <input type="number" placeholder="Ingrese una Nota" formControlName="nota">
-
-        @if(errors['nota']) {
-        <small>{{ errors['nota'][0] }}</small>
-        }
-      </div>
-    </div>
-    <div class="buttons">
-      <button class="destructive" type="reset" (click)="onCerrar()">Cancelar</button>
-      <button class="clear" type="reset">Limpiar Formulario</button>
-      <button class="primary" type="submit">Enviar</button>
-    </div>
-  </form>
+    @if (errors['nota']) {
+      <small class="text-danger">{{ errors['nota'][0] }}</small>
+    }
+  </div>
+  <div class="d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-secondary" (click)="onCerrar()">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Cargar Nota</button>
+  </div>
+</form>
 </div>

@@ -10,10 +10,8 @@ import { Hijo } from './hijo/hijo';
 })
 
 export class Padre {
-  /* Utilizamos el ViewChild para poder accerder a sus métodos */
   @ViewChild('modal') modalRef!: ElementRef<HTMLDialogElement>;
 
-  /* aca se guada la data del hijo */
   seleccionados = signal<string[]>([]);
 
   abrir() {
@@ -24,7 +22,6 @@ export class Padre {
     this.modalRef.nativeElement.close();
   }
 
-  /* creamos el evento  */
   onCheckboxChangee(event: { value: string; checked: boolean }) {
     this.seleccionados.update((lista) =>
       event.checked ? [...lista, event.value] : lista.filter((v) => v != event.value),

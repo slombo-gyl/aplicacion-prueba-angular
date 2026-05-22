@@ -10,7 +10,7 @@
       <button class="btn-cargar-alumno" (click)="abrirFormulario()">Cargar Alumnos</button>
     </div>
     <div class="table-container">
-      <p-table [value]="alumnos()" showGridlines responsiveLayout="scroll" scrollDirection="horizontal" [scrollable]="true" styleClass="tabla-alumnos">
+      <p-table [value]="alumnos()" [paginator]="true" [rows]="5" [pageLinks]="3" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="true" responsiveLayout="scroll" scrollDirection="horizontal" styleClass="tabla-alumnos" showGridlines>
         <ng-template #header>
           <tr>
             <th>Nombre</th>
@@ -25,9 +25,7 @@
             <td>{{ alumno.nombre }}</td>
             <td>{{ alumno.dni }}</td>
             <td>{{ alumno.email }}</td>
-            <td>
-              <button class="button" (click)="abrirFormularioNota()">cargar notas</button>
-            </td>
+            <td><button class="button" (click)="abrirFormularioNota(alumno.id!)">Cargar notas</button></td>
             <td class="d-flex">
               <button (click)="verAlumno(alumno)">Detalles</button>
               <button (click)="cambiarEstado(alumno.id)">Cambiar estado</button>
@@ -41,21 +39,15 @@
   @if (mostrarFormulario()) {
     <div class="modal-overlay" (click)="cerrarFormulario()">
       <div (click)="$event.stopPropagation()">
-        <app-formulario 
-          (cerrar)="cerrarFormulario()" 
-          (alumnoGuardado)="callPage()">
-        </app-formulario>
+        <app-formulario (cerrar)="cerrarFormulario()" (alumnoGuardado)="callPage()"></app-formulario>
       </div>
     </div>
   }
 
-  @if (mostrarFormularioNota()) {
-    <div class="modal-overlay" (click)="cerrarFormulario()">
-      <div (click)="$event.stopPropagation()">
-        <app-formulario-notas 
-          (cerrar)="cerrarFormulario()">
-        </app-formulario-notas>
-      </div>
+  @if (mostrarFormularioNota() && alumnoSeleccionadoId() !== null) {
+  <div class="modal-overlay" (click)="cerrarFormulario()">
+    <div (click)="$event.stopPropagation()">
+      <app-formulario-notas [alumnoId]="alumnoSeleccionadoId()!" (cerrar)="cerrarFormulario()"></app-formulario-notas>
     </div>
   }
 </div>

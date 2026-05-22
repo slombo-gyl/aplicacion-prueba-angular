@@ -6,7 +6,8 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     margin: 2rem auto;
     max-width: 80%;
-    height: 85vh;
+    height: auto;
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
 }
@@ -24,6 +25,20 @@
     font-weight: 600;
     margin: 0 auto;
     text-align: center;
+}
+
+button {
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.288);
+    border-radius: 8px;
+    color: white;
+    background-color: grey;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem auto;
 }
 
 .btn-back {
@@ -57,6 +72,7 @@
     color: var(--color-btn-letra);
     cursor: pointer;
     transition: 0.2s;
+    margin: 0;
 }
 
 .btn-cargar-alumno:hover {
@@ -70,11 +86,35 @@
     margin-bottom: 1.5rem;
 }
 
-/* .table-container {
-    flex: 1;
-    overflow: hidden;
+.table-container {
     width: 100%;
-} */
+    overflow-x: auto;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.btn-cerrar {
+    margin-top: 1.5rem;
+    background-color: #ef4444;
+    border: none;
+    width: 100%;
+}
+
+.btn-cerrar:hover {
+    background-color: #dc2626;
+}
 
 ::ng-deep .tabla-alumnos .p-datatable-thead > tr > th {
     background-color: #1e293b;
@@ -103,40 +143,194 @@
     border-collapse: collapse;
 }
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+::ng-deep body .p-paginator {
+    background: #0f172a !important;
+    color: white !important;
+    border: none !important;
+    border-top: 1px solid #334155 !important;
+    padding: 0.8rem !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.2rem !important;
 }
 
-.btn-cerrar {
-    margin-top: 1.5rem;
-    background-color: #ef4444;
-    border: none;
-    width: 100%;
+::ng-deep body .p-paginator .p-paginator-pages {
+    display: flex !important;
+    align-items: center !important;
 }
 
-.btn-cerrar:hover {
-    background-color: #dc2626;
+::ng-deep body .p-paginator .p-paginator-page,
+::ng-deep body .p-paginator .p-paginator-first,
+::ng-deep body .p-paginator .p-paginator-prev,
+::ng-deep body .p-paginator .p-paginator-next,
+::ng-deep body .p-paginator .p-paginator-last {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    min-width: 2.2rem !important;
+    height: 2.2rem !important;
+    margin: 0 0.15rem !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transition: background 0.2s, color 0.2s !important;
 }
 
-@media (max-width: 992px) {
+::ng-deep body .p-paginator .p-paginator-page:not(.p-highlight):not(.p-disabled):hover,
+::ng-deep body .p-paginator .p-paginator-first:not(.p-disabled):hover,
+::ng-deep body .p-paginator .p-paginator-prev:not(.p-disabled):hover,
+::ng-deep body .p-paginator .p-paginator-next:not(.p-disabled):hover,
+::ng-deep body .p-paginator .p-paginator-last:not(.p-disabled):hover {
+    background: #334155 !important;
+    color: white !important;
+    border-color: #475569 !important;
+}
+
+::ng-deep body .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+    border-color: #2563eb !important;
+    font-weight: 700 !important;
+}
+
+::ng-deep body .p-paginator .p-disabled {
+    opacity: 0.3 !important;
+    background: #1e293b !important;
+    cursor: not-allowed !important;
+}
+
+::ng-deep body .p-paginator .p-dropdown,
+::ng-deep body .p-paginator .p-dropdown.p-component {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    transition: background 0.2s, border-color 0.2s !important;
+    box-sizing: border-box !important;
+}
+
+::ng-deep body .p-paginator .p-dropdown:hover {
+    background: #334155 !important;
+    border-color: #475569 !important;
+}
+
+::ng-deep body .p-paginator .p-dropdown .p-dropdown-label {
+    color: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    text-align: center !important;
+}
+
+::ng-deep body .p-paginator .p-dropdown .p-dropdown-trigger {
+    display: none !important;
+}
+
+::ng-deep body .p-dropdown-panel {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+}
+
+::ng-deep body .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+}
+
+::ng-deep body .p-dropdown-panel .p-dropdown-items .p-dropdown-item:hover {
+    background: #334155 !important;
+}
+
+::ng-deep body .p-paginator .p-paginator-rpp-options {
+    margin: 0 0 0 0.15rem !important;
+    display: inline-flex !important;
+}
+
+@media (max-width: 768px) {
     .card {
         max-width: 95%;
+        height: auto;
         margin: 1rem auto;
         padding: 1rem;
-        height: auto;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 1rem; 
     }
 
     .title {
-        font-size: 1.8rem;
+        margin-top: 0.25rem;
+    }
+
+    .datos-estudiante-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dato-item.full-width {
+        grid-column: span 1;
+    }
+
+    ::ng-deep .p-datatable-wrapper {
+        overflow-x: auto;
+        width: 100%;
+        display: block;
+    }
+
+    ::ng-deep body .p-paginator {
+        padding: 0.5rem 0.2rem !important;
+        flex-wrap: wrap !important;
+        gap: 0.2rem !important;
+    }
+
+    ::ng-deep body .p-paginator .p-paginator-first,
+    ::ng-deep body .p-paginator .p-paginator-last {
+        display: none !important;
+    }
+
+    ::ng-deep body .p-paginator .p-paginator-page,
+    ::ng-deep body .p-paginator .p-paginator-prev,
+    ::ng-deep body .p-paginator .p-paginator-next {
+        min-width: 1.8rem !important;
+        height: 1.8rem !important;
+        margin: 0 0.1rem !important;
+        font-size: 0.85rem !important;
+        border-radius: 6px !important;
+    }
+
+    ::ng-deep body .p-paginator .p-dropdown,
+    ::ng-deep body .p-paginator .p-dropdown.p-component {
+        width: 1.8rem !important;
+        height: 1.8rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    ::ng-deep body .p-paginator .p-dropdown .p-dropdown-label {
+        padding: 0.2rem 0.5rem !important;
+    }
+
+    ::ng-deep body .p-paginator .p-paginator-rpp-options {
+        margin-left: 0.3rem !important;
+    }
+}
+
+@media (max-width: 320px) {
+    .title {
+        margin-left: 2.5rem;
     }
 }
