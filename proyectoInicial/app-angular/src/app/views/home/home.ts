@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Padre } from '../../padre/padre';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Navbar } from '../../components/navbar/navbar';
 
 @Component({
@@ -11,13 +11,8 @@ import { Navbar } from '../../components/navbar/navbar';
   styleUrl: './home.css',
 })
 export class Home {
-  constructor(private router: Router) {}
 
   @ViewChild('modalPadre') modal!: Padre;
-
-  navigateTo() {
-    this.router.navigate(['/dashboard']);
-  }
 
   abrirModal() {
     this.modal.abrir();

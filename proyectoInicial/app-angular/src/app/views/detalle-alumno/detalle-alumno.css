@@ -109,7 +109,7 @@
 
 .materia-card:hover {
     border-color: var(--text-gold);
-    transform: translateY(5px);
+    transform: translateY(-5px);
 }
 
 .materia-info {

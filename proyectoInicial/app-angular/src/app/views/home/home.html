@@ -22,17 +22,6 @@
         </div>
       </div>
 
-      <div class="action-card secondary-card" (click)="navigateTo()">
-        <div class="card-header">
-          <div class="card-icon"><i class="pi pi-chart-bar"></i></div>
-          <i class="pi pi-arrow-up-right go-icon"></i>
-        </div>
-        <div class="card-body">
-          <h3>Dashboard Analítico</h3>
-          <p>Métricas de rendimiento y estadísticas globales de la institución.</p>
-        </div>
-      </div>
-
       <div class="action-card" routerLink="/materias">
         <div class="card-header">
           <div class="card-icon"><i class="pi pi-book"></i></div>
@@ -43,6 +32,18 @@
           <p>Alta y baja de materias, consulta de promedios y alumnos inscriptos.</p>
         </div>
       </div>
+
+      <div class="action-card secondary-card" routerLink="/dashboard">
+        <div class="card-header">
+          <div class="card-icon"><i class="pi pi-chart-bar"></i></div>
+          <i class="pi pi-arrow-up-right go-icon"></i>
+        </div>
+        <div class="card-body">
+          <h3>Dashboard Analítico</h3>
+          <p>Métricas de rendimiento y estadísticas globales de la institución.</p>
+        </div>
+      </div>
+
     </div>
   </main>
 
