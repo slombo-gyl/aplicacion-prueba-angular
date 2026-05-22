@@ -63,10 +63,15 @@ export class TableComponent implements OnInit {
     });
   }
 
-  cambiarEstado(id: number) {
-    this.service.deleteAlumnoLogico(id).subscribe((res) => {
-      console.log("Alumno eliminado: ", res);
-      this.callPage();
+cambiarEstado(id: number) { // Cambia a string si tu ID es string
+    this.service.deleteAlumnoLogico(id).subscribe({
+      next: (res: any) => {
+        console.log("Estado del alumno actualizado con éxito: ", res);
+        this.callPage(); 
+      },
+      error: (err) => {
+        console.error("Error al intentar cambiar el estado del alumno:", err);
+      }
     });
   }
 }

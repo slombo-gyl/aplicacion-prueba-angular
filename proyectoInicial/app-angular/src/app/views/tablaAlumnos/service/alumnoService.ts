@@ -24,4 +24,8 @@ export class AlumnoService {
   crearAlumno(nuevoAlumno: Alumno): Observable<Alumno> {
     return this.http.post<Alumno>(`${this.apiUrl}`, nuevoAlumno);
   }
+  // Metodo para cambiar el estado (baja lógica)
+  deleteAlumnoLogico(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/${id}`, {});
+  }
 }
