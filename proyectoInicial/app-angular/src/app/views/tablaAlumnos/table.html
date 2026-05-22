@@ -1,48 +1,38 @@
 <div class="container-main">
   <div class="card">
     <div class="header">
-        <button class="btn-back" (click)="navigateToHome()">
-          <i class="pi pi-arrow-left"></i>
-        </button>
-        <h1 class="title">Alumnos</h1>
-        <button class="btn-cargar-alumno" (click)="abrirFormulario()">Cargar Alumnos</button>
+      <button class="btn-back" (click)="navigateToHome()">
+        <i class="pi pi-arrow-left"></i>
+      </button>
+      <h1 class="title">Alumnos</h1>
     </div>
-<p-table 
-    [value]="alumnos()"
-    showGridlines
-    [paginator]="true"
-    [rows]="5"
-    [rowsPerPageOptions]="[5, 10, 20]"
-    [tableStyle]="{ 'min-width': '50rem' }">
-
-    <ng-template #header>
-        <tr>
+    <div class="action-container">
+      <button class="btn-cargar-alumno" (click)="abrirFormulario()">Cargar Alumnos</button>
+    </div>
+    <div class="table-container">
+      <p-table [value]="alumnos()" showGridlines[paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" responsiveLayout="scroll" scrollDirection="horizontal" [scrollable]="true" styleClass="tabla-alumnos">
+        <ng-template #header>
+          <tr>
             <th>Nombre</th>
             <th>DNI</th>
             <th>Email</th>
             <th style="text-align: center;">Notas</th>
             <th>Acciones</th>
-        </tr>
-    </ng-template>
-
-    <ng-template #body let-alumno>
-        <tr>
+          </tr>
+        </ng-template>
+        <ng-template #body let-alumno>
+          <tr>
             <td>{{ alumno.nombre }}</td>
             <td>{{ alumno.dni }}</td>
             <td>{{ alumno.email }}</td>
-            <td>
-                <button class="button" (click)="abrirFormularioNota()">
-                    cargar notas
-                </button>
-            </td>
+            <td><button class="button" (click)="abrirFormularioNota()">cargar notas</button></td>
             <td class="d-flex">
-                <button (click)="verAlumno(alumno.id)">Detalles</button>
-                <button (click)="eliminarBajaLogica(alumno.id)">Cambiar estado</button>
+              <button (click)="verAlumno(alumno.id)">Detalles</button>
+              <button (click)="eliminarBajaLogica(alumno.id)">Cambiar estado</button>
             </td>
-        </tr>
-    </ng-template>
-
-</p-table>
+          </tr>
+        </ng-template>
+      </p-table>
       <ng-template #header>
         <tr>
           <th>Nombre</th>
@@ -54,19 +44,18 @@
       </ng-template>
       <ng-template #body let-alumno>
         <tr>
-           <td>{{ alumno.id }}</td>
+          <td>{{ alumno.id }}</td>
           <td>{{ alumno.nombre }}</td>
           <td>{{ alumno.dni }}</td>
           <td>{{ alumno.email }}</td>
-          <td>
-          <button class="button" (click)="abrirFormularioNota()">cargar notas</button>
-          </td>
+          <td><button class="button" (click)="abrirFormularioNota()">cargar notas</button></td>
           <td class="d-flex">
             <button (click)="verAlumno(alumno)">Detalles</button>
             <button pButton type="button" label="Eliminar" (click)="eliminarBajaLogica(alumno.id)"></button>
           </td>
         </tr>
       </ng-template>
+    </div>
   </div>
 
   @if (mostrarFormulario()) {
