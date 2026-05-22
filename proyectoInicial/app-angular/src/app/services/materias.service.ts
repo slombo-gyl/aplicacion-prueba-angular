@@ -14,6 +14,11 @@ export interface RegistrarPuntajePayload {
     valor: number;
 }
 
+export interface MateriaDetalle extends Materia {
+  promedio?: number;
+  alumnos?: { id: number; nombre: string; apellido: string; nota: number }[];
+}
+
 export interface MateriaNotas {
   nombreMateria: string;
   notas: number[];
@@ -38,5 +43,17 @@ export class MateriasService {
 
   getPuntajesPorEstudiante(estudianteId: number): Observable<MateriaNotas[]> {
     return this.http.get<MateriaNotas[]>(`${this.puntajesUrl}/estudiante/${estudianteId}`);
+  }
+
+  crearMateria(materia: Partial<Materia>): Observable<Materia> {
+    return this.http.post<Materia>(this.materiasUrl, materia);
+  }
+
+  eliminarMateria(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.materiasUrl}/${id}`);
+  }
+
+  getMateriasDetalle(): Observable<MateriaDetalle[]> {
+    return this.http.get<MateriaDetalle[]>(`${this.materiasUrl}/detalles`);
   }
 }
