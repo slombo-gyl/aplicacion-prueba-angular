@@ -1,10 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router } from '@angular/router';
 import { FormularioAgregarMateria } from '../../components/formulario-agregar-materia/formulario-agregar-materia';
 import { DetalleMateria } from '../../components/detalle-materia/detalle-materia';
 import { MateriasService } from '../../services/materias.service';
-import { MateriaModel } from '../../interfaces/models/materia.model';
+import { MateriaResponse } from '../../interfaces/response/materia.response';
 
 @Component({
   selector: 'app-materias',
@@ -13,21 +13,22 @@ import { MateriaModel } from '../../interfaces/models/materia.model';
   templateUrl: './materias.html',
   styleUrl: './materias.css',
 })
-export class Materias {
+export class Materias implements OnInit {
   private router = inject(Router);
-  materiasService = inject(MateriasService);
+  private materiasService = inject(MateriasService);
 
-  materias = computed(() => this.materiasService.materias());
+  materias = this.materiasService.materias;
+  materiaSeleccionada = signal<MateriaResponse | null>(null);
 
-  materiaSeleccionada = signal<MateriaModel | null>(null);
-  materiaDetalle = computed(() => {
-    const sel = this.materiaSeleccionada();
-    if (!sel) return null;
-    return this.materiasService.materias().find(m => m.id === sel.id) || null;
-  });
+  mostrarFormulario = signal<boolean>(false);
+  mostrarDetalleMateria = signal<boolean>(false);
 
-  mostrarFormulario = signal(false);
-  mostrarDetalleMateria = signal(false);
+  ngOnInit() {
+    this.materiasService.getMaterias().subscribe({
+      next: (data: MateriaResponse[]) => console.log('Materias cargadas correctamente', data.length),
+      error: (error: any) => console.error('Error al cargar materias: ', error)
+    });
+  }
 
   navigateToHome() {
     this.router.navigate(['']);
@@ -41,7 +42,7 @@ export class Materias {
     this.mostrarFormulario.set(false);
   }
 
-  verDetalleMateria(materia: MateriaModel) {
+  verDetalleMateria(materia: MateriaResponse) {
     this.materiaSeleccionada.set(materia);
     this.mostrarDetalleMateria.set(true);
   }
@@ -49,5 +50,12 @@ export class Materias {
   cerrarDetalleMateria() {
     this.mostrarDetalleMateria.set(false);
     this.materiaSeleccionada.set(null);
+  }
+
+  eliminarMateria(id: number) {
+    this.materiasService.deleteMateria(id).subscribe({
+      next: () => console.log(`Materia con ID ${id} eliminada correctamente`),
+      error: (error: any) => console.error(`Error al eliminar materia con ID ${id}: `, error)
+    });
   }
 }

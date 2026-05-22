@@ -1,3 +1,3 @@
 export interface CrearMateriaRequest {
-    nombreMateria: string;
+    nombre: string;
 }

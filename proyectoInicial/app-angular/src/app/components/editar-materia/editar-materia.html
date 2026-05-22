@@ -11,7 +11,7 @@
 
             <div class="col text-nowrap">
                 <span class="fw-bold">Nombre Actual:</span>
-                {{ materia().nombreMateria }}
+                {{ materia().nombre }}
             </div>
         </div>
     </div>
@@ -19,10 +19,10 @@
     <form [formGroup]="form" (ngSubmit)="guardarMateria()">
         <div class="row mt-4">
             <div class="col text-start field">
-                <label for="nombreMateria" class="fw-bold">Nuevo Nombre de la Materia:</label>
-                <input type="text" id="nombreMateria" placeholder="Ingrese el nuevo nombre" formControlName="nombreMateria" />
-                @if (errors['nombreMateria']) {
-                    <small>{{ errors['nombreMateria'][0] }}</small>
+                <label for="nombre" class="fw-bold">Nuevo Nombre de la Materia:</label>
+                <input type="text" id="nombre" placeholder="Ingrese el nuevo nombre" formControlName="nombre" />
+                @if (errors['nombre']) {
+                    <small>{{ errors['nombre'][0] }}</small>
                 }
             </div>
         </div>

@@ -1,11 +1,11 @@
 import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MateriaModel } from '../../interfaces/models/materia.model';
 import { MateriasService } from '../../services/materias.service';
 import { z } from 'zod';
+import { MateriaResponse } from '../../interfaces/response/materia.response';
 
 const materiaSchema = z.object({
-  nombreMateria: z.string().min(3, 'Nombre de materia inválido (mínimo 3 caracteres)'),
+  nombre: z.string().min(3, 'Nombre minimo 3 caracteres').max(50, 'Nombre maximo 50 caracteres'),
 });
 
 @Component({
@@ -19,7 +19,7 @@ export class EditarMateria {
   private fb = inject(FormBuilder);
   private materiasService = inject(MateriasService);
 
-  materia = input.required<MateriaModel>();
+  materia = input.required<MateriaResponse>();
   cerrar = output<void>();
 
   form!: FormGroup;
@@ -27,36 +27,40 @@ export class EditarMateria {
 
   constructor() {
     this.form = this.fb.group({
-      nombreMateria: ['']
+      nombre: ['']
     });
 
     effect(() => {
-      const mat = this.materia();
-      if (mat) {
-        this.form.patchValue({ nombreMateria: mat.nombreMateria }, { emitEvent: false });
+      const materiaActual = this.materia();
+      if (materiaActual) {
+        this.form.patchValue({ nombre: materiaActual.nombre }, { emitEvent: false });
       }
     });
   }
 
   guardarMateria() {
-    const nombreForm = this.form.value.nombreMateria?.trim();
-    const result = materiaSchema.safeParse({ nombreMateria: nombreForm });
+    const nombreForm = this.form.value.nombre?.trim();
+    const result = materiaSchema.safeParse({ nombre: nombreForm });
 
     if (!result.success) {
       this.errors = result.error.flatten().fieldErrors;
       return;
     }
 
-    const nuevoNombre = result.data.nombreMateria;
-
-    if (this.materiasService.existeMateria(nuevoNombre, this.materia().id)) {
-      this.errors = { nombreMateria: ['La materia ya existe'] };
-      return;
-    }
-
     this.errors = {};
-    this.materiasService.actualizarMateria(this.materia().id, nuevoNombre);
-    this.cerrar.emit();
+
+    const nuevoNombre = result.data.nombre;
+
+    this.materiasService.putMateria(this.materia().id, { nombre: nuevoNombre }).subscribe({
+        next: () => {
+          this.materia().nombre = nuevoNombre;
+          this.cerrar.emit();
+        },
+        error: (error) => {
+        console.error('Error al actualizar la materia: ', error);
+        this.errors = { nombre: ['Error al actualizar la materia'] };
+      }
+    });
   }
 
   onCerrar() {

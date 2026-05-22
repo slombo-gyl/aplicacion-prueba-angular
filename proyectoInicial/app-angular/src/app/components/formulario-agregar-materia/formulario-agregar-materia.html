@@ -5,16 +5,16 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="nombreMateria">Nombre de la Materia</label>
+            <label for="nombre">Nombre de la Materia</label>
             <input 
-                id="nombreMateria" 
+                id="nombre" 
                 type="text" 
-                formControlName="nombreMateria" 
+                formControlName="nombre" 
                 placeholder="Ej. Programación II"
                 class="form-control"
             />
-            @if (errors['nombreMateria']) {
-                <small class="text-danger">{{ errors['nombreMateria'][0] }}</small>
+            @if (errors['nombre']) {
+                <small class="text-danger">{{ errors['nombre'][0] }}</small>
             }
         </div>
 

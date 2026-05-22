@@ -1,4 +1,4 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MateriasService } from '../../services/materias.service';
@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { MateriaModel } from '../../interfaces/models/materia.model';
 
 const materiaSchema = z.object({
-  nombreMateria: z.string().min(3, 'Nombre de materia inválido (mínimo 3 caracteres)'),
+  nombre: z.string().min(3, 'Nombre minimo 3 caracteres').max(50, 'Nombre maximo 50 caracteres'),
 });
 
 @Component({
@@ -17,22 +17,25 @@ const materiaSchema = z.object({
   styleUrl: './formulario-agregar-materia.css',
 })
 export class FormularioAgregarMateria {
+  private fb = inject(FormBuilder);
+  private materiasService = inject(MateriasService);
+
   errors: Record<string, string[]> = {};
   cerrar = output<void>();
-  form!: FormGroup;
+  form: FormGroup;
   materia = input<MateriaModel | null>(null);
 
-  constructor(private fb: FormBuilder, private materiasService: MateriasService) {
+  constructor() {
     this.form = this.fb.group({
-      nombreMateria: [''],
+      nombre: [''],
     });
 
     effect(() => {
-      const mat = this.materia();
-      if (mat) {
-        this.form.patchValue({ nombreMateria: mat.nombreMateria });
+      const materiaActual = this.materia();
+      if (materiaActual) {
+        this.form.patchValue({ nombre: materiaActual.nombreMateria });
       } else {
-        this.form.patchValue({ nombreMateria: '' });
+        this.form.patchValue({ nombre: '' });
       }
     });
   }
@@ -49,20 +52,27 @@ export class FormularioAgregarMateria {
       return;
     }
 
-    const nombreMateria = result.data.nombreMateria;
+    const nombreMateria = result.data.nombre;
     const materiaActual = this.materia();
-
-    if (this.materiasService.existeMateria(nombreMateria, materiaActual?.id)) {
-      this.errors = { nombreMateria: ['La materia ya existe'] };
-      return;
-    }
-
+    
     this.errors = {};
+
     if (materiaActual) {
-      this.materiasService.actualizarMateria(materiaActual.id, nombreMateria);
+      this.materiasService.putMateria(materiaActual.id, {nombre: nombreMateria}).subscribe({
+        next: () => this.onCerrar(),
+        error: (error) => {
+          console.error('Error al actualizar materia: ', error);
+          this.errors = { nombre: ['Error al actualizar la materia'] };
+        }
+      });
     } else {
-      this.materiasService.crearMateria(result.data);
+      this.materiasService.postMateria({nombre: nombreMateria}).subscribe({
+        next: () => this.onCerrar(),
+        error: (error) => {
+          console.error('Error al crear materia: ', error);
+          this.errors = { nombre: ['Error al crear la materia'] };
+        }
+      });
     }
-    this.onCerrar();
   }
 }
