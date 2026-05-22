@@ -67,7 +67,7 @@ constructor() {
           severity: 'success',
           summary: '¡Alumno Registrado!',
           detail: `${result.data.nombre} se guardó correctamente.`,
-          life: 2000 
+          life: 8000 
         });
 
         setTimeout(() => {
