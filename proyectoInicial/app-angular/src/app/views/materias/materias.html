@@ -20,7 +20,7 @@
         </ng-template>
         <ng-template #body let-materia>
             <tr>
-                <td>{{ materia.nombreMateria }}</td>
+                <td>{{ materia.nombre }}</td>
                 <td>
                     <div style="display: flex; gap: 0.5rem; justify-content: center;">
                         <button class="button" (click)="verDetalleMateria(materia)">
@@ -41,10 +41,10 @@
 </div>
 }
 
-@if (mostrarDetalleMateria() && materiaDetalle()) {
+@if (mostrarDetalleMateria() && materiaSeleccionada()) {
 <div class="modal-overlay">
     <div (click)="$event.stopPropagation()">
-        <app-detalle-materia (cerrar)="cerrarDetalleMateria()" [materia]="materiaDetalle()!"></app-detalle-materia>
+        <app-detalle-materia (cerrar)="cerrarDetalleMateria()" [materia]="materiaSeleccionada()!"></app-detalle-materia>
     </div>
 </div>
 }

@@ -1,32 +1,61 @@
-import { Injectable, signal } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { MateriaModel } from "../interfaces/models/materia.model";
+import { HttpClient } from "@angular/common/http";
+import { MateriaResponse } from "../interfaces/response/materia.response";
+import { Observable, tap } from "rxjs";
+import { CrearMateriaRequest } from "../interfaces/request/crear-materia.request";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MateriasService {
-    private MATERIAS_DATA: MateriaModel[] = [
-        { id: 1, nombreMateria: 'Diseño' }
-    ];
+    private http = inject(HttpClient);
+    private apiUrl = 'http://localhost:8080/api/materias';
 
-    materias = signal<MateriaModel[]>(this.MATERIAS_DATA);
+    private _materias = signal<MateriaResponse[]>([]);
 
-    existeMateria(nombre: string, excluyendoId?: number): boolean {
-        return this.materias().some(
-            materia => materia.nombreMateria.toLowerCase().trim() === nombre.toLowerCase().trim() && materia.id !== excluyendoId
+    materias = this._materias.asReadonly();
+
+    getMaterias(): Observable<MateriaResponse[]> {
+        return this.http.get<MateriaResponse[]>(this.apiUrl).pipe(
+            tap((data: MateriaResponse[]) => this._materias.set(data))
         );
     }
 
-    crearMateria(nuevaMateria: Omit<MateriaModel, 'id'>) {
-        this.materias.update(materias => {
-            const id = materias.length > 0 ? materias[materias.length - 1].id + 1 : 1;
-            return [...materias, { ...nuevaMateria, id }];
-        });
+    getMateriaById(id: number): Observable<MateriaResponse> {
+        return this.http.get<MateriaResponse>(`${this.apiUrl}/${id}`);
     }
 
-    actualizarMateria(id: number, nombreMateria: string) {
-        this.materias.update(materias =>
-            materias.map(materia => materia.id === id ? { ...materia, nombreMateria } : materia)
+    postMateria(crearMateriaRequest: CrearMateriaRequest): Observable<MateriaResponse> {
+        return this.http.post<MateriaResponse>(this.apiUrl, crearMateriaRequest).pipe(
+            tap(
+                (nuevaMateria: MateriaResponse) => {
+                    this._materias.update((materias: MateriaResponse[]) => [...materias, nuevaMateria]);
+                }
+            )
+        );
+    }
+
+    putMateria(id: number, actualizarMateriaRequest: CrearMateriaRequest): Observable<MateriaResponse> {
+        return this.http.put<MateriaResponse>(`${this.apiUrl}/${id}`, actualizarMateriaRequest).pipe(
+            tap(
+                (materiaActualizada: MateriaResponse) =>
+                    this._materias.update((materias: MateriaResponse[]) =>
+                        materias.map(materia => materia.id === id ? materiaActualizada : materia))
+
+            )
+        );
+    }
+
+    deleteMateria(id: number): Observable<MateriaResponse> {
+        return this.http.delete<MateriaResponse>(`${this.apiUrl}/${id}`).pipe(
+            tap(
+                () => {
+                    this._materias.update((materias: MateriaResponse[]) =>
+                        materias.filter(materia => materia.id !== id)
+                    );
+                }
+            )
         );
     }
 }
