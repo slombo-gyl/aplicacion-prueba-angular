@@ -63,7 +63,7 @@ export class TableComponent implements OnInit {
     });
   }
 
-cambiarEstado(id: number) { // Cambia a string si tu ID es string
+eliminarBajaLogica(id: number) {
     this.service.deleteAlumnoLogico(id).subscribe({
       next: (res: any) => {
         console.log("Estado del alumno actualizado con éxito: ", res);

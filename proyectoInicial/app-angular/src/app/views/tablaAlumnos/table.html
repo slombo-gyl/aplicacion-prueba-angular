@@ -37,7 +37,7 @@
             </td>
             <td class="d-flex">
                 <button (click)="verAlumno(alumno.id)">Detalles</button>
-                <button (click)="cambiarEstado(alumno.id)">Cambiar estado</button>
+                <button (click)="eliminarBajaLogica(alumno.id)">Cambiar estado</button>
             </td>
         </tr>
     </ng-template>
@@ -63,7 +63,7 @@
           </td>
           <td class="d-flex">
             <button (click)="verAlumno(alumno)">Detalles</button>
-            <button pButton type="button" label="Estado" (click)="cambiarEstado(alumno.id)"></button>
+            <button pButton type="button" label="Eliminar" (click)="eliminarBajaLogica(alumno.id)"></button>
           </td>
         </tr>
       </ng-template>
