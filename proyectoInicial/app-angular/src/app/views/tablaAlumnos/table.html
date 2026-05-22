@@ -54,6 +54,7 @@
       </ng-template>
       <ng-template #body let-alumno>
         <tr>
+           <td>{{ alumno.id }}</td>
           <td>{{ alumno.nombre }}</td>
           <td>{{ alumno.dni }}</td>
           <td>{{ alumno.email }}</td>
@@ -62,7 +63,7 @@
           </td>
           <td class="d-flex">
             <button (click)="verAlumno(alumno)">Detalles</button>
-            <button (click)="cambiarEstado(alumno.id)">Cambiar estado</button>
+            <button pButton type="button" label="Estado" (click)="cambiarEstado(alumno.id)"></button>
           </td>
         </tr>
       </ng-template>
