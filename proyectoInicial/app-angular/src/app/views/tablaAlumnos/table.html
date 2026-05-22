@@ -1,62 +1,18 @@
 <div class="layout-container">
   <div class="card">
     <div class="header">
-      <button class="btn-back" (click)="navigateToHome()">
-        <i class="pi pi-arrow-left"></i>
+      <button class="btn-back" routerLink="/">
+        <i class="pi pi-arrow-left"></i> Volver
       </button>
 
-      <h1 class="title">Alumnos</h1>
+      <h1 class="title">Gestión de Alumnos</h1>
 
-      <button class="btn-cargar-alumno" (click)="abrirRegistrar()">
-        Cargar Alumnos
+      <button class="btn-primary" routerLink="/formulario">
+        <i class="pi pi-user-plus"></i> Agregar Alumno
       </button>
     </div>
 
-    <div class="table-wrapper">
-      <p-table [value]="alumnos()" showGridlines [scrollable]="true" [tableStyle]="{ 'min-width': '700px' }" [rows]="10"
-        [paginator]="true">
-        <ng-template #header>
-          <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>DNI</th>
-            <th>Email</th>
-            <th class="columnas">Notas</th>
-            <th class="columnas">Modificar</th>
-          </tr>
-        </ng-template>
+    <app-alumnos-table [data]="alumnos()"></app-alumnos-table>
 
-        <ng-template #body let-alumno>
-          <tr  routerLink="/detalleAlumno" [state]="{ alumno: alumno }">
-            <td>{{ alumno.nombre }}</td>
-            <td>{{ alumno.apellido }}</td>
-            <td>{{ alumno.dni }}</td>
-            <td>{{ alumno.email }}</td>
-
-            <td class="acciones-tabla">
-              <button class="btn-action" routerLink="/notas" [state]="{ alumno: alumno }" (click)="$event.stopPropagation()">
-                Cargar notas
-              </button>
-            </td>
-
-            <td class="acciones-tabla">
-              <button class="btn-action" (click)="abrirEditar(alumno); $event.stopPropagation()">
-                Editar alumno
-              </button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
   </div>
-
-  @if (mostrarFormulario()) {
-  <div class="modal-overlay" (click)="cerrarFormulario()">
-    <div class="modal-contenido" (click)="$event.stopPropagation()">
-      <app-formulario [modo]="modo()" [alumno]="alumnoSeleccionado()" (guardar)="guardarAlumno($event)"
-        (cerrar)="cerrarFormulario()">
-      </app-formulario>
-    </div>
-  </div>
-  }
 </div>

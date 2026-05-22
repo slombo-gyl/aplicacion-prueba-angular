@@ -1,53 +1,52 @@
 <div class="layout-container">
-    <div class="card">
-
-        <div class="header">
-            <button class="btn-back" (click)="volver()">
-                <i class="pi pi-arrow-left"></i> Volver
-            </button>
-            <h1 class="title">Expediente del Alumno</h1>
-        </div>
-
-        @if (alumno()) {
-        <div class="info-alumno">
-            <h2>{{ alumno().nombre }} {{ alumno().apellido }}</h2>
-            <div class="info-detalles">
-                <p><strong>DNI:</strong> {{ alumno().dni }}</p>
-                <p><strong>Email:</strong> {{ alumno().email }}</p>
-            </div>
-        </div>
-        }
-
-        <div class="materias">
-            @for (materia of materias(); track materia.id) {
-            <div class="materia-card">
-
-                <div class="materia-info">
-                    <h3>{{ materia.nombre }}</h3>
-
-                    <div class="notas-actuales">
-                        <strong>Historial de Notas: </strong>
-                        @if (obtenerNotasMateria(materia.nombre).length > 0) {
-                        <span class="notas-lista">
-                            {{ obtenerNotasMateria(materia.nombre).join(', ') }}
-                        </span>
-                        } @else {
-                        <span class="sin-notas">No hay calificaciones registradas</span>
-                        }
-                    </div>
-                </div>
-
-                <div class="estado-badge">
-                    @if (obtenerNotasMateria(materia.nombre).length > 0) {
-                    <span class="badge badge-evaluado">Evaluado</span>
-                    } @else {
-                    <span class="badge badge-pendiente">Pendiente</span>
-                    }
-                </div>
-
-            </div>
-            }
-        </div>
-
+  <div class="card">
+    <div class="header">
+      <button class="btn-back" (click)="volver()">
+        <i class="pi pi-arrow-left"></i> Volver
+      </button>
+      <h1 class="title">Expediente del Alumno</h1>
     </div>
+
+    @if (alumno()) {
+      <div class="alumno-info-header">
+        <h2>{{ alumno().nombre }} {{ alumno().apellido }}</h2>
+        <p>Id: <strong>#{{ alumno().id }}</strong></p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table detalle-variacion">
+          <thead>
+            <tr>
+              <th>Materia</th>
+              <th>Calificaciones Registradas</th>
+              <th>Estado de Evaluación</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (materia of materias(); track materia.id) {
+              <tr>
+                <td><strong class="materia-nombre">{{ materia.nombre }}</strong></td>
+                <td>
+                  <div class="notas-tags-flex">
+                    @for (nota of obtenerNotasMateria(materia.nombre); track $index) {
+                      <span class="nota-pill">{{ nota }}</span>
+                    } @empty {
+                      <span class="sin-notas-texto">Sin calificaciones</span>
+                    }
+                  </div>
+                </td>
+                <td>
+                  @if (obtenerNotasMateria(materia.nombre).length > 0) {
+                    <span class="badge badge-evaluado">Evaluado</span>
+                  } @else {
+                    <span class="badge badge-pendiente">Pendiente</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
 </div>

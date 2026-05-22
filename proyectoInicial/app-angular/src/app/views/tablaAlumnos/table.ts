@@ -1,24 +1,22 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { TableModule } from 'primeng/table';
 import { Router, RouterLink } from "@angular/router";
-import { AlumnoService, Alumno } from './service/alumnoServis'; 
-import { Formulario } from '../../components/formulario/formulario';
+import { AlumnoService, Alumno } from './service/alumnoServis';
+import { AlumnosTableComponent } from '../../components/table-component/table-component';
 
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, Formulario, RouterLink],
+  imports: [RouterLink, AlumnosTableComponent],
   templateUrl: './table.html',
-  styleUrl: './table.css'
+  styleUrl: './table.css',
 })
-export class TableComponent implements OnInit{
+export class TableComponent implements OnInit {
+  private alumnoService = inject(AlumnoService);
 
-  private alumnoService = inject(AlumnoService)
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
-
-  alumnos = signal<Alumno[]>([])
+  alumnos = signal<Alumno[]>([]);
 
   mostrarFormulario = signal(false);
 
@@ -34,14 +32,14 @@ export class TableComponent implements OnInit{
       next: (data: any) => {
         this.alumnos.set(data.content);
       },
-      error: (err) => console.error('Error al cargar alumnos', err)
+      error: (err) => console.error('Error al cargar alumnos', err),
     });
   }
 
   navigateToHome() {
-    this.router.navigate([''])
+    this.router.navigate(['']);
   }
-  
+
   abrirRegistrar() {
     this.modo.set('registrar');
     this.alumnoSeleccionado.set(null);
@@ -76,7 +74,7 @@ export class TableComponent implements OnInit{
       error: (err) => {
         console.error('Error al crear alumno', err);
         alert('Error al cargar un alumno. Por favor, intente nuevamente.');
-      }
+      },
     });
   }
 
@@ -99,11 +97,12 @@ export class TableComponent implements OnInit{
       error: (err) => {
         console.error('Error al modificar alumno', err);
         alert('Error al actualizar un alumno. Por favor, intente nuevamente.');
-      }
+      },
     });
   }
 
   verDetalles(alumno: Alumno) {
-    this.router.navigate(['/detalleAlumno'], { state: { alumno: alumno } }); 
+    this.router.navigate(['/detalleAlumno'], { state: { alumno: alumno } });
   }
+  
 }

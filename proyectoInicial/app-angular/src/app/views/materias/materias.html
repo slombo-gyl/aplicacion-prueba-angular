@@ -4,70 +4,83 @@
       <button class="btn-back" (click)="volver()">
         <i class="pi pi-arrow-left"></i> Volver
       </button>
-
       <h1 class="title">Gestión de Materias</h1>
-
-      <button class="btn-cargar-materia" (click)="abrirModal()">
-        Cargar Materia
+      <button class="btn-materia-crear" (click)="abrirModal()">
+        <i class="pi pi-plus"></i> Cargar Materia
       </button>
     </div>
 
-    <div class="materias-lista">
-      @for (materia of materias(); track materia.id) {
-      <div class="materia-card">
-        <div class="materia-header-info">
-          <div class="materia-textos">
-            <h3>{{ materia.nombre }}</h3>
-            <p class="promedio">Promedio General: <strong>{{ materia.promedio ? materia.promedio : 'Sin notas' }}</strong></p>
-          </div>
+    <div class="table-responsive">
+      <table class="custom-table materias-variacion">
+        <thead>
+          <tr>
+            <th>Nombre de la Asignatura</th>
+            <th>Promedio General</th>
+            <th class="th-acciones-header">Acciones / Alumnos</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (materia of materias(); track materia.id) {
+            <tr class="materia-row-main">
+              <td><strong class="materia-nombre-txt">{{ materia.nombre }}</strong></td>
+              <td>
+                <span class="promedio-marcador" [class.no-promedio]="!materia.promedio">
+                  {{ materia.promedio ? 'Promedio: ' + materia.promedio : 'Sin notas' }}
+                </span>
+              </td>
+              <td>
+                <div class="acciones-materia-flex">
+                  <button class="btn-table-ghost" (click)="toggleAlumnos(materia.id)">
+                    <i class="pi" [ngClass]="materiaExpandida() === materia.id ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+                    {{ materiaExpandida() === materia.id ? 'Ocultar' : 'Alumnos' }}
+                  </button>
+                  <button class="btn-table-danger" (click)="eliminarMateria(materia.id)">
+                    <i class="pi pi-trash"></i> Dar de baja
+                  </button>
+                </div>
+              </td>
+            </tr>
 
-          <div class="materia-acciones">
-            <button class="btn-ghost" (click)="toggleAlumnos(materia.id)">
-              <i class="pi" [ngClass]="materiaExpandida() === materia.id ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
-              {{ materiaExpandida() === materia.id ? 'Ocultar Alumnos' : 'Ver Alumnos' }}
-            </button>
-            <button class="btn-danger" (click)="eliminarMateria(materia.id)">
-              Dar de baja
-            </button>
-          </div>
-        </div>
-
-        @if (materiaExpandida() === materia.id) {
-        <div class="alumnos-desplegable">
-          @if (materia.alumnos && materia.alumnos.length > 0) {
-            <ul class="lista-inscriptos">
-              @for (alumno of materia.alumnos; track alumno.id) {
-              <li>
-                <span>{{ alumno.nombre }} {{ alumno.apellido }}</span>
-                <span class="nota-badge">Nota: {{ alumno.nota }}</span>
-              </li>
-              }
-            </ul>
-          } @else {
-            <p class="sin-alumnos">No hay alumnos evaluados en esta materia todavía.</p>
+            @if (materiaExpandida() === materia.id) {
+              <tr class="accordion-subrow">
+                <td colspan="3">
+                  <div class="accordion-inner-panel">
+                    @if (materia.alumnos && materia.alumnos.length > 0) {
+                      <h4 class="subrow-title">Alumnos Evaluados en esta Asignatura:</h4>
+                      <ul class="subrow-lista-alumnos">
+                        @for (alumno of materia.alumnos; track alumno.id) {
+                          <li>
+                            <span class="subrow-alumno-name"><i class="pi pi-user text-gold-dim"></i> {{ alumno.nombre }} {{ alumno.apellido }}</span>
+                            <span class="subrow-alumno-nota">Nota final: <strong>{{ alumno.nota }}</strong></span>
+                          </li>
+                        }
+                      </ul>
+                    } @else {
+                      <p class="sin-alumnos-subrow-txt">No hay registros de alumnos calificados en esta materia todavía.</p>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
           }
-        </div>
-        }
-      </div>
-      }
+        </tbody>
+      </table>
     </div>
   </div>
 
   @if (mostrarModal()) {
-  <div class="modal-overlay" (click)="cerrarModal()">
-    <div class="modal-contenido form-card" (click)="$event.stopPropagation()">
-      <h2>Registrar Nueva Materia</h2>
-
-      <div class="field">
-        <label>Nombre de la materia</label>
-        <input type="text" [ngModel]="nuevaMateriaNombre()" (ngModelChange)="nuevaMateriaNombre.set($event)" placeholder="Ej: Matematica">
-      </div>
-
-      <div class="buttons">
-        <button class="destructive" (click)="cerrarModal()">Cancelar</button>
-        <button class="primary" (click)="guardarMateria()">Registrar</button>
+    <div class="modal-overlay" (click)="cerrarModal()">
+      <div class="modal-contenido form-card" (click)="$event.stopPropagation()">
+        <h2>Registrar Nueva Materia</h2>
+        <div class="field">
+          <label>Nombre de la materia</label>
+          <input type="text" [ngModel]="nuevaMateriaNombre()" (ngModelChange)="nuevaMateriaNombre.set($event)" placeholder="Ej: Álgebra Lineal">
+        </div>
+        <div class="buttons-modal-row">
+          <button class="btn-modal-destructive" (click)="cerrarModal()">Cancelar</button>
+          <button class="btn-modal-primary" (click)="guardarMateria()">Registrar</button>
+        </div>
       </div>
     </div>
-  </div>
   }
 </div>

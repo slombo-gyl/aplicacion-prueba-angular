@@ -1,51 +1,53 @@
 <div class="layout-container">
   <div class="card">
-
     <div class="header">
       <button class="btn-back" (click)="volver()">
         <i class="pi pi-arrow-left"></i> Volver
       </button>
-      <h1 class="title">Cargar notas</h1>
+      <h1 class="title">Carga de Calificaciones</h1>
     </div>
 
     @if (alumno()) {
-    <div class="info-alumno">
-      <h2>{{ alumno().nombre }} {{ alumno().apellido }}</h2>
-      <div class="info-detalles">
-        <p><strong>DNI:</strong> {{ alumno().dni }}</p>
-        <p><strong>Email:</strong> {{ alumno().email }}</p>
+      <div class="alumno-context-card">
+        <p>Registrando notas para el estudiante:</p>
+        <h2>{{ alumno().nombre }} {{ alumno().apellido }}</h2>
       </div>
-    </div>
-    }
 
-    <div class="materias">
-      @for (materia of materias(); track materia.id) {
-      <div class="materia-card">
-
-        <div class="materia-info">
-          <h3>{{ materia.nombre }}</h3>
-
-          <div class="notas-actuales">
-            <strong>Notas: </strong>
-            @if (obtenerNotasMateria(materia.nombre).length > 0) {
-            <span class="notas-lista">{{ obtenerNotasMateria(materia.nombre).join(', ') }}</span>
-            } @else {
-            <span class="sin-notas">Sin notas registradas</span>
+      <div class="table-responsive">
+        <table class="custom-table notas-variacion">
+          <thead>
+            <tr>
+              <th>Asignatura</th>
+              <th>Historial</th>
+              <th class="th-accion">Nueva Calificación</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (materia of materias(); track materia.id) {
+              <tr>
+                <td><strong class="asignatura-titulo">{{ materia.nombre }}</strong></td>
+                <td>
+                  <div class="notas-historial-container">
+                    @for (nota of obtenerNotasMateria(materia.nombre); track $index) {
+                      <span class="historial-badge">{{ nota }}</span>
+                    } @empty {
+                      <span class="text-muted">Ninguna</span>
+                    }
+                  </div>
+                </td>
+                <td>
+                  <div class="form-input-grupo">
+                    <input #notaInput type="number" min="1" max="10" class="input-nota-custom" placeholder="1-10">
+                    <button class="btn-action-guardar" (click)="guardarNota(materia.id, notaInput.value, notaInput)">
+                      <i class="pi pi-save"></i> Guardar
+                    </button>
+                  </div>
+                </td>
+              </tr>
             }
-          </div>
-        </div>
-
-        <div class="input-grupo">
-          <input #notaInput type="number" min="1" max="10" class="input-nota" placeholder="Ej: 8">
-
-          <button class="btn-guardar" (click)="guardarNota(materia.id, notaInput.value, notaInput)">
-            Guardar nota
-          </button>
-        </div>
-
+          </tbody>
+        </table>
       </div>
-      }
-    </div>
-
+    }
   </div>
 </div>

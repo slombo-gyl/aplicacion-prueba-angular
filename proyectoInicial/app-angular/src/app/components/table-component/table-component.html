@@ -1,0 +1,63 @@
+<div class="table-responsive">
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email / DNI</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (student of alumnosPaginados(); track student.id) {
+      <tr>
+        <td class="td-id">#{{ student.id }}</td>
+        <td><strong>{{ student.nombre }}</strong></td>
+        <td>{{ student.apellido }}</td>
+        <td>{{ student.email || student.dni || '---' }}</td>
+        <td>
+          <div class="acciones-flex">
+            <button class="btn-icon view" title="Ver Expediente" [routerLink]="['/detalleAlumno']" [state]="{ alumno: student }">
+              <i class="pi pi-eye"></i>
+            </button>
+            <button class="btn-icon edit" title="Cargar Notas" [routerLink]="['/notas']" [state]="{ alumno: student }">
+              <i class="pi pi-file-edit"></i>
+            </button>
+            <button class="btn-icon delete" title="Dar de baja">
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      } @empty {
+      <tr>
+        <td colspan="5" class="empty-message">
+          <i class="pi pi-inbox empty-icon"></i>
+          <p>No se encontraron alumnos registrados.</p>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="paginacion-custom">
+  <button
+    class="btn-paginacion"
+    [disabled]="paginaActual() === 1"
+    (click)="cambiarPagina(paginaActual() - 1)">
+    <i class="pi pi-chevron-left"></i> Anterior
+  </button>
+
+  <span class="info-paginacion">
+    Página <strong>{{ paginaActual() }}</strong> de {{ totalPaginas() }}
+  </span>
+
+  <button
+    class="btn-paginacion"
+    [disabled]="paginaActual() === totalPaginas()"
+    (click)="cambiarPagina(paginaActual() + 1)">
+    Siguiente <i class="pi pi-chevron-right"></i>
+  </button>
+</div>
