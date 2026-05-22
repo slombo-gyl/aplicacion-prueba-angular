@@ -1,7 +1,6 @@
 .layout-container {
   min-height: 100vh;
   background: radial-gradient(circle at top left, #15130F 0%, #090909 60%);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #F6F1E7;
   display: flex;
   flex-direction: column;

@@ -9,7 +9,6 @@
 .layout-container {
   min-height: 100vh;
   background-color: var(--bg-dark);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-cream);
   padding: 2rem 0;
   display: flex;

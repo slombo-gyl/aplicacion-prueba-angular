@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ChartRadar} from './components/chart/chart';
-import { ChartModule } from "primeng/chart";
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
