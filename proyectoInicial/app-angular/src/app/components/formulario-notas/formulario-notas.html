@@ -1,4 +1,4 @@
-<div class="card">
+<!--<div class="card">
 
     <h2>Cargar Notas de Alumnos</h2>
 
@@ -46,4 +46,37 @@
 
     </form>
 
+  </div>-->
+<div class="card">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+  <div class="form-group mb-3">
+    <label for="materia">Seleccionar Materia:</label>
+    <select id="materia" formControlName="materia" class="form-select">
+      <option value="" disabled selected>-- Elija una materia --</option>
+      
+      @for (materia of materias(); track materia) {
+        <option [value]="materia">{{ materia }}</option>
+      }
+    </select>
+    
+    @if (errors['materia']) {
+      <small class="text-danger">{{ errors['materia'][0] }}</small>
+    }
   </div>
+
+  <div class="form-group mb-3">
+    <label for="nota">Nota:</label>
+    <input type="number" id="nota" formControlName="nota" class="form-control" placeholder="Ej: 8">
+    @if (errors['nota']) {
+      <small class="text-danger">{{ errors['nota'][0] }}</small>
+    }
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-secondary" (click)="onCerrar()">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Cargar Nota</button>
+  </div>
+
+</form>
+</div>

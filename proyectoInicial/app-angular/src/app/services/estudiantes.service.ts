@@ -7,7 +7,6 @@ export interface ChartResponse{
     data: number[];
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
