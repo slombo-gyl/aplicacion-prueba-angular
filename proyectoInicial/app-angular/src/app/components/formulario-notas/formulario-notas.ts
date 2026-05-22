@@ -59,7 +59,7 @@ export class FormularioNotas {
     }
 
     this.errors = {};
-    this.alumnosService.cargarNota(this.alumno().id, this.materia().id, result.data.nota);
+    this.alumnosService.cargarNota(this.alumno().id, this.materia().id, result.data.nota).subscribe();
     this.cerrar.emit();
   }
 

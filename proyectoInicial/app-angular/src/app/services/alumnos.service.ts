@@ -4,6 +4,7 @@ import { Observable, tap } from "rxjs";
 import { AlumnoModel } from "../interfaces/models/alumno.model";
 import { PuntajeModel } from "../interfaces/models/puntaje.model";
 import { AlumnoResponse } from "../interfaces/response/alumno.response";
+import { of, throwError } from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -35,9 +36,11 @@ export class AlumnosService {
     );
   }
 
-  cargarNota(alumnoId: number, materiaId: number, valor: number): Observable<PuntajeModel> | void {
+  cargarNota(alumnoId: number, materiaId: number, valor: number): Observable<PuntajeModel> {
     const existeAlumno = this.alumnos().find((alumno) => alumno.id === alumnoId);
-    if (!existeAlumno) return;
+    if (!existeAlumno) {
+        return throwError(() => new Error("El alumno no existe"));
+    }
 
 
     const puntajeRequest = {
