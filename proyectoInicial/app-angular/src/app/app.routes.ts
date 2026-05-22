@@ -6,5 +6,6 @@ export const routes: Routes = [
   { path: 'dashboard', loadComponent: () => import('./views/dashboard/dashboard').then(m => m.Dashboard) },
   { path: 'alumnos', loadComponent: () => import('./views/tablaAlumnos/table').then(m => m.TableComponent) },
   { path: 'notas', loadComponent: () => import('./views/notas-alumno/notas-alumno').then(m => m.NotasAlumno) },
+  {path: "detalleAlumno", loadComponent: () => import('./views/detalle-alumno/detalle-alumno').then(m => m.DetalleAlumno) },
   { path: '**', loadComponent: () => import('./views/error-componente/error-componente').then(m => m.ErrorComponente) }
 ];     

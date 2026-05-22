@@ -75,6 +75,7 @@ export class TableComponent implements OnInit{
       },
       error: (err) => {
         console.error('Error al crear alumno', err);
+        alert('Error al cargar un alumno. Por favor, intente nuevamente.');
       }
     });
   }
@@ -97,6 +98,7 @@ export class TableComponent implements OnInit{
       },
       error: (err) => {
         console.error('Error al modificar alumno', err);
+        alert('Error al actualizar un alumno. Por favor, intente nuevamente.');
       }
     });
   }
