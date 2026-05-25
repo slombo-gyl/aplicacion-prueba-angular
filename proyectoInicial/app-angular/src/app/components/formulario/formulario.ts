@@ -68,6 +68,4 @@ export class Formulario {
     this.guardar.emit(result.data);
     this.onCerrar();
   }
-
-
 }

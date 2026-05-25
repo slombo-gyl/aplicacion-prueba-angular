@@ -20,4 +20,3 @@ describe('Formulario', () => {
     expect(component).toBeTruthy();
   });
 });
-
