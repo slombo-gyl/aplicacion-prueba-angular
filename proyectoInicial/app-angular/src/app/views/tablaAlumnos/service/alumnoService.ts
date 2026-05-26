@@ -10,10 +10,15 @@ import { environment } from '../../../../environments/environment';
 
 export class AlumnoService {
   private http = inject(HttpClient);
-  private apiUrl = environment.APIURL+environment.ENDPOINT_ALUMNO; 
+  
+  private apiUrl = 'http://localhost:8080/api/students'; 
 
   getAlumnos(): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(this.apiUrl);
+  }
+  //ver alumnos inactivos
+  getAlumnosInactivos(): Observable<Alumno[]> {
+    return this.http.get<Alumno[]>(`${this.apiUrl}/inactivos`);
   }
 
  getAlumnoByID(id: number): Observable<Alumno> {
@@ -27,4 +32,6 @@ export class AlumnoService {
   deleteAlumnoLogico(id: number): Observable<Alumno>{
     return this.http.delete<Alumno>(`${this.apiUrl}/${id}`);
   }
+
+  
 }

@@ -513,11 +513,40 @@
         grid-column: span 1;
     }
 
-    .datos-estudiante-grid {
-        grid-template-columns: 1fr;
-    }
+    #contenedor-filtros {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
 
-    .dato-item.full-width {
-        grid-column: span 1;
-    }
+/* Estilo base para ambos botones */
+.btn-filtro {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #f1f5f9; /* Color gris claro por defecto */
+  color: #334155;
+  transition: background-color 0.2s ease;
+}
+
+
+#btn-alumnos-activos.activo {
+  background-color: #2563eb; /* Azul */
+  color: white;
+}
+
+
+#btn-alumnos-inactivos.activo {
+  background-color: #64748b; /* Gris oscuro */
+  color: white;
+}
+
+
+#titulo-vista {
+  color: #1e293b;
+  margin-top: 15px;
+  font-family: sans-serif;
+}
 }
