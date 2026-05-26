@@ -1,25 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { Dialog } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
-import { Router } from "@angular/router";
+
+import { Alumno } from '../../../interfaces/alumno.interface';
 import { Formulario } from '../../components/formulario/formulario';
 import { FormularioNota } from '../../components/formulario-notas/formulario-notas';
-import { Alumno } from '../../../interfaces/alumno.interface';
 import { AlumnoService } from './service/alumnoService';
-
-// 🚀 NUEVOS IMPORTS PARA EL MODAL DE DETALLES
-import { Dialog } from 'primeng/dialog'; 
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
   standalone: true,
- 
   imports: [TableModule, Formulario, FormularioNota, Dialog, CommonModule],
   templateUrl: './table.html',
-  styleUrl: './table.css'
+  styleUrl: './table.css',
 })
 export class TableComponent implements OnInit {
-  
   private service = inject(AlumnoService);
 
   alumnos = signal<Alumno[]>([]);
@@ -27,11 +24,10 @@ export class TableComponent implements OnInit {
   mostrarFormulario = signal(false);
   mostrarFormularioNota = signal(false);
 
-  // SIGNALS PARA EL CONTROL DE DETALLES
   mostrarModalDetalles = signal(false);
   alumnoSeleccionado = signal<Alumno | null>(null);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.callPage();
@@ -45,50 +41,49 @@ export class TableComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al traer alumnos:', err);
-      }
+      },
     });
   }
 
-  navigateToHome() {
+  navigateToHome(): void {
     this.router.navigate(['']);
   }
 
-  abrirFormulario() {
+  abrirFormulario(): void {
     this.mostrarFormulario.set(true);
   }
 
-  abrirFormularioNota() {
+  abrirFormularioNota(): void {
     this.mostrarFormularioNota.set(true);
   }
 
-  cerrarFormulario() {
+  cerrarFormulario(): void {
     this.mostrarFormulario.set(false);
     this.mostrarFormularioNota.set(false);
   }
 
-  //  guarda el resultado del Back en el signal y abre el modal
-  verAlumno(id: number) {
+  verAlumno(id: number): void {
     this.service.getAlumnoByID(id).subscribe({
       next: (res: Alumno) => {
-        console.log("Ver alumno desde la base de datos:", res);
-        this.alumnoSeleccionado.set(res);     // Guardamos el alumno fresco de la API
-        this.mostrarModalDetalles.set(true);  //  Desplegamos el Dialog modal
+        console.log('Ver alumno desde la base de datos:', res);
+        this.alumnoSeleccionado.set(res);
+        this.mostrarModalDetalles.set(true);
       },
       error: (err) => {
-        console.error("Error al traer los detalles del alumno:", err);
-      }
+        console.error('Error al traer los detalles del alumno:', err);
+      },
     });
   }
 
-eliminarBajaLogica(id: number) {
+  eliminarBajaLogica(id: number): void {
     this.service.deleteAlumnoLogico(id).subscribe({
-      next: (res: any) => {
-        console.log("Estado del alumno actualizado con éxito: ", res);
-        this.callPage(); 
+      next: (res: Alumno) => {
+        console.log('Estado del alumno actualizado con exito: ', res);
+        this.callPage();
       },
       error: (err) => {
-        console.error("Error al intentar cambiar el estado del alumno:", err);
-      }
+        console.error('Error al intentar cambiar el estado del alumno:', err);
+      },
     });
   }
 }
