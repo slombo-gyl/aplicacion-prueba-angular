@@ -10,7 +10,7 @@
       <button class="btn-cargar-alumno" (click)="abrirFormulario()">Cargar Alumnos</button>
     </div>
     <div class="table-container">
-      <p-table [value]="alumnos()" [paginator]="true" [rows]="5" [pageLinks]="3" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="true"[paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" responsiveLayout="scroll" scrollDirection="horizontal" styleClass="tabla-alumnos" showGridlines>
+      <p-table [value]="alumnos()" [paginator]="true" [rows]="5" [pageLinks]="3" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="true" responsiveLayout="scroll" scrollDirection="horizontal" styleClass="tabla-alumnos" showGridlines>
         <ng-template #header>
           <tr>
             <th>Nombre</th>

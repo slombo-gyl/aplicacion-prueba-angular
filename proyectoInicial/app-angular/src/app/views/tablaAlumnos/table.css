@@ -8,6 +8,8 @@
     max-width: 80%;
     height: auto;
     min-height: 85vh;
+    height: auto;
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
 }
@@ -25,6 +27,20 @@
     font-weight: 600;
     margin: 0 auto;
     text-align: center;
+}
+
+button {
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.288);
+    border-radius: 8px;
+    color: white;
+    background-color: grey;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem auto;
 }
 
 button {
@@ -72,6 +88,7 @@ button {
     color: var(--color-btn-letra);
     cursor: pointer;
     transition: 0.2s;
+    margin: 0;
     margin: 0;
 }
 
@@ -501,8 +518,10 @@ button {
 }
 
 @media (max-width: 768px) {
+@media (max-width: 768px) {
     .card {
         max-width: 95%;
+        height: auto;
         height: auto;
         margin: 1rem auto;
         padding: 1rem;
