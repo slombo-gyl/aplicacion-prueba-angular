@@ -1,14 +1,13 @@
 import { Component, effect, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
-
 import { z } from 'zod';
 
 const userSchema = z.object({
-  nombre: z.string().min(3, 'Nombre inválido'),
-  apellido: z.string().min(3, 'Apellido inválido'),
+  nombre: z.string('Nombre requerido').min(2, 'Nombre inválido'),
+  apellido: z.string('Apellido requerido').min(2, 'Apellido inválido'),
   email: z.email('Email inválido'),
-  dni: z.string().regex(/^\d{8}$/, 'DNI inválido'),
+  dni: z.string('DNI requerido').regex(/^\d{7,8}$/, 'DNI inválido'),
 });
 
 @Component({
@@ -22,12 +21,9 @@ export class Formulario {
 
   modo = input<'registrar' | 'editar'>('registrar');
   alumno = input<any>(null);
-  errors: Record<string, string[]> = {};
-
-  // Declaramos el evento de salida
   cerrar = output<void>();
   guardar = output<any>();
-
+  errors: Record<string, string[]> = {};
   form!: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -38,7 +34,6 @@ export class Formulario {
       dni: [''],
     });
 
-    //Sirve para actualizar el formulario cada vez que cambia el alumno o el modo
     effect(() => {
       if (this.alumno()) {
         this.form.patchValue(this.alumno());
@@ -56,15 +51,13 @@ export class Formulario {
     const result = userSchema.safeParse(this.form.value);
 
     if (!result.success) {
+
       this.errors = result.error.flatten().fieldErrors;
 
       return;
     }
 
     this.errors = {};
-
-    console.log('Formulario válido');
-    console.log(result.data);
     this.guardar.emit(result.data);
     this.onCerrar();
   }

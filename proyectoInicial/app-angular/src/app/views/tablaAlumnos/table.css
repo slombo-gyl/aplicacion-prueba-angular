@@ -73,7 +73,19 @@
 }
 
 .btn-back {
-  padding: 0.8rem 1rem;
+  background-color: var(--text-gold);
+  color: var(--bg-dark);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100px;
+  justify-content: center;
 }
 
 .btn-back:hover,
@@ -204,4 +216,47 @@
   .btn-action {
     max-width: 100%;
   }
+}
+
+:host ::ng-deep .p-paginator {
+  background: transparent;
+  border: none;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-page,
+:host ::ng-deep .p-paginator .p-paginator-next,
+:host ::ng-deep .p-paginator .p-paginator-prev,
+:host ::ng-deep .p-paginator .p-paginator-first,
+:host ::ng-deep .p-paginator .p-paginator-last {
+  background: #1f1a12;
+  border: 1px solid #facc15;
+  color: #facc15;
+
+  width: 2.3rem;
+  height: 2.3rem;
+
+  border-radius: 12px;
+
+  transition: all .2s ease;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-page:hover,
+:host ::ng-deep .p-paginator .p-paginator-next:hover,
+:host ::ng-deep .p-paginator .p-paginator-prev:hover,
+:host ::ng-deep .p-paginator .p-paginator-first:hover,
+:host ::ng-deep .p-paginator .p-paginator-last:hover {
+  background: #facc15;
+  color: black;
+  transform: translateY(-2px);
+}
+
+:host ::ng-deep .p-paginator .p-highlight {
+  background: #facc15;
+  color: black;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
 }
