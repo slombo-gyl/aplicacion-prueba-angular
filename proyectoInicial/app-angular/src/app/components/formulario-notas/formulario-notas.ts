@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MateriaService } from '../../views/tablaAlumnos/service/materiaService';
+import { Materia } from '../../../interfaces/materia.interface';
 import { z } from 'zod';
 
 const userSchema = z.object({
-  materia: z.string().min(1, 'materia inválido'),
+  materiaId: z.coerce.number().min(1, 'Materia inválida'),
   nota: z.coerce.number().min(0, 'Nota inválida').max(10, 'La nota máxima es 10'),
 });
 
@@ -23,36 +24,25 @@ export class FormularioNota implements OnInit {
   errors: Record<string, string[]> = {};
   cerrar = output<void>();
 
-  //aca se guardaran las materias que vengan de la base de datos
-  materias = signal<string[]>([])
+  materias = signal<Materia[]>([]);
   form: FormGroup;
 
   constructor() {
     this.form = this.fb.group({
-      materia: [''],
+      materiaId: [''],
       nota: [''],
     });
   }
 
-  ngOnInit(): void 
-  {
-    //apenas se abra el formulario, cargamos las materias de la BD
+  ngOnInit(): void {
     this.cargarMaterias();
   }
 
-  cargarMaterias()
-  {
+  cargarMaterias() {
     this.service.getMaterias().subscribe
     ({
-        next: (data) => 
-        {
-          this.materias.set(data.map(materia => materia.nombre));
-          // Llenamos el Signal con las materias
-        },
-        error: (err) => 
-        {
-          console.error('Error al traer materias, ', err);
-        }
+        next: (data) => {this.materias.set(data);},
+        error: (err) => {console.error('Error al traer materias, ', err);}
     });
   }
 

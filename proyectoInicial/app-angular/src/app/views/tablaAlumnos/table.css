@@ -6,10 +6,7 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     margin: 2rem auto;
     max-width: 80%;
-    height: auto;
-    min-height: 85vh;
-    height: auto;
-    min-height: 85vh;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
@@ -473,6 +470,69 @@ button {
     display: inline-flex !important;
 }
 
+::ng-deep body .p-paginator .p-select,
+::ng-deep body .p-paginator .p-select.p-component {
+    min-width: 4.25rem !important;
+    height: 2.2rem !important;
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    color: #e2e8f0 !important;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.28) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    overflow: visible !important;
+}
+
+::ng-deep body .p-paginator .p-select:not(.p-disabled):hover,
+::ng-deep body .p-paginator .p-select.p-focus {
+    background: #334155 !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22) !important;
+}
+
+::ng-deep body .p-paginator .p-select-label {
+    color: #f8fafc !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    padding: 0.4rem 0.25rem 0.4rem 0.65rem !important;
+}
+
+::ng-deep body .p-paginator .p-select-dropdown {
+    width: 1.55rem !important;
+    color: #93c5fd !important;
+}
+
+::ng-deep body .p-select-overlay {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.28) !important;
+    overflow: hidden !important;
+    z-index: 2000 !important;
+}
+
+::ng-deep body .p-select-list {
+    padding: 0.3rem !important;
+}
+
+::ng-deep body .p-select-option {
+    color: #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 0.55rem 0.8rem !important;
+    font-weight: 600 !important;
+}
+
+::ng-deep body .p-select-option:not(.p-select-option-selected):not(.p-disabled):hover {
+    background: #334155 !important;
+    color: #ffffff !important;
+}
+
+::ng-deep body .p-select-option.p-select-option-selected {
+    background: #334155 !important;
+    color: #ffffff !important;
+}
+
 ::ng-deep .p-dialog.custom-modal-detalles {
     background: #111827 !important;
     color: #f3f4f6 !important;
@@ -518,7 +578,6 @@ button {
 }
 
 @media (max-width: 768px) {
-@media (max-width: 768px) {
     .card {
         max-width: 95%;
         height: auto;
@@ -558,23 +617,32 @@ button {
     }
 
     ::ng-deep body .p-paginator {
-        padding: 0.5rem 0.2rem !important;
-        flex-wrap: wrap !important;
-        gap: 0.2rem !important;
+        padding: 0.5rem 0.25rem !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        gap: 0.15rem !important;
+        overflow-x: auto !important;
+        scrollbar-width: none !important;
+    }
+
+    ::ng-deep body .p-paginator::-webkit-scrollbar {
+        display: none !important;
     }
 
     ::ng-deep body .p-paginator .p-paginator-first,
     ::ng-deep body .p-paginator .p-paginator-last {
-        display: none !important;
+        display: inline-flex !important;
     }
 
     ::ng-deep body .p-paginator .p-paginator-page,
+    ::ng-deep body .p-paginator .p-paginator-first,
+    ::ng-deep body .p-paginator .p-paginator-last,
     ::ng-deep body .p-paginator .p-paginator-prev,
     ::ng-deep body .p-paginator .p-paginator-next {
-        min-width: 1.8rem !important;
-        height: 1.8rem !important;
-        margin: 0 0.1rem !important;
-        font-size: 0.85rem !important;
+        min-width: 1.7rem !important;
+        height: 1.7rem !important;
+        margin: 0 0.04rem !important;
+        font-size: 0.75rem !important;
         border-radius: 6px !important;
     }
 
@@ -589,13 +657,39 @@ button {
         padding: 0.2rem 0.5rem !important;
     }
 
+    ::ng-deep body .p-paginator .p-select,
+    ::ng-deep body .p-paginator .p-select.p-component {
+        min-width: 3.6rem !important;
+        height: 1.8rem !important;
+        flex: 0 0 auto !important;
+    }
+
+    ::ng-deep body .p-paginator .p-select-label {
+        padding: 0.3rem 0.15rem 0.3rem 0.5rem !important;
+        font-size: 0.78rem !important;
+    }
+
+    ::ng-deep body .p-paginator .p-select-dropdown {
+        width: 1.25rem !important;
+    }
+
     ::ng-deep body .p-paginator .p-paginator-rpp-options {
-        margin-left: 0.3rem !important;
+        margin-left: 0.15rem !important;
+        flex: 0 0 auto !important;
     }
 }
 
 @media (max-width: 320px) {
     .title {
         margin-left: 2.5rem;
+    }
+
+    ::ng-deep body .p-paginator {
+        justify-content: flex-start !important;
+    }
+
+    ::ng-deep body .p-paginator .p-paginator-first,
+    ::ng-deep body .p-paginator .p-paginator-last {
+        display: none !important;
     }
 }

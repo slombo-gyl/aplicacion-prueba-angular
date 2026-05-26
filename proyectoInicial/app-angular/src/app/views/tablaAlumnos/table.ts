@@ -12,12 +12,10 @@ import { AlumnoService } from './service/alumnoService';
 @Component({
   selector: 'app-table',
   standalone: true,
- 
   imports: [TableModule, Formulario, FormularioNota, Dialog, CommonModule],
   templateUrl: './table.html',
-  styleUrl: './table.css'
+  styleUrl: './table.css',
 })
-
 export class TableComponent implements OnInit {
   private service = inject(AlumnoService);
 
@@ -29,7 +27,7 @@ export class TableComponent implements OnInit {
   mostrarModalDetalles = signal(false);
   alumnoSeleccionado = signal<Alumno | null>(null);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.callPage();
@@ -43,49 +41,49 @@ export class TableComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al traer alumnos:', err);
-      }
+      },
     });
   }
 
-  navigateToHome() {
+  navigateToHome(): void {
     this.router.navigate(['']);
   }
 
-  abrirFormulario() {
+  abrirFormulario(): void {
     this.mostrarFormulario.set(true);
   }
 
-  abrirFormularioNota() {
+  abrirFormularioNota(): void {
     this.mostrarFormularioNota.set(true);
   }
 
-  cerrarFormulario() {
+  cerrarFormulario(): void {
     this.mostrarFormulario.set(false);
     this.mostrarFormularioNota.set(false);
   }
 
-  verAlumno(id: number) {
+  verAlumno(id: number): void {
     this.service.getAlumnoByID(id).subscribe({
       next: (res: Alumno) => {
-        console.log("Ver alumno desde la base de datos:", res);
+        console.log('Ver alumno desde la base de datos:', res);
         this.alumnoSeleccionado.set(res);
         this.mostrarModalDetalles.set(true);
       },
       error: (err) => {
-        console.error("Error al traer los detalles del alumno:", err);
-      }
+        console.error('Error al traer los detalles del alumno:', err);
+      },
     });
   }
 
-eliminarBajaLogica(id: number) {
+  eliminarBajaLogica(id: number): void {
     this.service.deleteAlumnoLogico(id).subscribe({
-      next: (res: any) => {
-        console.log("Estado del alumno actualizado con éxito: ", res);
-        this.callPage(); 
+      next: (res: Alumno) => {
+        console.log('Estado del alumno actualizado con exito: ', res);
+        this.callPage();
       },
       error: (err) => {
-        console.error("Error al intentar cambiar el estado del alumno:", err);
-      }
+        console.error('Error al intentar cambiar el estado del alumno:', err);
+      },
     });
   }
 }
