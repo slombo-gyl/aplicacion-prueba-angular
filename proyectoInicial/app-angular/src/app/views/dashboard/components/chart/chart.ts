@@ -10,6 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
   standalone: true,
   imports: [ChartModule],
 })
+
 export class ChartRadar implements OnInit {
   data: any;
   options: any;
