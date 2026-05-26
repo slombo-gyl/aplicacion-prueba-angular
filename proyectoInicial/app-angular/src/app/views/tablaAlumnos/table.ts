@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router, RouterLink } from "@angular/router";
-import { AlumnoService, Alumno } from './service/alumnoServis'; 
+import { AlumnoService, Alumno } from './service/alumnoServis';
 import { Formulario } from '../../components/formulario/formulario';
 
 
@@ -41,7 +41,7 @@ export class TableComponent implements OnInit{
   navigateToHome() {
     this.router.navigate([''])
   }
-  
+
   abrirRegistrar() {
     this.modo.set('registrar');
     this.alumnoSeleccionado.set(null);
@@ -61,6 +61,7 @@ export class TableComponent implements OnInit{
   guardarAlumno(alumno: Alumno) {
     if (this.modo() === 'registrar') {
       this.crearAlumno(alumno);
+      alert('Alumno guardado con éxito');
     } else {
       this.modificarAlumno(alumno);
     }
@@ -104,6 +105,6 @@ export class TableComponent implements OnInit{
   }
 
   verDetalles(alumno: Alumno) {
-    this.router.navigate(['/detalleAlumno'], { state: { alumno: alumno } }); 
+    this.router.navigate(['/detalleAlumno'], { state: { alumno: alumno } });
   }
 }
