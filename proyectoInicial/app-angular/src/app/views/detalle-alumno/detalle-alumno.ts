@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MateriasService, Materia, MateriaNotas } from '../../services/materias.service';
-import { Alumno } from '../tablaAlumnos/service/alumnoServis';
+import { Alumno } from '../../services/alumno.service';
 
 @Component({
   selector: 'app-detalle-alumno',

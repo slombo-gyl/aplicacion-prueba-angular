@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Router, RouterLink } from "@angular/router";
-import { AlumnoService, Alumno } from './service/alumnoServis';
+import { AlumnoService, Alumno } from '../../services/alumno.service';
 import { Formulario } from '../../components/formulario/formulario';
 
 
