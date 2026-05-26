@@ -44,13 +44,12 @@
       </ng-template>
       <ng-template #body let-alumno>
         <tr>
-          <td>{{ alumno.id }}</td>
           <td>{{ alumno.nombre }}</td>
           <td>{{ alumno.dni }}</td>
           <td>{{ alumno.email }}</td>
           <td><button class="button" (click)="abrirFormularioNota()">cargar notas</button></td>
           <td class="d-flex">
-            <button (click)="verAlumno(alumno)">Detalles</button>
+            <button class="btn-action" (click)="verAlumno(alumno)">Detalles</button>
             <button pButton type="button" label="Eliminar" (click)="eliminarBajaLogica(alumno.id)"></button>
           </td>
         </tr>
@@ -79,3 +78,95 @@
     </div>
   }
 </div>
+<p-dialog 
+
+  header="Ficha Académica Institucional" 
+  [visible]="mostrarModalDetalles()" 
+  (visibleChange)="mostrarModalDetalles.set($event)"
+  [modal]="true"
+  [draggable]="false" 
+  [resizable]="false"
+  [appendTo]="'local'"
+  styleClass="custom-modal-detalles">
+  
+  @if (alumnoSeleccionado()) {
+    <div class="modal-body-container">
+      
+      @if (alumnoSeleccionado()?.fechaBaja) {
+        <div class="banner-baja-logica">
+          <i class="pi pi-exclamation-circle animate-pulse"></i>
+          <div>
+            <h4>ESTADO: INACTIVO / ALUMNO DADO DE BAJA</h4>
+            <p>Registrado en el sistema el: {{ alumnoSeleccionado()?.fechaBaja | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+      }
+
+      <div class="seccion-detalles-card">
+        <div class="seccion-titulo">
+          <i class="pi pi-user text-primary"></i>
+          <h3>Datos del Estudiante</h3>
+        </div>
+        
+        <div class="datos-estudiante-grid">
+          <div class="dato-item text-muted">
+            <span class="label">ID Interno</span>
+            <span class="valor highlight">#{{ alumnoSeleccionado()?.id }}</span>
+          </div>
+          <div class="dato-item">
+            <span class="label">Documento (DNI)</span>
+            <span class="valor">{{ alumnoSeleccionado()?.dni }}</span>
+          </div>
+          <div class="dato-item full-width">
+            <span class="label">Nombre y Apellido</span>
+            <span class="valor">{{ alumnoSeleccionado()?.nombre }} {{ alumnoSeleccionado()?.apellido }}</span>
+          </div>
+          <div class="dato-item full-width">
+            <span class="label">Correo Electrónico</span>
+            <span class="valor email-link">{{ alumnoSeleccionado()?.email }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="seccion-detalles-card">
+        <div class="seccion-titulo">
+          <i class="pi pi-book text-success"></i>
+          <h3>Asignaturas Cursadas y Calificaciones</h3>
+        </div>
+        
+        @if (alumnoSeleccionado()?.materias && alumnoSeleccionado()!.materias!.length > 0) {
+          <div class="tabla-responsive-container">
+            <table class="tabla-academic-premium">
+              <thead>
+                <tr>
+                  <th>Materia / Asignatura</th>
+                  <th class="text-center">Nota Final</th>
+                  <th class="text-center">Estado Académico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let materia of alumnoSeleccionado()?.materias">
+                  <td class="font-medium">{{ materia.nombreMateria }}</td>
+                  <td class="text-center nota-calificacion" [class.nota-alta]="materia.nota >= 7">
+                    {{ materia.nota }}
+                  </td>
+                  <td class="text-center">
+                    <span class="badge-condicion" [class.aprobado]="materia.nota >= 4" [class.reprobado]="materia.nota < 4">
+                      {{ materia.nota >= 4 ? 'Aprobado' : 'Reprobado' }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <div class="aviso-sin-registros">
+            <i class="pi pi-info-circle-fill"></i>
+            <p>El estudiante no registra asignaturas ni calificaciones cargadas en el presente ciclo lectivo.</p>
+          </div>
+        }
+      </div>
+
+    </div>
+  }
+</p-dialog>

@@ -6,10 +6,15 @@ import { FormularioNota } from '../../components/formulario-notas/formulario-not
 import { Alumno } from '../../../interfaces/alumno.interface';
 import { AlumnoService } from './service/alumnoService';
 
+// 🚀 NUEVOS IMPORTS PARA EL MODAL DE DETALLES
+import { Dialog } from 'primeng/dialog'; 
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, Formulario, FormularioNota],
+ 
+  imports: [TableModule, Formulario, FormularioNota, Dialog, CommonModule],
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
@@ -21,6 +26,10 @@ export class TableComponent implements OnInit {
 
   mostrarFormulario = signal(false);
   mostrarFormularioNota = signal(false);
+
+  // SIGNALS PARA EL CONTROL DE DETALLES
+  mostrarModalDetalles = signal(false);
+  alumnoSeleccionado = signal<Alumno | null>(null);
 
   constructor(private router: Router) { }
 
@@ -57,9 +66,17 @@ export class TableComponent implements OnInit {
     this.mostrarFormularioNota.set(false);
   }
 
+  //  guarda el resultado del Back en el signal y abre el modal
   verAlumno(id: number) {
-    this.service.getAlumnoByID(id).subscribe((res) => {
-      console.log("Ver alumno:", res);
+    this.service.getAlumnoByID(id).subscribe({
+      next: (res: Alumno) => {
+        console.log("Ver alumno desde la base de datos:", res);
+        this.alumnoSeleccionado.set(res);     // Guardamos el alumno fresco de la API
+        this.mostrarModalDetalles.set(true);  //  Desplegamos el Dialog modal
+      },
+      error: (err) => {
+        console.error("Error al traer los detalles del alumno:", err);
+      }
     });
   }
 
