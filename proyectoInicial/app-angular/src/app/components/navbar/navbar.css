@@ -1,34 +1,55 @@
-.navbar {
-  background-color: #1E1B16;
-  color: #F6F1E7;
-  padding: 1rem 3rem;
+.nav-links {
   display: flex;
-  justify-content: space-between;
+  gap: 2rem;
   align-items: center;
-  border-bottom: 1px solid #5A4A2A;
-  box-shadow: 0 4px 15px rgba(9, 9, 9, 0.8);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 }
 
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
+.nav-links a {
+  color: #F6F1E7;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #E0BF66;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background-color: #E0BF66;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.brand-title {
+  color: #E0BF66;
+  text-decoration: none;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #E0BF66;
   letter-spacing: 0.5px;
+  transition: 0.2s ease;
 }
 
-.nav-brand i {
-  font-size: 1.9rem;
+.brand-title:hover {
+  color: #F6F1E7;
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem;
-    justify-content: center;
-  }
+.nav-links a.active {
+  color: #E0BF66;
+  border-bottom: 2px solid #E0BF66;
+}
+
+.navbar {
+  padding: 1rem 4rem;
+  border-bottom: 1px solid rgba(224, 191, 102, 0.3);
 }
