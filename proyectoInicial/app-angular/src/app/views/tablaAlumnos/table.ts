@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Dialog } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
@@ -27,11 +27,22 @@ export class TableComponent implements OnInit {
   mostrarModalDetalles = signal(false);
   alumnoSeleccionado = signal<Alumno | null>(null);
   alumnoNotaId = signal<number | null>(null);
+  pageLinks = signal(5);
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.actualizarPageLinks();
     this.callPage();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.actualizarPageLinks();
+  }
+
+  private actualizarPageLinks(): void {
+    this.pageLinks.set(window.innerWidth <= 320 ? 3 : 5);
   }
 
   callPage(): void {

@@ -679,6 +679,13 @@ button {
     }
 }
 
+@media (max-width: 426px) {
+    ::ng-deep body .p-paginator .p-paginator-first,
+    ::ng-deep body .p-paginator .p-paginator-last {
+        display: none !important;
+    }
+}
+
 @media (max-width: 320px) {
     .title {
         margin-left: 2.5rem;
@@ -686,10 +693,5 @@ button {
 
     ::ng-deep body .p-paginator {
         justify-content: flex-start !important;
-    }
-
-    ::ng-deep body .p-paginator .p-paginator-first,
-    ::ng-deep body .p-paginator .p-paginator-last {
-        display: none !important;
     }
 }
