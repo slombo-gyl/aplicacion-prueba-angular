@@ -13,7 +13,7 @@ export interface ChartResponse{
 })
 
 export class EstudiantesService{
-    private apiUrl = 'http://localhost:8080/api/students'
+    private apiUrl = 'http://localhost:8080/api/puntajes';
 
     constructor(private http: HttpClient){}
 

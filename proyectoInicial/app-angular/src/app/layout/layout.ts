@@ -2,12 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-layout',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
-  
+  templateUrl: './layout.html',
 })
-export class App {
-
-}
+export class Layout {}

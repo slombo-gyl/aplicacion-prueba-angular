@@ -1,17 +1,14 @@
-import { Component, signal, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, signal } from '@angular/core';
+import { Menu } from '../../components/menu/menu';
 
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
-  templateUrl: './home.html',
+  imports: [Menu],
+  templateUrl:'./home.html',
   styleUrl: './home.css',
 })
-export class Home {
-
-  /*instanciamos el router */
-  constructor(private router: Router) {}
+export default class Home {
 
 
   mensaje = signal(''); 
@@ -23,13 +20,6 @@ export class Home {
     nombre: 'Juan Sebastian',
     edad: 35,
   };
-
-  navigateTo(){
-    this.router.navigate(['/dashboard'])
-  }
-
-
-
 
   saludar() {
     return `Bienvenido`;

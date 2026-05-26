@@ -1,14 +1,29 @@
 import { Routes } from '@angular/router';
-import { Home } from './views/home/home';
-import { Formulario } from './components/formulario/formulario';
-import { Dashboard } from './views/dashboard/dashboard';
-import { Alumno } from './views/alumnos/alumno';
-import { Materias } from './views/materias/materias';
+import { Layout } from './layout/layout';
 
 export const routes: Routes = [
-  { path: '', component: Home },
-  { path: 'formulario', component: Formulario },
-  { path: 'dashboard', component: Dashboard },
-  { path: 'alumnos', component: Alumno },
-  { path: 'materias', component: Materias }
+  {
+    path: '',
+    component: Layout,
+    children: [
+      { 
+        path: '',
+        loadComponent: () => import('./views/home/home')
+       },
+      { 
+        path: 'dashboard', 
+        loadComponent: () => import('./views/dashboard/dashboard') 
+      },
+      { 
+        path: 'alumnos', 
+        loadComponent: () => import('./views/alumnos/alumno') 
+      },
+      { 
+        path: 'materias', 
+        loadComponent: () => import('./views/materias/materias')   
+      },
+      { 
+        path: '**', redirectTo: '' }
+    ] 
+  }
 ];

@@ -13,7 +13,7 @@ import { AlumnoResponse } from '../../interfaces/response/alumno.response';
   templateUrl: './alumno.html',
   styleUrl: './alumno.css'
 })
-export class Alumno implements OnInit {
+export default class Alumno implements OnInit {
   private router = inject(Router);
   alumnoService = inject(AlumnosService);
 

@@ -13,7 +13,7 @@ import { MateriaResponse } from '../../interfaces/response/materia.response';
   templateUrl: './materias.html',
   styleUrl: './materias.css',
 })
-export class Materias implements OnInit {
+export default class Materias implements OnInit {
   private router = inject(Router);
   private materiasService = inject(MateriasService);
 
