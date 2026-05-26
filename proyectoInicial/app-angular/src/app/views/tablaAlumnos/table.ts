@@ -26,6 +26,7 @@ export class TableComponent implements OnInit {
 
   mostrarModalDetalles = signal(false);
   alumnoSeleccionado = signal<Alumno | null>(null);
+  alumnoNotaId = signal<number | null>(null);
 
   constructor(private router: Router) {}
 
@@ -53,13 +54,15 @@ export class TableComponent implements OnInit {
     this.mostrarFormulario.set(true);
   }
 
-  abrirFormularioNota(): void {
+  abrirFormularioNota(id: number): void {
+    this.alumnoNotaId.set(id);
     this.mostrarFormularioNota.set(true);
   }
 
   cerrarFormulario(): void {
     this.mostrarFormulario.set(false);
     this.mostrarFormularioNota.set(false);
+    this.alumnoNotaId.set(null);
   }
 
   verAlumno(id: number): void {

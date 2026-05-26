@@ -30,7 +30,7 @@
             <td>{{ alumno.nombre }}</td>
             <td>{{ alumno.dni }}</td>
             <td>{{ alumno.email }}</td>
-            <td><button class="button" (click)="abrirFormularioNota()">Cargar notas</button></td>
+            <td><button class="button" (click)="abrirFormularioNota(alumno.id)">Cargar notas</button></td>
             <td class="d-flex">
               <button (click)="verAlumno(alumno.id)">Detalles</button>
               <button (click)="eliminarBajaLogica(alumno.id)">Cambiar estado</button>
@@ -47,10 +47,14 @@
       </div>
     </div>
   }
-  @if (mostrarFormularioNota()) {
+  @if (mostrarFormularioNota() && alumnoNotaId()) {
     <div class="modal-overlay" (click)="cerrarFormulario()">
       <div (click)="$event.stopPropagation()">
-        <app-formulario-notas (cerrar)="cerrarFormulario()"></app-formulario-notas>
+        <app-formulario-notas
+          [estudianteId]="alumnoNotaId()!"
+          (cerrar)="cerrarFormulario()"
+          (notaGuardada)="callPage()"
+        ></app-formulario-notas>
       </div>
     </div>
   }

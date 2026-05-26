@@ -1,7 +1,8 @@
-import { Component, inject, OnInit, signal, output } from '@angular/core';
+import { Component, inject, OnInit, signal, output, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MateriaService } from '../../views/tablaAlumnos/service/materiaService';
+import { PuntajeService } from '../../views/tablaAlumnos/service/puntajeService';
 import { Materia } from '../../../interfaces/materia.interface';
 import { z } from 'zod';
 
@@ -20,9 +21,12 @@ const userSchema = z.object({
 export class FormularioNota implements OnInit {
   private fb = inject(FormBuilder);
   private service = inject(MateriaService);
+  private puntajeService = inject(PuntajeService);
 
   errors: Record<string, string[]> = {};
+  estudianteId = input.required<number>();
   cerrar = output<void>();
+  notaGuardada = output<void>();
 
   materias = signal<Materia[]>([]);
   form: FormGroup;
@@ -59,8 +63,20 @@ export class FormularioNota implements OnInit {
     }
 
     this.errors = {};
-    console.log('Formulario válido');
-    console.log(result.data);
-    this.onCerrar();
+    this.puntajeService
+      .crearPuntaje({
+        estudianteId: this.estudianteId(),
+        materiaId: result.data.materiaId,
+        valor: result.data.nota,
+      })
+      .subscribe({
+        next: () => {
+          this.notaGuardada.emit();
+          this.onCerrar();
+        },
+        error: (err) => {
+          console.error('Error al cargar la nota:', err);
+        },
+      });
   }
 }
